@@ -2,8 +2,6 @@
    1. GLOBAL THEME & UTILITIES
    ========================================= */
 .hacker-theme {
-    background-color: #050505;
-    color: #e0e0e0;
     font-family: 'JetBrains Mono', monospace;
     overflow-x: hidden;
     line-height: 1.6;
