@@ -1,8 +1,9 @@
 /* =========================================
    1. GLOBAL THEME & UTILITIES
    ========================================= */
-/* UPDATED: Removed hardcoded background/text colors to allow inheritance from style.css */
-.hacker-theme {
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+body, .hacker-theme {
     font-family: 'JetBrains Mono', monospace;
     overflow-x: hidden;
     line-height: 1.6;
@@ -922,4 +923,34 @@
     .skill-path-wrapper { flex-direction: column; }
     .connector { width: 3px; height: 40px; }
     .btn-cyber { padding: 15px 30px; font-size: 0.9rem; }
+}
+
+/* =========================================
+   10. GLOBAL HEADER ALIGNMENT FIXES
+   ========================================= */
+/* Forces centering and correct font for headers on all sub-pages */
+.privacy-hero,
+.help-hero,
+.gallery-hero,
+.events-hero,
+.terms-header,
+.contact-section .section-header,
+.content > h2:first-child /* For About Page */
+{
+    text-align: center !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.privacy-hero h1,
+.help-hero h1,
+.gallery-hero h1,
+.events-hero h1,
+.terms-header h1,
+.section-header h2,
+.content > h2 {
+    font-family: 'JetBrains Mono', monospace !important;
+    text-shadow: 2px 2px 0px var(--accent-color);
 }
