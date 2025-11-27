@@ -36,12 +36,9 @@ async function initLeaderboard() {
         if(container) container.innerHTML = `<div style="padding:20px; text-align:center; color:#ff5f56;">Connection Lost. Retrying uplink...</div>`;
     }
 }
-
-// Fetch up to 300 recent PRs
 async function fetchAllPulls() {
     let pulls = [];
     let page = 1;
-    // Limit to 3 pages to avoid rate limits on public IP
     while (page <= 3) {
         try {
             const res = await fetch(`${API_BASE}/pulls?state=all&per_page=100&page=${page}`);
@@ -62,7 +59,6 @@ function calculateScores(pulls) {
         if (!pr.merged_at) return;
 
         const user = pr.user.login;
-        // Exclude Repo Owner from leaderboard visualization
         if (user.toLowerCase() === REPO_OWNER.toLowerCase()) return;
 
         if (!statsMap[user]) statsMap[user] = 0;
