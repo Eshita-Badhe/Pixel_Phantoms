@@ -1,11 +1,7 @@
 // -------------------------------------------------------------------------
 // CONFIGURATION
 // -------------------------------------------------------------------------
-// 1. REPLACE THIS with your deployed Web App URL
-// If you haven't deployed one yet, keep this string empty to force Fallback Mode.
-const API_URL = "https://script.google.com/macros/s/AKfycbza1-ZyT4B8hU3h87Agc_jkPQ8dAjQBJkXkvxYfQ4SNAUENQtlXmYzdXgkC_Kj_zt-B/exec"; 
-
-// 2. Fallback Data Path (Your local JSON file)
+const API_URL = "https://script.google.com/macros/s/AKfycbyeXctRmbj5DCCOqC9gA7B7tJVRxMA-N8r9lcbZjE48KR0QHacLmFStMPKthXZpuD11/exec"; 
 const LOCAL_JSON_PATH = "data/events.json";
 
 let allEvents = [];
@@ -17,50 +13,62 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // -------------------------------------------------------------------------
-// 1. LOAD EVENTS (With Auto-Fallback)
+// 1. LOAD EVENTS (MERGE: Local + Google Sheet)
 // -------------------------------------------------------------------------
 async function loadEvents() {
     const container = document.getElementById("events-container");
-    container.innerHTML = `<p class="loading-msg">Connecting to event stream...</p>`;
+    container.innerHTML = `<p class="loading-msg">Syncing events...</p>`;
 
+    let mergedEvents = [];
+
+    // STEP A: Fetch Local JSON (Base Content)
     try {
-        // STEP A: Try to fetch from Google Sheets
-        if (!API_URL || API_URL.includes("YOUR_SCRIPT_URL")) {
-            throw new Error("API URL not configured");
+        const localRes = await fetch(LOCAL_JSON_PATH);
+        if (localRes.ok) {
+            const localData = await localRes.json();
+            mergedEvents = [...localData];
+            console.log("✅ Local events loaded");
         }
-
-        console.log("Attempting to fetch from Google Sheet...");
-        const res = await fetch(API_URL);
-        
-        if (!res.ok) throw new Error(`API Error: ${res.status}`);
-        
-        const data = await res.json();
-        
-        // Filter: Only show 'Approved' events (Case Insensitive)
-        allEvents = data.filter(e => 
-            e.status && e.status.toString().toLowerCase().trim() === "approved"
-        );
-        
-        console.log("✅ Success: Loaded from Google Sheet");
-
-    } catch (error) {
-        // STEP B: Fallback to Local JSON if API fails
-        console.warn("⚠️ API Connection Failed. Switching to Local Fallback.", error);
-        
-        try {
-            const localRes = await fetch(LOCAL_JSON_PATH);
-            allEvents = await localRes.json();
-            console.log("✅ Loaded from Local Backup");
-            
-            // Optional: Show a tiny indicator that we are in offline mode
-            showToast("Offline Mode: Showing cached events");
-        } catch (localError) {
-            container.innerHTML = `<p class="error-msg">Unable to load events.</p>`;
-            return;
-        }
+    } catch (e) {
+        console.warn("Local data fetch failed");
     }
 
-    // Sort: Nearest upcoming date first
+    // STEP B: Fetch Google Sheet API (Live Content)
+    try {
+        if (API_URL) {
+            console.log("Fetching Google Sheet data...");
+            const apiRes = await fetch(API_URL);
+            
+            if (apiRes.ok) {
+                const apiData = await apiRes.json();
+                
+                // Validate if API returned an Array (Not an error object)
+                if (Array.isArray(apiData)) {
+                    // Filter: Only Approved
+                    const validApiEvents = apiData.filter(e => 
+                        e.status && e.status.toString().toLowerCase().trim() === "approved"
+                    );
+                    
+                    // Merge strategies: Add API events to the list
+                    mergedEvents = [...mergedEvents, ...validApiEvents];
+                    console.log(`✅ Google Sheet: Added ${validApiEvents.length} events`);
+                } else {
+                    console.error("Google Sheet API Error:", apiData);
+                    // Usually implies 'Sheet not found' - Check your App Script tab name
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("⚠️ Google Sheet API unreachable (using local only)");
+    }
+
+    // STEP C: Deduplicate (Optional, based on Title) & Sort
+    // We use a Map to keep unique titles, preferring the API version if duplicates exist (by reversing first)
+    const uniqueMap = new Map();
+    mergedEvents.forEach(e => uniqueMap.set(e.title.trim(), e));
+    allEvents = Array.from(uniqueMap.values());
+
+    // Sort: Nearest date first
     allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     // Setup Countdown
@@ -83,8 +91,13 @@ function renderPage(page) {
         return;
     }
 
+    // Determine "Featured/Live" event for highlighting
     const now = new Date();
-    const nextEvent = allEvents.find(e => new Date(e.date) > now);
+    const nextEvent = allEvents.find(e => {
+        const d = new Date(e.date);
+        d.setHours(23, 59, 59); // Consider event active until end of day
+        return d > now;
+    });
 
     eventsToShow.forEach(event => {
         const card = document.createElement("div");
@@ -96,7 +109,6 @@ function renderPage(page) {
             card.style.boxShadow = "0 0 15px rgba(0, 170, 255, 0.15)";
         }
 
-        // Safe Date Formatting
         let dateStr = event.date;
         try {
             const d = new Date(event.date);
@@ -104,7 +116,7 @@ function renderPage(page) {
         } catch(e){}
 
         card.innerHTML = `
-            ${(nextEvent && event === nextEvent) ? '<div style="color:var(--accent-color); font-weight:bold; font-size:0.8rem; margin-bottom:8px; text-transform:uppercase;">🔥 Next Up</div>' : ''}
+            ${(nextEvent && event === nextEvent) ? '<div style="color:var(--accent-color); font-weight:bold; font-size:0.8rem; margin-bottom:8px; text-transform:uppercase;">🔥 Featured</div>' : ''}
             <h2>${event.title}</h2>
             <p class="event-date"><i class="fas fa-calendar-alt"></i> ${dateStr}</p>
             <p class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location || 'TBD'}</p>
@@ -145,41 +157,107 @@ window.changePage = function(newPage) {
 };
 
 // -------------------------------------------------------------------------
-// 2. COUNTDOWN LOGIC
+// 2. COUNTDOWN LOGIC (Includes Live Status)
 // -------------------------------------------------------------------------
 function setupCountdown(events) {
     const now = new Date();
-    const upcoming = events.find(e => new Date(e.date) > now);
+    
+    // Filter to find the current active or next upcoming event
+    // Logic: Event End Time (23:59:59 of date) must be in the future
+    const activeOrUpcoming = events.find(e => {
+        const eventEnd = new Date(e.date);
+        eventEnd.setHours(23, 59, 59, 999); 
+        return eventEnd > now;
+    });
+
     const section = document.getElementById('countdown-section');
 
-    if (upcoming && section) {
-        section.classList.remove('countdown-hidden');
-        document.getElementById('next-event-name').innerHTML = `Counting down to: <span style="color:var(--accent-color)">${upcoming.title}</span>`;
-        
-        const target = new Date(upcoming.date).getTime();
-        
-        const timer = setInterval(() => {
-            const nowTime = new Date().getTime();
-            const diff = target - nowTime;
-
-            if (diff < 0) {
-                clearInterval(timer);
-                section.innerHTML = "<h3>Event has started! 🚀</h3>";
-                return;
-            }
-
-            document.getElementById("days").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            document.getElementById("hours").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-        }, 1000);
-    } else if (section) {
-        section.classList.add('countdown-hidden');
+    if (activeOrUpcoming) {
+        initCountdownTimer(activeOrUpcoming);
+    } else {
+        if (section) section.classList.add('countdown-hidden');
     }
 }
 
+function initCountdownTimer(event) {
+    const section = document.getElementById('countdown-section');
+    const nameEl = document.getElementById('next-event-name');
+    if(!section || !nameEl) return;
+
+    section.classList.remove('countdown-hidden');
+    
+    // Initial Render
+    renderStandardTimer(event);
+
+    const targetDate = new Date(event.date).getTime();
+    let timerInterval;
+
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        // --- LIVE STATE HANDLING ---
+        if (distance < 0) {
+            // Check if within 24h Live Window
+            const oneDay = 24 * 60 * 60 * 1000;
+            
+            if (Math.abs(distance) < oneDay) {
+                // RENDER LIVE UI
+                section.innerHTML = `
+                    <div style="text-align:center; padding:10px; animation: fadeIn 0.5s;">
+                        <h2 style="color:#ff0055; margin-bottom:10px; font-size:2rem; text-shadow:0 0 15px rgba(255,0,85,0.4);">
+                            <i class="fas fa-satellite-dish"></i> LIVE NOW
+                        </h2>
+                        <h3 style="margin-bottom:10px;">${event.title}</h3>
+                        <p style="color:var(--text-secondary);">Stream is currently active.</p>
+                        <a href="${event.link}" target="_blank" class="btn-event" style="background:#ff0055; border-color:#ff0055; color:white; margin-top:15px; display:inline-block;">
+                            Join Event
+                        </a>
+                    </div>
+                `;
+            } else {
+                section.innerHTML = `<h3>${event.title} has ended.</h3>`;
+            }
+            
+            clearInterval(timerInterval);
+            return;
+        }
+
+        // --- STANDARD COUNTDOWN ---
+        const dEl = document.getElementById("days");
+        if (!dEl) { renderStandardTimer(event); return; } // Restore if needed
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+    };
+
+    timerInterval = setInterval(updateTimer, 1000);
+    updateTimer(); 
+}
+
+function renderStandardTimer(event) {
+    const section = document.getElementById('countdown-section');
+    section.innerHTML = `
+        <h3>Next Big Event Starts In:</h3>
+        <div id="countdown-timer">
+            <div class="time-unit"><span id="days">00</span><label>Days</label></div>
+            <div class="time-unit"><span id="hours">00</span><label>Hours</label></div>
+            <div class="time-unit"><span id="minutes">00</span><label>Mins</label></div>
+            <div class="time-unit"><span id="seconds">00</span><label>Secs</label></div>
+        </div>
+        <p id="next-event-name" class="highlight-event">Counting down to: <span style="color:var(--accent-color)">${event.title}</span></p>
+    `;
+}
+
 // -------------------------------------------------------------------------
-// 3. ORGANIZE FORM LOGIC (Robust Submission)
+// 3. ORGANIZE FORM LOGIC
 // -------------------------------------------------------------------------
 function initOrganizeForm() {
     const form = document.getElementById('organize-form');
@@ -201,31 +279,26 @@ function initOrganizeForm() {
                 type: document.getElementById('event-type').value,
                 date: document.getElementById('event-date').value,
                 description: document.getElementById('event-desc').value,
-                location: "TBD", // Default values for CSV strictness
+                location: "TBD",
                 link: "#",
                 status: "Pending"
             };
 
             try {
-                // IMPORTANT: Use text/plain to avoid CORS Preflight (OPTIONS) request
-                // Google Apps Script handles this better than application/json
                 await fetch(API_URL, {
                     method: "POST",
                     mode: "no-cors", 
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
                     body: JSON.stringify(formData)
                 });
 
-                // Success visual
                 feedback.innerHTML = '<i class="fas fa-check-circle"></i> Proposal sent successfully!';
                 feedback.className = "feedback-message success";
                 form.reset();
 
             } catch (error) {
                 console.error("Submission failed:", error);
-                feedback.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed to connect. Try again later.';
+                feedback.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed to connect.';
                 feedback.className = "feedback-message error";
             } finally {
                 btn.disabled = false;
@@ -241,22 +314,4 @@ function initOrganizeForm() {
             }
         });
     }
-}
-
-// Utility Toast for Fallback Notice
-function showToast(msg) {
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-        background: rgba(50,50,50,0.9); color: white; padding: 10px 20px;
-        border-radius: 50px; z-index: 10000; font-size: 0.9rem;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: fadeIn 0.5s;
-    `;
-    toast.textContent = msg;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.5s';
-        setTimeout(() => toast.remove(), 500);
-    }, 3000);
 }
