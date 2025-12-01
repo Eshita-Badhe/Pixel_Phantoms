@@ -1,0 +1,317 @@
+/* =========================================
+   SCIFI HUD / DASHBOARD STYLES
+   ========================================= */
+
+:root {
+    --hud-bg: rgba(10, 12, 16, 0.85);
+    --hud-card: rgba(20, 23, 30, 0.6);
+    --hud-border: rgba(0, 170, 255, 0.3);
+    --hud-border-glow: rgba(0, 170, 255, 0.8);
+    --hud-text: #e0f7ff;
+    --hud-text-dim: #5c7080;
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff0055;
+    --neon-gold: #ffd700;
+    --glass: blur(10px);
+}
+
+body.hud-mode {
+    background-color: #050505;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(0, 89, 255, 0.05) 0%, transparent 50%),
+        linear-gradient(0deg, rgba(0, 255, 242, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 242, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.dashboard-wrapper {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* --- HEADER --- */
+.hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--hud-border);
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.hud-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: 0;
+    width: 200px;
+    height: 3px;
+    background: var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.hud-title h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin: 0;
+    color: var(--hud-text);
+    letter-spacing: 2px;
+}
+
+.hud-subtitle {
+    color: var(--neon-blue);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+.hud-status {
+    display: flex;
+    gap: 20px;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-item .label { color: var(--hud-text-dim); font-size: 0.7rem; }
+.status-item .value { font-weight: bold; color: var(--hud-text); }
+.status-item .value.success { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
+
+/* --- BENTO GRID LAYOUT --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+}
+
+/* Card Base */
+.bento-card {
+    background: var(--hud-card);
+    border: 1px solid var(--hud-border);
+    border-radius: 4px;
+    backdrop-filter: var(--glass);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+/* Decorative Corners */
+.bento-card::before, .bento-card::after {
+    content: ''; position: absolute; width: 10px; height: 10px;
+    border: 2px solid var(--neon-blue); transition: 0.3s;
+    opacity: 0.5;
+}
+.bento-card::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.bento-card::after { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+.bento-card:hover::before, .bento-card:hover::after { width: 100%; height: 100%; opacity: 0.1; }
+
+/* 1. KPI CARDS */
+.kpi-card {
+    grid-column: span 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.kpi-icon {
+    font-size: 2rem;
+    color: var(--neon-blue);
+    background: rgba(0, 243, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.kpi-data h3 { margin: 0; font-size: 0.8rem; color: var(--hud-text-dim); text-transform: uppercase; }
+.kpi-data p { margin: 5px 0 0; font-size: 1.8rem; font-family: 'Orbitron', sans-serif; color: var(--hud-text); font-weight: bold; }
+
+/* 2. MAIN CHART */
+.main-chart-panel {
+    grid-column: span 3;
+    grid-row: span 2;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: var(--neon-blue);
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.panel-controls span {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    cursor: pointer;
+    color: var(--hud-text-dim);
+}
+.panel-controls span.active { color: var(--hud-text); border: 1px solid var(--neon-blue); }
+
+.chart-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 5px;
+}
+
+.bar {
+    background: linear-gradient(to top, rgba(0, 243, 255, 0.2), var(--neon-blue));
+    width: 100%;
+    border-top: 2px solid #fff;
+    position: relative;
+    transition: height 1s ease;
+    min-height: 2px;
+}
+.bar:hover { filter: brightness(1.5); }
+
+/* 3. PODIUM */
+.podium-panel {
+    grid-column: span 1;
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.podium-stage {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.podium-card {
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 3px solid transparent;
+}
+.podium-card.rank-1 { border-color: var(--neon-gold); background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent); }
+.podium-card.rank-2 { border-color: #C0C0C0; }
+.podium-card.rank-3 { border-color: #CD7F32; }
+
+.podium-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.podium-info h4 { margin: 0; font-size: 0.9rem; color: var(--hud-text); }
+.podium-info span { font-size: 0.8rem; color: var(--neon-blue); font-family: 'Orbitron'; }
+
+/* 4. TABLE */
+.table-panel {
+    grid-column: span 3;
+    min-height: 400px;
+}
+
+.cyber-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--hud-text);
+    font-size: 0.9rem;
+}
+
+.cyber-table th {
+    text-align: left;
+    padding: 15px;
+    color: var(--hud-text-dim);
+    font-size: 0.8rem;
+    border-bottom: 2px solid var(--hud-border);
+}
+
+.cyber-table td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.cyber-table tr:hover td {
+    background: rgba(0, 243, 255, 0.05);
+    color: #fff;
+}
+
+#search-agent {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--hud-border);
+    color: var(--neon-blue);
+    padding: 5px 10px;
+    font-family: inherit;
+    width: 150px;
+}
+
+/* 5. ACTIVITY FEED */
+.activity-panel {
+    grid-column: span 1;
+    overflow-y: hidden;
+}
+
+.feed-list {
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.feed-list::-webkit-scrollbar { width: 4px; }
+.feed-list::-webkit-scrollbar-thumb { background: var(--neon-blue); }
+
+.feed-item {
+    font-size: 0.8rem;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+.feed-time { color: var(--hud-text-dim); font-size: 0.7rem; display: block; }
+.feed-user { color: var(--neon-blue); font-weight: bold; }
+
+/* CLASS TAGS */
+.class-tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border: 1px solid;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+.class-dev { color: #00ff88; border-color: #00ff88; }
+.class-des { color: #ff0055; border-color: #ff0055; }
+.class-doc { color: #ffd700; border-color: #ffd700; }
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-card { grid-column: span 1; }
+    .main-chart-panel { grid-column: span 2; }
+    .podium-panel { grid-column: span 2; }
+    .table-panel { grid-column: span 2; }
+    .activity-panel { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .bento-grid { display: flex; flex-direction: column; }
+    .hud-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .hud-status { text-align: left; }
+}
