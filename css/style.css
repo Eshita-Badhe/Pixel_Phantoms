@@ -34,6 +34,11 @@
   --input-placeholder: #6c757d;
   --accent-primary: #00aaff;
   --accent-secondary: #0088cc;
+  
+  /* Animation durations for cross-browser consistency */
+  --animation-fast: 200ms;
+  --animation-medium: 300ms;
+  --animation-slow: 400ms;
 }
 
 [data-theme="dark"] {
@@ -80,7 +85,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color var(--animation-slow) ease, color var(--animation-slow) ease;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -112,7 +117,7 @@ body.mobile-menu-open {
     left: 0;
     right: 0;
     z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom-left-radius: 25px;
@@ -153,7 +158,7 @@ body.mobile-menu-open {
     width: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--accent-color), #0088cc);
-    transition: width 0.4s ease;
+    transition: width var(--animation-slow) ease;
 }
 
 .logo:hover::before {
@@ -164,7 +169,7 @@ body.mobile-menu-open {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
 
@@ -181,7 +186,7 @@ body.mobile-menu-open {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
 }
 
 .logo:hover span {
@@ -208,7 +213,7 @@ body.mobile-menu-open {
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
     padding: 12px 20px;
     border-radius: 50px;
     position: relative;
@@ -249,7 +254,7 @@ body.mobile-menu-open {
 /* Navbar Icons */
 .nav-icon {
     font-size: 18px;
-    transition: transform 0.3s ease;
+    transition: transform var(--animation-medium) ease;
 }
 
 .nav-links a:hover .nav-icon {
@@ -279,7 +284,7 @@ body.mobile-menu-open {
     height: 3px;
     background: var(--text-secondary);
     border-radius: 2px;
-    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity var(--animation-fast) ease;
     transform-origin: center;
 }
 
@@ -387,7 +392,9 @@ body.mobile-menu-open {
     }
 }
 
-/* THEME TOGGLE - ENHANCED */
+/* ========================================= */
+/* THEME TOGGLE - ENHANCED FOR SAFARI/iOS   */
+/* ========================================= */
 .theme-toggle {
     display: flex;
     align-items: center;
@@ -409,10 +416,15 @@ body.mobile-menu-open {
     border-radius: 50px;
     cursor: pointer;
     border: 1px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow);
     padding: 0 5px;
     overflow: hidden;
+    /* Safari-specific hardware acceleration */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Prevent tap highlight on iOS */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .theme-label::before {
@@ -424,7 +436,9 @@ body.mobile-menu-open {
     height: 100%;
     background: linear-gradient(135deg, var(--accent-color), #0088cc);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--animation-medium) ease;
+    /* Safari prefix */
+    -webkit-transition: opacity var(--animation-medium) ease;
 }
 
 .theme-label:hover::before {
@@ -438,42 +452,105 @@ body.mobile-menu-open {
     background: var(--accent-color);
     border-radius: 50%;
     left: 3px;
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    /* Enhanced cross-browser transition with Safari prefixes */
+    transition: transform var(--animation-slow) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -webkit-transition: transform var(--animation-slow) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -moz-transition: transform var(--animation-slow) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -o-transition: transform var(--animation-slow) cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 2;
     box-shadow: 0 2px 8px rgba(0, 170, 255, 0.3);
+    /* Hardware acceleration for smooth animation on Safari */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Prevent flickering on Safari */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
 }
 
 .sun-icon, .moon-icon {
     position: relative;
     font-size: 14px;
-    transition: all 0.4s ease;
+    /* Enhanced cross-browser transitions */
+    transition: all var(--animation-slow) ease;
+    -webkit-transition: all var(--animation-slow) ease;
+    -moz-transition: all var(--animation-slow) ease;
+    -o-transition: all var(--animation-slow) ease;
     z-index: 1;
+    /* Prevent flickering */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .sun-icon {
     color: #ffa500;
     opacity: 0;
     transform: scale(0.8);
+    -webkit-transform: scale(0.8);
 }
 
 .moon-icon {
     color: #e2e8f0;
     opacity: 1;
     transform: scale(1);
+    -webkit-transform: scale(1);
 }
 
+/* Checked state - enhanced for Safari */
 .theme-switch:checked + .theme-label .toggle-thumb {
     transform: translateX(33px);
+    -webkit-transform: translateX(33px);
+    -moz-transform: translateX(33px);
+    -ms-transform: translateX(33px);
 }
 
 .theme-switch:checked + .theme-label .sun-icon {
     opacity: 1;
     transform: scale(1) rotate(360deg);
+    -webkit-transform: scale(1) rotate(360deg);
+    -moz-transform: scale(1) rotate(360deg);
+    -ms-transform: scale(1) rotate(360deg);
 }
 
 .theme-switch:checked + .theme-label .moon-icon {
     opacity: 0;
     transform: scale(0.8) rotate(-360deg);
+    -webkit-transform: scale(0.8) rotate(-360deg);
+    -moz-transform: scale(0.8) rotate(-360deg);
+    -ms-transform: scale(0.8) rotate(-360deg);
+}
+
+/* Safari-specific fixes for smoother animations */
+@media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+        /* Safari-only styles */
+        .toggle-thumb {
+            -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .theme-label {
+            -webkit-transition-property: background, border-color, box-shadow;
+            transition-property: background, border-color, box-shadow;
+        }
+    }
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .theme-label {
+        /* iOS tap highlight removal */
+        -webkit-tap-highlight-color: transparent;
+        /* Prevent text selection */
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .toggle-thumb {
+        /* iOS animation smoothing */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 /* HERO SECTION - ADJUSTED FOR FIXED NAVBAR */
@@ -569,7 +646,7 @@ body.mobile-menu-open {
     border-radius: 8px;
     background: var(--input-bg);
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     font-size: 1rem;
     font-family: inherit;
     width: 100%;
@@ -598,7 +675,7 @@ body.mobile-menu-open {
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     margin-top: 10px;
     width: 100%;
 }
@@ -624,7 +701,7 @@ body.mobile-menu-open {
     border-radius: 12px;
     text-align: center;
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
@@ -733,7 +810,7 @@ body.mobile-menu-open {
     height: 45px;
     border-radius: 10px;
     animation: float 3s ease-in-out infinite;
-    transition: transform 0.3s ease;
+    transition: transform var(--animation-medium) ease;
 }
 
 .footer-logo:hover img {
@@ -772,7 +849,7 @@ body.mobile-menu-open {
     border-radius: 12px;
     color: var(--social-icon);
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid var(--social-border);
     position: relative;
     overflow: hidden;
@@ -825,7 +902,7 @@ body.mobile-menu-open {
     width: 30px;
     height: 2px;
     background: var(--accent-primary);
-    transition: width 0.3s ease;
+    transition: width var(--animation-medium) ease;
 }
 
 .link-group:hover .link-group-title::after {
@@ -841,7 +918,7 @@ body.mobile-menu-open {
 .link-list li {
     margin-bottom: 0.6rem;
     transform: translateX(0);
-    transition: transform 0.3s ease;
+    transition: transform var(--animation-medium) ease;
 }
 
 .link-list li:hover {
@@ -851,7 +928,7 @@ body.mobile-menu-open {
 .link-list a {
     color: var(--footer-link);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     font-size: 0.95rem;
     display: block;
     padding: 0.2rem 0;
@@ -866,7 +943,7 @@ body.mobile-menu-open {
     width: 0;
     height: 1px;
     background: var(--accent-primary);
-    transition: width 0.3s ease;
+    transition: width var(--animation-medium) ease;
 }
 
 .link-list a:hover {
@@ -912,7 +989,7 @@ body.mobile-menu-open {
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--input-border);
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     position: relative;
 }
 
@@ -930,12 +1007,12 @@ body.mobile-menu-open {
     color: var(--input-text);
     font-size: 0.95rem;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
 }
 
 .newsletter-input::placeholder {
     color: var(--input-placeholder);
-    transition: color 0.3s ease;
+    transition: color var(--animation-medium) ease;
 }
 
 .newsletter-input:focus::placeholder {
@@ -948,7 +1025,7 @@ body.mobile-menu-open {
     border: none;
     color: white;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1023,7 +1100,7 @@ body.mobile-menu-open {
     color: var(--footer-link);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     position: relative;
     padding: 0.3rem 0;
 }
@@ -1036,7 +1113,7 @@ body.mobile-menu-open {
     width: 0;
     height: 1px;
     background: var(--accent-primary);
-    transition: width 0.3s ease;
+    transition: width var(--animation-medium) ease;
 }
 
 .bottom-link:hover {
@@ -1162,7 +1239,7 @@ body.mobile-menu-open {
 .footer-links:hover,
 .footer-newsletter:hover {
     transform: translateY(-2px);
-    transition: transform 0.3s ease;
+    transition: transform var(--animation-medium) ease;
 }
 
 /* RESPONSIVE DESIGN */
@@ -1422,6 +1499,23 @@ body.mobile-menu-open {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+    
+    /* Specifically target theme toggle for reduced motion */
+    .theme-label,
+    .toggle-thumb,
+    .sun-icon,
+    .moon-icon {
+        transition: none !important;
+        -webkit-transition: none !important;
+        -moz-transition: none !important;
+        -o-transition: none !important;
+        animation: none !important;
+    }
+    
+    .theme-switch:checked + .theme-label .toggle-thumb {
+        transition: none !important;
+        -webkit-transition: none !important;
+    }
 }
 
 /* Hero Buttons */
@@ -1437,7 +1531,7 @@ body.mobile-menu-open {
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--animation-medium) ease, box-shadow var(--animation-medium) ease;
 }
 
 .btn-primary {
@@ -1477,7 +1571,7 @@ body.mobile-menu-open {
     text-align: center;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
-    transition: transform 0.3s ease;
+    transition: transform var(--animation-medium) ease;
 }
 
 .feature-card:hover {
@@ -1493,7 +1587,7 @@ body.mobile-menu-open {
 
 /* Lift-up hover effect for seminar cards */
 .seminar-card.reveal-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform var(--animation-medium) ease, box-shadow var(--animation-medium) ease, border-color var(--animation-medium) ease;
     cursor: pointer;
 }
 
@@ -1505,7 +1599,7 @@ body.mobile-menu-open {
 
 /* Optional: image lift inside card */
 .seminar-card.reveal-card img {
-    transition: transform 0.3s ease;
+    transition: transform var(--animation-medium) ease;
 }
 
 .seminar-card.reveal-card:hover img {
@@ -1562,7 +1656,7 @@ body.mobile-menu-open {
     grid-template-columns: 60px 1fr 120px;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
     align-items: center;
 }
 
@@ -1659,7 +1753,7 @@ body.mobile-menu-open {
     border-radius: 10px;
     margin-bottom: 15px;
     background: rgba(0, 0, 0, 0.02);
-    transition: all 0.3s ease;
+    transition: all var(--animation-medium) ease;
 }
 
 .league-card:hover {
