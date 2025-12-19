@@ -16,35 +16,37 @@ async function syncEvents() {
 
         const cloudData = await response.json();
 
-        // 1. Filter for 'Approved' events only (matching logic in js/events.js)
         if (!Array.isArray(cloudData)) {
             throw new Error("Invalid API response format");
         }
 
+        // 1. Filter for 'Approved' events
         const validEvents = cloudData
             .filter(e => e.status && e.status.toString().toLowerCase().trim() === "approved")
             .map(e => ({
-                // Map fields to match the structure in data/events.json
+                // Map fields to match data/events.json schema
                 title: e.title || "Untitled Event",
-                date: e.date || "TBD",
-                location: e.location || "TBD",
                 description: e.description || "",
-                link: e.link || "#"
+                date: e.date || "TBD",
+                // Calculate a countdown date or default to date
+                countdownDate: e.date ? new Date(e.date).toISOString() : null,
+                location: e.location || "TBD",
+                status: "UPCOMING", // Default status for approved events
+                registrationOpen: true, // Default to true if approved
+                registrationLink: e.link || "" // Map 'link' from Sheet to 'registrationLink'
             }));
 
         // 2. Sort by Date
         validEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        // 3. Write to events.json (This handles both Updates and Deletions automatically)
-        // By overwriting the file with the fresh fetch, any event deleted from the Sheet 
-        // will naturally disappear from this list.
+        // 3. Write to events.json
         fs.writeFileSync(TARGET_FILE, JSON.stringify(validEvents, null, 4));
         
         console.log(`✅ Successfully synced ${validEvents.length} events to data/events.json`);
 
     } catch (error) {
         console.error("❌ Sync failed:", error.message);
-        process.exit(1); // Exit with error code to fail the workflow
+        process.exit(1);
     }
 }
 
