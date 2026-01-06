@@ -249,6 +249,7 @@
   overflow: hidden;
 }
 
+/* Team section container (used on other pages if needed) */
 .team-section .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -256,47 +257,86 @@
   z-index: 1;
 }
 
+/* === HELP PAGE HORIZONTAL TEAM INTRO === */
+
 .team-intro {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
   text-align: center;
-  margin-bottom: 60px;
-  opacity: 0;
-  transform: translateY(30px);
+
+  /* Match the help-card / project theme */
+  background: var(--card-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 18px 40px;
+  border-radius: 40px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+
+  /* Subtle glow like accent buttons */
+  transition: all 0.3s ease;
+}
+
+.team-intro:hover {
+  border-color: rgba(0, 170, 255, 0.4);
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(0, 170, 255, 0.15);
+}
+
+[data-theme="dark"] .team-intro {
+  background: var(--card-bg);
 }
 
 .team-intro h2 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+  margin: 0 0 6px 0;
+  font-size: 1.6rem;
   color: var(--text-primary);
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
 .team-intro p {
+  margin: 0;
+  font-size: 1rem;
   color: var(--text-secondary);
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto;
+  line-height: 1.5;
 }
 
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--team-card-spacing);
-  margin: 0 auto;
+/* === HELP PAGE HORIZONTAL SCROLL CONTAINER === */
+
+.horizontal-container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: fit-content;
+  height: 100%;
 }
+
+.team-panel {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 160px 20px 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Card + badge styling reused inside horizontal panels */
 
 .team-card {
   background: var(--card-bg);
-  border-radius: var(--team-card-radius);
+  border-radius: var(--team-card-radius, 30px);
   border: 1px solid var(--border-color);
   padding: 25px;
-  transition: all var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all var(--transition-speed, 0.3s) cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
   min-height: 450px;
   display: flex;
   flex-direction: column;
@@ -316,14 +356,14 @@
   inset: 0;
   background: linear-gradient(135deg, rgba(0, 170, 255, 0.05), transparent);
   opacity: 0;
-  transition: opacity var(--transition-speed) ease;
+  transition: opacity var(--transition-speed, 0.3s) ease;
   z-index: 1;
 }
 
 .team-card:hover {
   transform: translateY(-10px);
   border-color: var(--accent-color);
-  box-shadow: 
+  box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.15),
     0 0 30px rgba(0, 170, 255, 0.1);
 }
@@ -345,7 +385,7 @@
   margin-bottom: 25px;
   align-self: flex-start;
   box-shadow: 0 4px 15px rgba(0, 170, 255, 0.2);
-  transition: all var(--transition-speed) ease;
+  transition: all var(--transition-speed, 0.3s) ease;
 }
 
 .team-card:hover .role-badge {
