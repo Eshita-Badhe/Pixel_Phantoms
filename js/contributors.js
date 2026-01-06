@@ -185,17 +185,27 @@ function processData(repoData, contributors, pulls, totalCommits) {
 }
 
 function updateGlobalStats(count, prs, points, stars, forks, commits) {
-    const set = (id, val) => {
-        const el = document.getElementById(id);
-        if(el) el.textContent = val;
-    };
-    set('total-contributors', count);
-    set('total-prs', prs);
-    set('total-points', points);
-    set('total-stars', stars);
-    set('total-forks', forks);
-    set('total-commits', commits); 
+  const set = (id, val) => {
+    const valueEl = document.getElementById(id);
+    if (!valueEl) return;
+
+    const wrapper = valueEl.parentElement; 
+    const spinner = wrapper ? wrapper.querySelector('.spinner') : null;
+
+    valueEl.textContent = val;
+
+    if (spinner) spinner.style.display = 'none';
+    valueEl.style.display = 'inline';
+  };
+
+  set('total-contributors', count);
+  set('total-prs', prs);
+  set('total-points', points);
+  set('total-stars', stars);
+  set('total-forks', forks);
+  set('total-commits', commits);
 }
+
 
 function getLeagueData(points) {
     if (points > 150) return { text: 'Gold 🏆', class: 'badge-gold', tier: 'tier-gold', label: 'Gold League' };

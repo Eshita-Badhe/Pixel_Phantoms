@@ -54,32 +54,56 @@
         </header>
 
         <!-- ================= STATS ================= -->
-        <section class="stats-grid" aria-label="Project contribution statistics">
-          <div class="stats-card">
-            <h3>Total Contributors</h3>
-            <p id="total-contributors" aria-live="polite">—</p>
+      <section class="stats-grid" aria-label="Project contribution statistics">
+        <div class="stats-card">
+          <h3>Total Contributors</h3>
+          <div class="stat-value" data-key="contributors">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="value" id="total-contributors" aria-live="polite"></span>
           </div>
-          <div class="stats-card">
-            <h3>Total Commits</h3>
-            <p id="total-commits">—</p>
+        </div>
+
+        <div class="stats-card">
+          <h3>Total Commits</h3>
+          <div class="stat-value" data-key="commits">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="value" id="total-commits"></span>
           </div>
-          <div class="stats-card">
-            <h3>Total PRs</h3>
-            <p id="total-prs">—</p>
+        </div>
+
+        <div class="stats-card">
+          <h3>Total PRs</h3>
+          <div class="stat-value" data-key="prs">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="value" id="total-prs"></span>
           </div>
-          <div class="stats-card">
-            <h3>Total Points</h3>
-            <p id="total-points">—</p>
+        </div>
+
+        <div class="stats-card">
+          <h3>Total Points</h3>
+          <div class="stat-value" data-key="points">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="value" id="total-points"></span>
           </div>
-          <div class="stats-card">
-            <h3>GitHub Stars</h3>
-            <p id="total-stars">—</p>
+        </div>
+
+        <div class="stats-card">
+          <h3>GitHub Stars</h3>
+          <div class="stat-value" data-key="stars">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="value" id="total-stars"></span>
           </div>
-          <div class="stats-card">
-            <h3>Forks</h3>
-            <p id="total-forks">—</p>
+        </div>
+
+        <div class="stats-card">
+          <h3>Forks</h3>
+          <div class="stat-value" data-key="forks">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="value" id="total-forks"></span>
           </div>
-        </section>
+        </div>
+      </section>
+
 
         <!-- ================= PROJECT LEAD ================= -->
         <section class="lead-container" aria-labelledby="project-lead">
