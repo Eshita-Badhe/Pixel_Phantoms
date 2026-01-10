@@ -715,7 +715,7 @@ main {
    8. LEADERBOARD PREVIEW (ENHANCED)
    ========================================= */
 .leaderboard-preview {
-    padding: 100px 0;
+    padding: 75px 0;
     background: var(--bg-primary);
     border-top: 1px solid var(--border-color);
     position: relative;
