@@ -19,7 +19,7 @@ const app = express();
 // Configure CORS
 const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,http://localhost:5500')
   .split(',')
-  .map((origin) => origin.trim())
+  .map(origin => origin.trim())
   .filter(Boolean);
 
 const corsOptions = {
@@ -72,9 +72,10 @@ app.use((err, req, res, next) => {
 
   res.status(statusCode).json({
     status: 'error',
-    message: isProduction && statusCode === 500
-      ? 'Internal Server Error'
-      : (err.message || 'Internal Server Error'),
+    message:
+      isProduction && statusCode === 500
+        ? 'Internal Server Error'
+        : err.message || 'Internal Server Error',
   });
 });
 
@@ -86,9 +87,9 @@ const server = app.listen(PORT, () => {
 });
 
 // Graceful shutdown handling
-const gracefulShutdown = (signal) => {
+const gracefulShutdown = signal => {
   console.log(`\n⚠️ Received ${signal}. Shutting down gracefully...`);
-  server.close((err) => {
+  server.close(err => {
     if (err) {
       console.error('❌ Error during server shutdown:', err);
       process.exit(1);

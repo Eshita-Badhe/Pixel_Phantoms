@@ -539,25 +539,6 @@ body.dark-mode .no-events.error {
   box-shadow: 0 0 0 2px rgba(0, 170, 255, 0.1);
 }
 
-.btn-organize {
-  width: 100%;
-  padding: 14px;
-  background: var(--accent-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-top: 10px;
-}
-
-.btn-organize:hover {
-  background: #0088cc;
-  transform: translateY(-2px);
-}
-
 .feedback-message {
   margin-top: 15px;
   font-weight: 600;
