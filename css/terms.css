@@ -44,7 +44,7 @@
     margin: 60px auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 3fr 1fr; /* Content vs Sidebar */
+    grid-template-columns: 3fr 1fr;
     gap: 40px;
 }
 
@@ -64,13 +64,23 @@
     gap: 20px;
     transition: all 0.3s ease;
     box-shadow: var(--shadow);
-    opacity: 0; /* For animation */
-    transform: translateY(20px);
+    opacity: 0;
 }
 
 .term-card.active {
     opacity: 1;
-    transform: translateY(0);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .term-card:hover {
@@ -133,6 +143,16 @@
 
 .term-content a:hover {
     text-decoration: underline;
+}
+
+/* --- CONTACT MINI CARD --- */
+.contact-mini-card {
+    background: rgba(0, 170, 255, 0.05);
+    border-left: 3px solid var(--accent-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    line-height: 1.8;
 }
 
 /* --- SIDEBAR --- */

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initTypeWriter();
     initScrollReveal();
+    initDPOForm();
 });
 
 // 1. Dynamic Typing Effect for Title
@@ -21,9 +22,6 @@ function initTypeWriter() {
             titleElement.innerHTML += textToType.charAt(index);
             index++;
             setTimeout(type, 100); // Typing speed
-        } else {
-            // Optional: Stop blinking cursor after typing is done
-            // cursor.style.display = 'none'; 
         }
     }
 
@@ -34,7 +32,7 @@ function initTypeWriter() {
 // 2. GSAP Scroll Animations
 function initScrollReveal() {
     // Animate Policy Text Sections (Slide Up)
-    gsap.utils.toArray('.reveal-text').forEach((section, i) => {
+    gsap.utils.toArray('.reveal-text').forEach((section) => {
         gsap.to(section, {
             scrollTrigger: {
                 trigger: section,
@@ -61,5 +59,37 @@ function initScrollReveal() {
             delay: i * 0.2,
             ease: "back.out(1.7)"
         });
+    });
+}
+
+// 3. DPO Contact Form Handler
+function initDPOForm() {
+    const dpoForm = document.getElementById('dpo-form');
+    if (!dpoForm) return;
+
+    dpoForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(dpoForm);
+        const payload = {
+            email: formData.get('email'),
+            message: formData.get('message'),
+        };
+
+        try {
+            const res = await fetch('https://formsubmit.co/ajax/privacy@pixelphantoms.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            if (!res.ok) throw new Error('Failed to send');
+
+            alert('Your message has been sent to the DPO.');
+            dpoForm.reset();
+        } catch (err) {
+            console.error(err);
+            alert('Unable to send message right now. Please email privacy@pixelphantoms.com directly.');
+        }
     });
 }

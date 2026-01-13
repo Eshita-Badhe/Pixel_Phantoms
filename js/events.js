@@ -169,12 +169,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-
       if (isNaN(age) || age < 18) {
         alert('You must be at least 18 years old to register.');
         return;
       }
-
 
       if (!emailRegex.test(email)) {
         alert('Please enter a valid email address.');
@@ -187,4 +185,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 });
-
