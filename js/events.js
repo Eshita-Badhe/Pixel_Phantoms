@@ -91,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewElement = document.querySelector(`[data-view-for="${eventId}"]`);
       if (viewElement) {
         const formattedCount = formatViewCount(count);
-        viewElement.textContent = `${formattedCount} view${count !== 1 ? 's' : ''}`;
+        const usesAbbreviation = formattedCount.includes('K') || formattedCount.includes('M');
+        const isPlural = usesAbbreviation || count !== 1;
+        viewElement.textContent = `${formattedCount} view${isPlural ? 's' : ''}`;
         
         // Add pulse animation
         viewElement.parentElement.classList.add('view-pulse');
