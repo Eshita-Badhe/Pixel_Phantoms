@@ -80,7 +80,33 @@ The **Pixel Phantoms Official Website** serves as the central digital hub for th
 
 ---
 
-## 📦 Installation & Local Setup
+## �️ Event View Tracking
+
+Our events page features a **client-side view counter** that tracks event popularity:
+
+**How It Works:**
+- Uses browser **localStorage** for persistent tracking
+- Increments when an event card is clicked
+- **3-second debounce** prevents spam clicks
+- Data persists across browser sessions
+
+**Features:**
+- 📊 Per-event tracking with unique IDs
+- 🔢 Human-readable formatting (1.2K, 1.5M views)
+- 🛡️ Prevents abuse with timestamp checks
+- 💾 Works completely offline (no backend required)
+
+**Data Storage Format:**
+```json
+{
+  "event-1": {"count": 123, "lastView": 1234567890},
+  "event-2": {"count": 456, "lastView": 1234567891}
+}
+```
+
+---
+
+## �📦 How to Install & Run Locally
 
 ### Prerequisites
 
@@ -418,4 +444,12 @@ Thanks to all the amazing contributors who make this project better every day! �
 
 > Let’s build something amazing together! 🚀👻
 
+
+### Security: Contact form spam protection
+
+- The contact form includes a hidden honeypot field named `website` (bots often fill this).
+- Client-side rate limiting is enabled (5 seconds between submissions) using `localStorage`.
+- No server configuration or API keys are required.
+
+**Testing:** Fill the hidden `website` field or submit repeatedly to see the "Spam detected" and rate limit messages.
 
