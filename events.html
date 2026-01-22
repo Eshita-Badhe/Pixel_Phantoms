@@ -1,60 +1,51 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Explore upcoming events at Pixel Phantoms: hackathons, workshops, meetups, and webinars. Join the community and level up your skills."
-    />
-    <meta property="og:title" content="Pixel Phantoms | Events" />
-    <meta
-      property="og:description"
-      content="Explore upcoming events at Pixel Phantoms: hackathons, workshops, meetups, and webinars. Join the community and level up your skills."
-    />
-    <meta property="og:image" content="assets/logo.png" />
-    <meta property="og:url" content="https://pixelphantoms.com/events.html" />
-    <meta property="og:type" content="website" />
-    <link rel="canonical" href="https://pixelphantoms.com/events.html" />
-    <title>Pixel Phantoms | Events</title>
-    <link rel="icon" href="assets/logo.png" />
 
-    <link rel="stylesheet" href="css/scroll-progress.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/events.css" />
-    <link rel="stylesheet" href="css/home-gsap.css" />
-    <link rel="stylesheet" href="css/cursor-effect.css" />
-    <link rel="stylesheet" href="css/back-to-top.css" />
-    <link rel="stylesheet" href="css/animations.css" />
-    <link rel="stylesheet" href="css/login.css" />
-    <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Explore upcoming events at Pixel Phantoms: hackathons, workshops, meetups, and webinars. Join the community and level up your skills." />
+  <meta property="og:title" content="Pixel Phantoms | Events" />
+  <meta property="og:description"
+    content="Explore upcoming events at Pixel Phantoms: hackathons, workshops, meetups, and webinars. Join the community and level up your skills." />
+  <meta property="og:image" content="assets/logo.png" />
+  <meta property="og:url" content="https://pixelphantoms.com/events.html" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://pixelphantoms.com/events.html" />
+  <title>Pixel Phantoms | Events</title>
+  <link rel="icon" href="assets/logo.png" />
 
-  <body class="hacker-theme">
-    <div id="scroll-progress-container">
-      <div id="scroll-progress-bar"></div>
-    </div>
-    <!-- SKIP TO CONTENT LINK (ACCESSIBILITY) -->
-    <a href="#main-events" class="skip-to-content" id="skip-link">
-      <i class="fas fa-forward"></i> Skip to Main Content
-    </a>
+  <link rel="stylesheet" href="css/scroll-progress.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/events.css" />
+  <link rel="stylesheet" href="css/home-gsap.css" />
+  <link rel="stylesheet" href="css/cursor-effect.css" />
+  <link rel="stylesheet" href="css/back-to-top.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
 
-    <div id="navbar-placeholder"></div>
-    <script src="js/navbar.js"></script>
-    <script>
-      renderNavbar();
-    </script>
+<body class="hacker-theme">
+  <div id="scroll-progress-container">
+    <div id="scroll-progress-bar"></div>
+  </div>
+  <!-- SKIP TO CONTENT LINK (ACCESSIBILITY) -->
+  <a href="#main-events" class="skip-to-content" id="skip-link">
+    <i class="fas fa-forward"></i> Skip to Main Content
+  </a>
 
-    <main id="main-events" tabindex="-1">
-      <div class="page-transition-wrapper" data-page="events">
+  <div id="navbar-placeholder"></div>
+  <script src="js/navbar.js"></script>
+  <script>
+    renderNavbar();
+  </script>
+
+  <main id="main-events" tabindex="-1">
+    <div class="page-transition-wrapper" data-page="events">
       <section class="hero events-hero">
         <h1>Campus Events</h1>
         <p>Workshops, hackathons, meetups, and more — all in one place.</p>
@@ -122,12 +113,7 @@
               </div>
               <div class="form-group">
                 <label>Description</label>
-                <textarea
-                  id="event-desc"
-                  rows="4"
-                  placeholder="Briefly describe the event goal..."
-                  required
-                ></textarea>
+                <textarea id="event-desc" rows="4" placeholder="Briefly describe the event goal..." required></textarea>
               </div>
               <button type="submit" class="btn-organize">Submit Proposal</button>
               <div id="organize-feedback" class="feedback-message"></div>
@@ -139,62 +125,104 @@
         </div>
       </section>
     </div>
-    </main>
+  </main>
 
-    <div id="footer-placeholder"></div>
-    <script src="js/footer.js"></script>
-    <script>
-      renderFooter('');
-    </script>
+  <div id="footer-placeholder"></div>
+  <script src="js/footer.js"></script>
+  <script>
+    renderFooter('');
+  </script>
 
-    <!-- Registration Modal -->
-    <div id="register-modal" aria-hidden="true">
-      <div class="modal-dialog login-card" role="dialog" aria-modal="true" aria-labelledby="register-modal-title">
-        <button class="modal-close" aria-label="Close">&times;</button>
-        <h2 id="register-modal-title" class="form-title">Register for <span id="register-event-title"></span></h2>
-        <form id="register-form" class="register-form">
-          <div class="input-group">
-            <label class="required">First Name</label>
-            <input name="firstName" type="text" placeholder="Enter your first name" required />
-            <i class="fas fa-check-circle validation-icon valid-icon"></i>
-            <i class="fas fa-times-circle validation-icon error-icon"></i>
-            <span class="error-message">First name is required</span>
-          </div>
-          <div class="input-group">
-            <label>Last Name</label>
-            <input name="lastName" type="text" placeholder="Enter your last name" required />
-            <i class="fas fa-check-circle validation-icon valid-icon"></i>
-            <i class="fas fa-times-circle validation-icon error-icon"></i>
-            <span class="error-message">Last name is required</span>
-          </div>
-          <div class="input-group">
-            <label>Age</label>
-            <input name="age" type="number" min="1" placeholder="Enter your age" required />
-            <i class="fas fa-check-circle validation-icon valid-icon"></i>
-            <i class="fas fa-times-circle validation-icon error-icon"></i>
-            <span class="error-message">Please enter a valid age</span>
-          </div>
-          <div class="input-group">
-            <label class="required">Email</label>
-            <input name="email" type="email" placeholder="you@example.com" required />
-            <i class="fas fa-check-circle validation-icon valid-icon"></i>
-            <i class="fas fa-times-circle validation-icon error-icon"></i>
-            <span class="error-message">Please enter a valid email</span>
-          </div>
-          <div class="button-group">
-            <button type="button" class="btn-secondary modal-cancel">Cancel</button>
-            <button type="submit" class="btn-primary">Register</button>
-          </div>
+  <!-- Registration Modal -->
+  <section class="organize-section">
+    <div class="organize-container">
+      <div class="organize-content">
+        <div class="form-header">
+          <h2>Host an Event</h2>
+          <p>Have an idea for a workshop or hackathon? Share your vision with the community and we'll help bring it to
+            life.</p>
+        </div>
+
+        <form id="organize-form" novalidate>
+          <fieldset class="form-fieldset">
+            <legend class="visually-hidden">Event Details</legend>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-title">
+                  Event Title <span class="required-indicator" aria-label="required">*</span>
+                </label>
+                <input type="text" id="event-title" name="event-title" placeholder="e.g. Intro to DevOps" required
+                  aria-required="true" aria-describedby="event-title-hint" maxlength="100" />
+                <small id="event-title-hint" class="field-hint">Keep it concise and descriptive</small>
+                <small class="field-error" role="alert"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="event-type">
+                  Event Type <span class="required-indicator" aria-label="required">*</span>
+                </label>
+                <select id="event-type" name="event-type" required aria-required="true">
+                  <option value="">Select type...</option>
+                  <option value="workshop">Workshop</option>
+                  <option value="hackathon">Hackathon</option>
+                  <option value="meetup">Meetup</option>
+                  <option value="webinar">Webinar</option>
+                </select>
+                <small class="field-error" role="alert"></small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="event-date">
+                Proposed Date <span class="required-indicator" aria-label="required">*</span>
+              </label>
+              <input type="date" id="event-date" name="event-date" required aria-required="true"
+                aria-describedby="event-date-hint" min="" />
+              <small id="event-date-hint" class="field-hint">Choose a date at least 2 weeks from today</small>
+              <small id="event-date-error" class="field-error" role="alert"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="event-desc">
+                Description <span class="required-indicator" aria-label="required">*</span>
+              </label>
+              <textarea id="event-desc" name="event-desc" rows="5"
+                placeholder="Describe your event's goals, target audience, and expected outcomes..." required
+                aria-required="true" aria-describedby="event-desc-hint event-desc-counter" maxlength="500"></textarea>
+              <div class="field-meta">
+                <small id="event-desc-hint" class="field-hint">Min. 50 characters</small>
+                <small id="event-desc-counter" class="char-counter" aria-live="polite">0 / 500</small>
+              </div>
+              <small class="field-error" role="alert"></small>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn-organize" aria-label="Submit event proposal">
+            <span class="btn-text">Submit Proposal</span>
+            <i class="fas fa-arrow-right btn-icon"></i>
+          </button>
+
+          <div id="organize-feedback" class="feedback-message" role="status" aria-live="polite"></div>
         </form>
       </div>
-    </div>
 
-    <script src="js/page-transitions.js" defer></script>
-    <script src="js/theme.js"></script>
-    <script src="js/cursor-effect.js"></script>
-    <script src="js/events.js"></script>
-    <script src="js/back-to-top.js"></script>
-    <script src="js/scroll-progress.js"></script>
-    <script src="js/keyboard-shortcuts.js"></script>
-  </body>
+      <div class="organize-visual">
+        <img src="assets/host-event.jpg" alt="" role="presentation" loading="lazy" />
+        <div class="visual-overlay">
+          <i class="fas fa-calendar-plus"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/page-transitions.js" defer></script>
+  <script src="js/theme.js"></script>
+  <script src="js/cursor-effect.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/back-to-top.js"></script>
+  <script src="js/scroll-progress.js"></script>
+  <script src="js/keyboard-shortcuts.js"></script>
+</body>
+
 </html>
