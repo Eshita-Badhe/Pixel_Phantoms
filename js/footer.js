@@ -60,15 +60,13 @@ function renderFooter(basePath = '') {
               </ul>
             </div>
 
-            
-
             <div class="link-group">
               <h3 class="link-group-title">Support</h3>
               <ul class="link-list">
                 <li><a href="${basePath}contact.html">Contact</a></li>
                 <li><a href="${basePath}pages/help.html">Help Center</a></li>
-                <li><a href="${basePath}CONTRIBUTING.md">Contributor Guide</a></li>
-                <li><a href="${basePath}CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+                <li><a href="${basePath}pages/contribution-guide.html">Contributor Guide</a></li>
+                <li><a href="${basePath}pages/code-of-conduct.html">Code of Conduct</a></li>
               </ul>
             </div>
           </div>
@@ -88,7 +86,7 @@ function renderFooter(basePath = '') {
         <div class="footer-bottom">
           <div class="footer-bottom-content">
             <p class="copyright">
-              &copy; <span id="currentYear"></span> Pixel Phantoms. All rights reserved.
+              © 2026 Pixel Phantoms. All rights reserved.
             </p>
             <div class="footer-bottom-links">
               <a href="${basePath}pages/privacy.html" class="bottom-link">Privacy</a> | 
@@ -102,20 +100,4 @@ function renderFooter(basePath = '') {
   `;
 
   placeholder.innerHTML = footerHTML;
-
-  // Load site-wide scripts dynamically (ensures scripts run after footer injection)
-  try {
-    const mainScript = document.createElement('script');
-    mainScript.src = basePath;
-    mainScript.defer = true;
-    document.body.appendChild(mainScript);
-  } catch (e) {
-    console.warn('Could not inject main.js dynamically', e);
-  }
-
-  // ✅ Dynamic year set HERE (correct place)
-  const yearSpan = document.getElementById('currentYear');
-  if (yearSpan) {
-    yearSpan.textContent = new Date().getFullYear();
-  }
 }
