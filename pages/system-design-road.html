@@ -15,6 +15,14 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
+     <style>
+      #other-courses {
+        margin-top: 70px;
+        margin-bottom: 20px;
+        padding: 20px 10px;
+        border: 2px solid rgba(0, 170, 255, 0.3);
+      }
+    </style>
   </head>
   <body class="hacker-theme">
     <div id="navbar-placeholder"></div>
@@ -23,54 +31,108 @@
       renderNavbar('../');
     </script>
 
-    <main class="main-content">
-      <section class="roadmap-header centered-header">
-        <h1 class="glitch-text" data-text="SYSTEM_DESIGN_v1.0">SYSTEM_DESIGN_v1.0</h1>
-        <p class="subtitle">> Initialize sequence: ARCHITECT_CORE_SCALE</p>
-      </section>
+    <main class="system-roadmap">
 
-      <div class="roadmap-wrapper">
-        <div class="roadmap-spine"></div>
-        <div id="roadmap-content" class="roadmap-content"></div>
-      </div>
-    </main>
-    <style>
-      #other-courses {
-        margin-top: 70px;
-        margin-bottom: 20px;
-        padding: 20px 10px;
-        border: 2px solid rgba(0, 170, 255, 0.3);
-      }
-    </style>
+  <!-- HERO / HEADER -->
+  <section class="system-hero">
+    <h1 class="system-title" data-text="SYSTEM_DESIGN_v1.0">
+      SYSTEM_DESIGN_v1.0
+    </h1>
+    <p class="system-subtitle">
+      > Boot sequence initiated · ARCHITECT_CORE_SCALE
+    </p>
 
-    <section id="other-courses">
-      <h2 style="text-align: center; text-decoration: underline; text-decoration-thickness: 1px">
-        Explore-Other-Courses
-      </h2>
-      <div class="skill-path-wrapper">
-        <a href="python-road.html" class="skill-node reveal-node">
-          <div class="node-icon">
-            <i class="fab fa-python" aria-hidden="true"></i>
-          </div>
-          <h4>Python_Mastery</h4>
-          <span class="node-level">Lvl 1</span>
-        </a>
-        <a href="react-road.html" class="skill-node reveal-node">
-          <div class="node-icon">
-            <i class="fab fa-react" aria-hidden="true"></i>
-          </div>
-          <h4>React_Core</h4>
-          <span class="node-level">Lvl 2</span>
-        </a>
-        <a href="ai-roadmap.html" class="skill-node reveal-node">
-          <div class="node-icon">
-            <i class="fas fa-robot" aria-hidden="true"></i>
-          </div>
-          <h4>AI_Neural_Nets</h4>
-          <span class="node-level">Lvl 3</span>
-        </a>
+    <div class="hero-meta">
+      <span>Mode: Production</span>
+      <span>Status: Active</span>
+      <span>Level: Advanced</span>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="system-timeline">
+
+    <article class="timeline-node">
+      <span class="node-index">01</span>
+      <div class="node-card">
+        <h3>Foundations</h3>
+        <p>Understand how large-scale systems are structured.</p>
+        <ul>
+          <li>Scalability Basics</li>
+          <li>Latency vs Throughput</li>
+          <li>CAP Theorem</li>
+        </ul>
       </div>
-    </section>
+    </article>
+
+    <article class="timeline-node">
+      <span class="node-index">02</span>
+      <div class="node-card">
+        <h3>Core Components</h3>
+        <p>Learn the building blocks used in real-world systems.</p>
+        <ul>
+          <li>Load Balancers</li>
+          <li>Caching Strategies</li>
+          <li>Databases (SQL / NoSQL)</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="timeline-node">
+      <span class="node-index">03</span>
+      <div class="node-card">
+        <h3>Distributed Systems</h3>
+        <p>Design systems that survive scale and failures.</p>
+        <ul>
+          <li>Replication</li>
+          <li>Sharding</li>
+          <li>Consistency Models</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="timeline-node">
+      <span class="node-index">04</span>
+      <div class="node-card">
+        <h3>System Design Interviews</h3>
+        <p>Apply everything to real-world design problems.</p>
+        <ul>
+          <li>Design Twitter</li>
+          <li>Design URL Shortener</li>
+          <li>Trade-off Analysis</li>
+        </ul>
+      </div>
+    </article>
+
+  </section>
+
+</main>
+
+<!-- OTHER COURSES -->
+<section class="related-courses">
+  <h2>Explore Other Skill Paths</h2>
+
+  <div class="course-grid">
+    <a href="python-road.html" class="course-card">
+      <i class="fab fa-python"></i>
+      <h4>Python Mastery</h4>
+      <span>Level 1</span>
+    </a>
+
+    <a href="react-road.html" class="course-card">
+      <i class="fab fa-react"></i>
+      <h4>React Core</h4>
+      <span>Level 2</span>
+    </a>
+
+    <a href="ai-roadmap.html" class="course-card">
+      <i class="fas fa-robot"></i>
+      <h4>AI Neural Nets</h4>
+      <span>Level 3</span>
+    </a>
+  </div>
+</section>
+
 
     <div id="footer-placeholder"></div>
     <script src="../js/footer.js"></script>

@@ -1,29 +1,49 @@
+/* ============================
+   MAIN.JS - GLOBAL SCRIPTS
+   ============================ */
 
+document.addEventListener("DOMContentLoaded", () => {
+  /* ============================
+     GLOBAL LOADER
+     ============================ */
+  const loader = document.getElementById("global-loader");
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof renderNavbar === 'function') renderNavbar(window.basePath || '');
-    if (typeof renderFooter === 'function') renderFooter(window.basePath || '');
+  const showLoader = () => {
+    if (loader) loader.classList.remove("hidden");
+  };
 
-    AOS.init({
-        duration: 1000,
-        easing: 'ease-out',
-        once: true,
-        offset: 100
-    });
+  const hideLoader = () => {
+    if (loader) loader.classList.add("hidden");
+  };
 
-    // Initialize page transitions (non-blocking; safe fallback when script is absent)
-    if (typeof PageTransitions !== 'undefined') {
-        try {
-            PageTransitions.init({
-                duration: 300,
-                type: 'fade-slide',
-                scrollToTop: true,
-                showLoadingIndicator: true,
-                loadingThreshold: 500
-            });
-            console.info('[main.js] PageTransitions initialized');
-        } catch (e) {
-            console.warn('[main.js] Failed to initialize PageTransitions:', e);
-        }
+  // Hide loader after page fully loads
+  window.addEventListener("load", hideLoader);
+
+  // ✅ Event delegation (works even if navbar links are added later)
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+    if (!href) return;
+
+    // Ignore hash links, external links, mailto/tel
+    if (
+      href.startsWith("#") ||
+      href.startsWith("http") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:")
+    ) {
+      return;
     }
+
+    // Show loader for internal navigation
+    showLoader();
+  });
+
+  /* ============================
+     OPTIONAL: DEBUG (remove later)
+     ============================ */
+  // console.log("main.js loaded ✅");
 });
+

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/back-to-top.css" />
     <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="../css/community.css" />
+    <link rel="stylesheet" href="../css/keyboard-shortcuts.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
       rel="stylesheet"
@@ -33,15 +34,9 @@
 
     <!-- Navbar -->
     <div id="navbar-placeholder"></div>
-    <script src="../js/navbar.js"></script>
-    <script>
-      renderNavbar('../');
-    </script>
-
-    <!-- ================= MAIN CONTENT ================= -->
+  
     <main class="main-content" id="main-community" tabindex="-1">
       <div class="page-transition-wrapper" data-page="community">
-      <!-- ================= HERO ================= -->
       <section class="community-hero" aria-labelledby="community-hero-title">
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
 
@@ -197,6 +192,10 @@
         }
       });
     </script>
+    <script src="../js/navbar.js"></script>
+    <script>
+      renderNavbar('../');
+    </script>
 
     <!-- Scripts -->
     <script src="../js/page-transitions.js" defer></script>
@@ -207,5 +206,6 @@
     <script src="../js/back-to-top.js"></script>
     <script src="../js/community.js"></script>
     <script src="../js/scroll-progress.js"></script>
+    <script src="../js/keyboard-shortcuts.js"></script>
   </body>
 </html>

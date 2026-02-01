@@ -6,7 +6,7 @@ const API_BASE = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`;
 // State
 let contributorsData = [];
 let currentPage = 1;
-const itemsPerPage = 8;
+const itemsPerPage = 3;
 
 // Point System Weights
 const POINTS = {
@@ -307,113 +307,111 @@ function getLeagueData(points) {
   };
 }
 
+
+// 3. Rectified Rendering (Forces "Elite" Layout)
 function renderContributors(page) {
-    const grid = document.getElementById('contributors-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
+  const grid = document.getElementById('contributors-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
 
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedItems = contributorsData.slice(start, end);
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const paginatedItems = contributorsData.slice(start, end);
 
-    if (paginatedItems.length === 0) {
-        grid.innerHTML = '<p>No active contributors found yet.</p>';
-        return;
-    }
+  if (paginatedItems.length === 0) {
+      grid.innerHTML = '<p class="text-center">No active contributors found yet.</p>';
+      return;
+  }
 
-    paginatedItems.forEach((contributor, index) => {
-        const globalRank = start + index + 1;
-        const league = getLeagueData(contributor.points);
-        const card = document.createElement('article');
-        card.className = `contributor-card ${league.tier}`;
-        card.setAttribute('data-github', contributor.login);
-        card.setAttribute('role', 'listitem');
-        card.setAttribute('tabindex', '0');
+  paginatedItems.forEach((contributor, index) => {
+      const globalRank = start + index + 1;
+      const league = getLeagueData(contributor.points);
+      const card = document.createElement('article');
+      
+      // RECTIFIED: card structure matches Elite CSS
+      card.className = `contributor-card ${league.tier}`;
+      card.setAttribute('data-github', contributor.login);
+      card.setAttribute('role', 'listitem');
+      card.setAttribute('tabindex', '0');
 
-        // Click and keyboard activation support
-        const open = () => openModal(contributor, league, globalRank);
-        card.addEventListener('click', open);
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                open();
-            }
-        });
-
-        card.innerHTML = `
-            <img src="${contributor.avatar_url}" alt="Avatar of ${contributor.login}">
-            <span class="cont-name">${contributor.login}</span>
-            <span class="cont-commits-badge ${league.class}" aria-label="${contributor.prs} pull requests, ${contributor.points} points">
-                PRs: ${contributor.prs} | Pts: ${contributor.points}
-            </span>
-            
-            <!-- GitHub Stats Section -->
-            <div class="github-stats" role="group" aria-label="GitHub statistics">
-              <div class="stat-item">
-                <span class="stat-icon">📦</span>
-                <span class="stat-value" data-stat="repos">0</span>
-                <span class="stat-label">Repos</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-icon">👥</span>
-                <span class="stat-value" data-stat="followers">0</span>
-                <span class="stat-label">Followers</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-icon">🔗</span>
-                <span class="stat-value" data-stat="following">0</span>
-                <span class="stat-label">Following</span>
-              </div>
+      card.innerHTML = `
+          <img src="${contributor.avatar_url}" alt="Avatar of ${contributor.login}" loading="lazy">
+          <h3 class="cont-name">${contributor.login}</h3>
+          <span class="cont-commits-badge ${league.class}">
+              PRs: ${contributor.prs} | Pts: ${contributor.points}
+          </span>
+          
+          <div class="github-stats">
+            <div class="stat-item">
+              <span class="stat-icon">📦</span>
+              <span class="stat-value" data-stat="repos">...</span>
+              <span class="stat-label">Repos</span>
             </div>
-            
-            <!-- GitHub Contribution Calendar -->
-            <div class="contribution-section" aria-hidden="true">
-              <div class="github-calendar" data-username="${contributor.login}">
-                <span class="loading-text">Loading contributions...</span>
-              </div>
+            <div class="stat-item">
+              <span class="stat-icon">👥</span>
+              <span class="stat-value" data-stat="followers">...</span>
+              <span class="stat-label">Followers</span>
             </div>
-            
-            <!-- Recent Repos -->
-            <div class="recent-repos">
-              <h4>Recent Projects</h4>
-              <div class="repo-list"><span class="loading-text">Loading projects...</span></div>
+            <div class="stat-item">
+              <span class="stat-icon">🔗</span>
+              <span class="stat-value" data-stat="following">...</span>
+              <span class="stat-label">Following</span>
             </div>
-        `;
+          </div>
+          
+          <div class="contribution-section">
+            <div class="github-calendar" data-username="${contributor.login}">
+              <span class="loading-text">Fetching activity...</span>
+            </div>
+          </div>
+          
+          <div class="recent-repos">
+            <h4>Recent Projects</h4>
+            <div class="repo-list"><span class="loading-text">Loading repos...</span></div>
+          </div>
+      `;
 
-        // entrance animation stagger
-        card.classList.add('animate');
-        card.style.animationDelay = `${index * 0.08}s`;
+      card.addEventListener('click', () => openModal(contributor, league, globalRank));
+      grid.appendChild(card);
+  });
 
-        grid.appendChild(card);
-    });
-    renderPaginationControls(page);
-    
-    // Initialize GitHub integrations AFTER cards are rendered
-    console.log('🔄 Initializing GitHub integrations for', paginatedItems.length, 'contributors');
-    setTimeout(() => {
-        initGitHubIntegrations();
-    }, 100);
+  renderPaginationControls(page);
+  
+  // Trigger integrations for the new page of cards
+  setTimeout(() => {
+      initGitHubIntegrations();
+  }, 150);
 }
 
+// 4. Rectified Pagination (Increases page count display)
 function renderPaginationControls(page) {
   const container = document.getElementById('pagination-controls');
   const totalPages = Math.ceil(contributorsData.length / itemsPerPage);
+  
   if (totalPages <= 1) {
-    container.innerHTML = '';
-    return;
+      container.innerHTML = '';
+      return;
   }
+
   container.innerHTML = `
-        <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changePage(${page - 1})"><i class="fas fa-chevron-left"></i> Prev</button>
-        <span class="page-info">Page ${page} of ${totalPages}</span>
-        <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changePage(${page + 1})">Next <i class="fas fa-chevron-right"></i></button>
-    `;
+      <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changePage(${page - 1})">
+          <i class="fas fa-chevron-left"></i> Prev
+      </button>
+      <span class="page-info">Page ${page} of ${totalPages}</span>
+      <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changePage(${page + 1})">
+          Next <i class="fas fa-chevron-right"></i>
+      </button>
+  `;
 }
 
 window.changePage = function (newPage) {
   currentPage = newPage;
   renderContributors(newPage);
+  
+  // RECTIFIED: Smooth scroll back to top of grid so user sees the new cards immediately
+  const gridTop = document.getElementById('top-contributors').offsetTop - 100;
+  window.scrollTo({ top: gridTop, behavior: 'smooth' });
 };
-
 // Modal Logic
 function setupModalEvents() {
   const modal = document.getElementById('contributor-modal');
@@ -776,6 +774,7 @@ function initializeGitHubCalendars() {
         setTimeout(initializeGitHubCalendars, 500);
         return;
     }
+    
 
     // Find all calendar containers
     const calendarElements = document.querySelectorAll('.github-calendar[data-username]');

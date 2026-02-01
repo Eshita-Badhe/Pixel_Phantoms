@@ -6,16 +6,17 @@
     <title>Pixel Phantoms | The Future of Tech</title>
     <link rel="icon" href="assets/logo.png" />
 
-    <!-- scroll-buttons.css logic moved to back-to-top.css and share-button.css -->
-    <!-- <link rel="stylesheet" href="css/scroll-buttons.css" /> -->
     <link rel="stylesheet" href="css/style.min.css" />
     <link rel="stylesheet" href="css/back-to-top.css" />
-    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/animations.css" /> 
     <link rel="stylesheet" href="css/share-button.css" />
     <link rel="stylesheet" href="css/home-gsap.min.css" />
     <link rel="stylesheet" href="css/cursor-effect.css" />
     <link rel="stylesheet" href="css/scroll-buttons.css" />
     <link rel="stylesheet" href="css/stats-widget.css" />
+    <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
+    <link rel="stylesheet" href="css/focus.css">
+
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
       rel="stylesheet"
@@ -46,11 +47,19 @@
   </head>
 
   <body class="hacker-theme">
+    <body class="hacker-theme">
+
+  <div id="global-loader" class="global-loader hidden" aria-live="polite" aria-label="Loading page">
+    <div class="loader-spinner"></div>
+     <p class="loader-text">Loading...</p>
+    </div>
+    <div id="scroll-progress-container">
+     <div id="scroll-progress-bar"></div>
+    </div>
     <div id="scroll-progress-container">
       <div id="scroll-progress-bar"></div>
     </div>
 
-    <!-- SKIP TO CONTENT LINK (ACCESSIBILITY) -->
     <a href="#main-content" class="skip-to-content" id="skip-link">
       <i class="fas fa-forward" aria-hidden="true"></i> Skip to Main Content
     </a>
@@ -95,36 +104,30 @@
         </section>
 
         <section class="focus-areas" id="focus-areas" aria-labelledby="focus-heading">
-          <div class="container">
-            <div class="section-header-terminal">
-              <h2 id="focus-heading">
-                <i class="fas fa-crosshairs" aria-hidden="true"></i> FOCUS_AREAS
-              </h2>
-              <div class="line-scanner" aria-hidden="true"></div>
-            </div>
+  <div class="container">
+    <div class="section-header-terminal">
+      <h2 id="focus-heading">
+        <i class="fas fa-crosshairs" aria-hidden="true"></i> FOCUS AREAS
+      </h2>
+      <div class="line-scanner" aria-hidden="true"></div>
+    </div>
 
-            <p class="section-sub">
-              > Specialized tracks for skill development and project building
-            </p>
+    <p class="section-sub">> Specialized tracks for skill development and project building</p>
 
-            <div class="focus-grid">
-              <div class="focus-card">
-                <div class="focus-icon">
-                  <i class="fas fa-code" aria-hidden="true"></i>
-                </div>
-                <h3>Web Development</h3>
-                <p>Full-stack development with modern frameworks and tools</p>
-                <a href="pages/projects.html" class="focus-link">View Projects →</a>
-              </div>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+        <h3>Web Development</h3>
+        <p>Full-stack development with modern frameworks and tools</p>
+        <a href="pages/projects.html" class="focus-link">View Projects</a>
+      </div>
 
-              <div class="focus-card">
-                <div class="focus-icon">
-                  <i class="fas fa-microchip" aria-hidden="true"></i>
-                </div>
-                <h3>Embedded Systems</h3>
-                <p>IoT, microcontrollers, and hardware programming</p>
-                <a href="pages/projects.html" class="focus-link">View Projects →</a>
-              </div>
+      <div class="focus-card">
+        <div class="focus-icon"><i class="fas fa-microchip" aria-hidden="true"></i></div>
+        <h3>Embedded Systems</h3>
+        <p>IoT, microcontrollers, and hardware programming</p>
+        <a href="pages/projects.html" class="focus-link">View Projects</a>
+      </div>
 
               <div class="focus-card">
                 <div class="focus-icon">
@@ -132,50 +135,39 @@
                 </div>
                 <h3>Programming</h3>
                 <p>Data structures, algorithms, and competitive coding</p>
-                <a href="pages/events.html" class="focus-link">Join Sessions →</a>
+                <a href="events.html" class="focus-link">Join Sessions →</a>
               </div>
 
-              <div class="focus-card">
-                <div class="focus-icon">
-                  <i class="fas fa-paint-brush" aria-hidden="true"></i>
-                </div>
-                <h3>Design</h3>
-                <p>UI/UX principles and creative visual solutions</p>
-                <a href="pages/projects.html" class="focus-link">View Portfolio →</a>
-              </div>
+      <div class="focus-card">
+        <div class="focus-icon"><i class="fas fa-paint-brush" aria-hidden="true"></i></div>
+        <h3>Design</h3>
+        <p>UI/UX principles and creative visual solutions</p>
+        <a href="pages/projects.html" class="focus-link">View Portfolio</a>
+      </div>
 
-              <div class="focus-card">
-                <div class="focus-icon">
-                  <i class="fab fa-github" aria-hidden="true"></i>
-                </div>
-                <h3>Open Source</h3>
-                <p>Collaborative development and community contributions</p>
-                <a
-                  href="https://github.com/sayeeg-11/Pixel_Phantoms"
-                  target="_blank"
-                  class="focus-link"
-                  >Contribute →</a
-                >
-              </div>
+      <div class="focus-card">
+        <div class="focus-icon"><i class="fab fa-github" aria-hidden="true"></i></div>
+        <h3>Open Source</h3>
+        <p>Collaborative development and community contributions</p>
+        <a href="https://github.com/sayeeg-11/Pixel_Phantoms" target="_blank" class="focus-link">Contribute</a>
+      </div>
 
-              <div class="focus-card">
-                <div class="focus-icon">
-                  <i class="fas fa-users" aria-hidden="true"></i>
-                </div>
-                <h3>Community Learning</h3>
-                <p>Peer-to-peer learning and knowledge sharing</p>
-                <a href="pages/join-us.html" class="focus-link">Join Community →</a>
-              </div>
-            </div>
+      <div class="focus-card">
+        <div class="focus-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
+        <h3>Community Learning</h3>
+        <p>Peer-to-peer learning and knowledge sharing</p>
+        <a href="pages/join-us.html" class="focus-link">Join Community</a>
+      </div>
+    </div>
 
-            <div class="focus-footer">
-              <p>
-                > Want to learn more about our complete mission?
-                <a href="/about.html" class="cyber-link">Visit About Page</a>
-              </p>
-            </div>
-          </div>
-        </section>
+    <div class="focus-footer">
+      <p>
+        > Want to learn more about our complete mission?
+        <a href="about.html" class="cyber-link">Visit About Page</a>
+      </p>
+    </div>
+  </div>
+</section>
 
         <section class="hackathon-spotlight" aria-labelledby="hackathon-heading">
           <div class="section-header-terminal">
@@ -247,7 +239,7 @@
                   <a
                     href="https://discord.com/"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     class="link-terminal"
                   >
                     Join Stream<span aria-hidden="true">_</span>
@@ -489,7 +481,6 @@
           </div>
         </section>
 
-        <!-- QUICK STATS WIDGET FOR HOME PAGE -->
         <section class="quick-stats-widget" id="home-quick-stats">
           <div class="widget-header">
             <h2 class="widget-title"><i class="fas fa-chart-line"></i> COMMUNITY SNAPSHOT</h2>
@@ -500,7 +491,7 @@
 
           <div class="stats-grid">
             <div
-              class="stat-card"
+              button="stat-card"
               id="active-projects-card"
               onclick="window.location.href = 'pages/projects.html'"
             >
@@ -517,7 +508,7 @@
             <div
               class="stat-card"
               id="upcoming-events-card"
-              onclick="window.location.href = 'pages/events.html'"
+              onclick="window.location.href = 'events.html'"
             >
               <div class="stat-icon">
                 <i class="fas fa-calendar-alt"></i>
@@ -535,7 +526,7 @@
               onclick="window.open('https://github.com/sayeeg-11/Pixel_Phantoms', '_blank')"
             >
               <div class="stat-icon">
-                <i class="fas fa-code-branch"></i>
+                <i class="fas fa-code-branch" aria-hidden="true"></i>
               </div>
               <h3 class="stat-value" id="home-recent-contributions">50+</h3>
               <p class="stat-label">Contributions</p>
@@ -603,8 +594,7 @@
       // Render these immediately so the theme.js can find the toggle switch
       renderNavbar();
       renderFooter('');
-      renderNavbar(basePath);
-      renderFooter(basePath);
+      
 
       document.addEventListener('DOMContentLoaded', function () {
         const skipLink = document.getElementById('skip-link');
@@ -717,7 +707,6 @@
       });
     </script>
 
-    <!-- Your Remind_Me behavior -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const remindButtons = document.querySelectorAll('.seminar-card .btn-sm');
@@ -738,8 +727,6 @@
       });
     </script>
 
-    <!--script src="js/feedback.js"></script>-->
-
     <script src="js/scroll-progress.js"></script>
 
     <div id="feedback-widget">
@@ -751,41 +738,56 @@
       document.addEventListener('DOMContentLoaded', function () {
         const text = 'PIXEL_PHANTOMS';
         const target = document.getElementById('typewriter-text');
-        let index = 0;
-        let isDeleting = false;
-
-        function type() {
-          const currentText = isDeleting
-            ? text.substring(0, index - 1)
-            : text.substring(0, index + 1);
-
-          target.textContent = currentText;
-          target.setAttribute('data-text', currentText);
-
-          index = isDeleting ? index - 1 : index + 1;
-
-          let typeSpeed = 200;
-          if (isDeleting) {
-            typeSpeed = 100;
-          }
-
-          if (!isDeleting && index === text.length) {
-            typeSpeed = 1000;
-            isDeleting = true;
-          } else if (isDeleting && index === 0) {
+        if (target) {
+          let index = 0,
             isDeleting = false;
-            typeSpeed = 100;
+
+          function type() {
+            const text = 'PIXEL_PHANTOMS';
+            const currentText = isDeleting
+              ? text.substring(0, index - 1)
+              : text.substring(0, index + 1);
+
+            target.textContent = currentText;
+            target.setAttribute('data-text', currentText);
+
+            index = isDeleting ? index - 1 : index + 1;
+            let typeSpeed = isDeleting ? 100 : 200;
+
+            if (!isDeleting && index === text.length) ((typeSpeed = 1000), (isDeleting = true));
+            else if (isDeleting && index === 0) ((typeSpeed = 100), (isDeleting = false));
+
+            setTimeout(type, typeSpeed);
           }
 
-          setTimeout(type, typeSpeed);
+          type();
         }
-
-        type();
       });
     </script>
 
     <script src="js/page-transitions.js" defer></script>
     <script src="js/feedback-modal.js" defer></script>
+    <script src="js/keyboard-shortcuts.js" defer></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const fixEvents = () => {
+          // Fix links if JS overwrote them with 'events.html'
+          const hackBtn = document.querySelector('.hackathon-spotlight .btn-hollow');
+          if (hackBtn && hackBtn.getAttribute('href') === 'pages/events.html') {
+            hackBtn.href = "events.html";
+          }
+          // Also check other event links
+          document.querySelectorAll('a[href="pages/events.html"]').forEach(a => {
+            a.href = "events.html";
+          });
+        };
+        // Run immediately and after delay to catch async updates
+        fixEvents();
+        setTimeout(fixEvents, 1500);
+      });
+    </script>
+
     <script>
       const currentPage = location.pathname.split('/').pop();
 
@@ -795,5 +797,7 @@
         }
       });
     </script>
+    <script src="js/main.js"></script>
+
   </body>
 </html>
