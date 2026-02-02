@@ -1,5 +1,7 @@
 (function () {
   const widget = document.getElementById('feedback-widget');
+  const overlay = widget;
+
   if (!widget) return;
   const toggle = document.getElementById('feedback-toggle');
   const panel = document.getElementById('feedback-panel');
@@ -165,10 +167,11 @@
   });
 
   // Close widget when clicking outside
-  document.addEventListener('click', function (e) {
-    if (!widget.contains(e.target) && widget.classList.contains('open')) {
-      closeWidget();
-    }
-  });
+ overlay.addEventListener('mousedown', (e) => {
+  if (e.target === overlay && widget.classList.contains('open')) {
+    closeWidget();
+  }
+});
+
 
 })();

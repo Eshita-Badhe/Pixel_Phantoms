@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggleBtn = document.getElementById('feedback-toggle');
   if (!toggleBtn) return;
 
+  let overlay = document.getElementById('feedback-overlay');
+if (!overlay) {
+  overlay = document.createElement('div');
+  overlay.id = 'feedback-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.background = 'rgba(0,0,0,0.55)';
+  overlay.style.zIndex = '9998';
+  overlay.style.display = 'none';
+  document.body.appendChild(overlay);
+}
+
+
   // Create modal container
   let modal = document.getElementById('feedback-modal');
   if (!modal) {
@@ -30,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
         <h3 style="margin: 0; font-size: 20px;">Send Feedback</h3>
-        <button id="feedback-modal-close" style="background: none; border: none; font-size: 24px; color: #fff; cursor: pointer;">✕</button>
+        <button id="feedback-modal-close" style="background: none; border: none; font-size: 24px; color: #000; cursor: pointer;">✕</button>
       </div>
       <form id="feedback-modal-form">
         <label>Your Name</label>
@@ -59,14 +72,29 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Show modal on toggle click
-  toggleBtn.addEventListener('click', function () {
-    modal.style.display = 'block';
-  });
+toggleBtn.addEventListener('click', function (e) {
+  e.stopPropagation();
+  overlay.style.display = 'block';
+  modal.style.display = 'block';
+});
 
-  // Close modal
-  modal.querySelector('#feedback-modal-close').addEventListener('click', function () {
-    modal.style.display = 'none';
-  });
+
+ modal.querySelector('#feedback-modal-close').addEventListener('click', closeModal);
+
+function closeModal() {
+  modal.style.display = 'none';
+  overlay.style.display = 'none';
+}
+
+overlay.addEventListener('click', closeModal);
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && modal.style.display === 'block') {
+    closeModal();
+  }
+});
+
+
 
   // Star rating logic
   const stars = modal.querySelectorAll('#modal-star-rating .star');
@@ -104,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     statusBox.textContent = 'Thank you for your feedback!';
     setTimeout(() => {
-      modal.style.display = 'none';
+     closeModal();
       statusBox.textContent = '';
       form.reset();
       stars.forEach(s => (s.style.color = '#888'));
