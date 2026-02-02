@@ -232,7 +232,7 @@
       renderFooter('');
     </script>
 
-    <!-- Registration Modal - FIXED STRUCTURE -->
+    <!-- Registration Modal - UPDATED STRUCTURE -->
     <div id="register-modal" aria-hidden="true" role="dialog">
       <div
         class="modal-dialog"
@@ -258,14 +258,15 @@
               placeholder="Enter your first name"
               required
               aria-required="true"
+              autocomplete="given-name"
             />
             <i class="fas fa-check-circle validation-icon valid-icon" aria-hidden="true"></i>
             <i class="fas fa-times-circle validation-icon error-icon" aria-hidden="true"></i>
-            <span class="error-message" role="alert">First name is required</span>
+            <span class="error-message" role="alert">First name must be at least 2 characters</span>
           </div>
 
           <div class="input-group">
-            <label for="register-lastName">Last Name</label>
+            <label for="register-lastName" class="required">Last Name</label>
             <input
               id="register-lastName"
               name="lastName"
@@ -273,10 +274,11 @@
               placeholder="Enter your last name"
               required
               aria-required="true"
+              autocomplete="family-name"
             />
             <i class="fas fa-check-circle validation-icon valid-icon" aria-hidden="true"></i>
             <i class="fas fa-times-circle validation-icon error-icon" aria-hidden="true"></i>
-            <span class="error-message" role="alert">Last name is required</span>
+            <span class="error-message" role="alert">Last name must be at least 2 characters</span>
           </div>
 
           <div class="input-group">
@@ -290,10 +292,11 @@
               placeholder="Enter your age"
               required
               aria-required="true"
+              autocomplete="off"
             />
             <i class="fas fa-check-circle validation-icon valid-icon" aria-hidden="true"></i>
             <i class="fas fa-times-circle validation-icon error-icon" aria-hidden="true"></i>
-            <span class="error-message" role="alert">Please enter a valid age</span>
+            <span class="error-message" role="alert">Age must be between 1 and 120</span>
           </div>
 
           <div class="input-group">
@@ -305,10 +308,11 @@
               placeholder="you@example.com"
               required
               aria-required="true"
+              autocomplete="email"
             />
             <i class="fas fa-check-circle validation-icon valid-icon" aria-hidden="true"></i>
             <i class="fas fa-times-circle validation-icon error-icon" aria-hidden="true"></i>
-            <span class="error-message" role="alert">Please enter a valid email</span>
+            <span class="error-message" role="alert">Please enter a valid email address</span>
           </div>
 
           <div class="button-group">

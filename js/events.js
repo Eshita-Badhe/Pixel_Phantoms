@@ -17,52 +17,52 @@ document.addEventListener('DOMContentLoaded', () => {
   ================================ */
   const eventDatabase = [
     {
-        "title": "Pixel Phantoms Kickoff Meetup",
-        "description": "A community meetup introducing upcoming projects and collaborations.",
-        "date": "2026-01-10",
-        "location": "Discord",
-        "registrationOpen": true,
-        "registrationLink": "https://example.com/kickoff"
+      "title": "Pixel Phantoms Kickoff Meetup",
+      "description": "A community meetup introducing upcoming projects and collaborations.",
+      "date": "2026-01-10",
+      "location": "Discord",
+      "registrationOpen": true,
+      "registrationLink": "https://example.com/kickoff"
     },
     {
-        "title": "AI Art Jam 2026",
-        "description": "A creative challenge where participants generate and submit AI-assisted artwork.",
-        "date": "2026-01-15",
-        "location": "Online",
-        "registrationOpen": true,
-        "registrationLink": "https://example.com/ai-art-jam"
+      "title": "AI Art Jam 2026",
+      "description": "A creative challenge where participants generate and submit AI-assisted artwork.",
+      "date": "2026-01-15",
+      "location": "Online",
+      "registrationOpen": true,
+      "registrationLink": "https://example.com/ai-art-jam"
     },
     {
-        "title": "Phantom DevTalk: Game Engines",
-        "description": "A tech session exploring Unity, Godot, and Unreal workflows.",
-        "date": "2026-02-05",
-        "location": "Discord",
-        "registrationOpen": true,
-        "registrationLink": "https://example.com/devtalk-ge"
+      "title": "Phantom DevTalk: Game Engines",
+      "description": "A tech session exploring Unity, Godot, and Unreal workflows.",
+      "date": "2026-02-05",
+      "location": "Discord",
+      "registrationOpen": true,
+      "registrationLink": "https://example.com/devtalk-ge"
     },
     {
-        "title": "Pixel Horror Night",
-        "description": "A themed gaming session featuring pixel-style horror games played together.",
-        "date": "2026-03-12",
-        "location": "Online",
-        "registrationOpen": true,
-        "registrationLink": "https://example.com/horror-night"
+      "title": "Pixel Horror Night",
+      "description": "A themed gaming session featuring pixel-style horror games played together.",
+      "date": "2026-03-12",
+      "location": "Online",
+      "registrationOpen": true,
+      "registrationLink": "https://example.com/horror-night"
     },
     {
-        "title": "Code & Chill Sprint #3",
-        "description": "A relaxed coworking sprint for building and debugging projects.",
-        "date": "2026-05-22",
-        "location": "Discord",
-        "registrationOpen": true,
-        "registrationLink": "https://example.com/code-chill"
+      "title": "Code & Chill Sprint #3",
+      "description": "A relaxed coworking sprint for building and debugging projects.",
+      "date": "2026-05-22",
+      "location": "Discord",
+      "registrationOpen": true,
+      "registrationLink": "https://example.com/code-chill"
     },
     {
-        "title": "Phantom AI Tools Masterclass",
-        "description": "A beginner-friendly workshop on AI art, text, and workflow automation tools.",
-        "date": "2026-07-09",
-        "location": "Online",
-        "registrationOpen": true,
-        "registrationLink": "https://example.com/ai-masterclass"
+      "title": "Phantom AI Tools Masterclass",
+      "description": "A beginner-friendly workshop on AI art, text, and workflow automation tools.",
+      "date": "2026-07-09",
+      "location": "Online",
+      "registrationOpen": true,
+      "registrationLink": "https://example.com/ai-masterclass"
     }
   ];
 
@@ -261,9 +261,10 @@ document.addEventListener('DOMContentLoaded', () => {
     card.setAttribute('role', 'article');
     card.setAttribute('aria-label', 'Event: ' + (event.title || 'Untitled Event'));
 
+    // Button instead of link - this opens modal
     const registerButtonHTML = hasValidRegistration && eventDate >= today
-      ? `<a href="${event.registrationLink}" target="_blank" rel="noopener noreferrer" class="btn-register btn-open-register" data-event-title="${event.title.replace(/"/g, '&quot;')}">Register Now</a>`
-      : '<button class="btn-register disabled" disabled>Registration Closed</button>';
+      ? `<button type="button" class="btn-register btn-open-register" data-event-title="${event.title.replace(/"/g, '&quot;')}" data-event-id="${eventId}">Register Now</button>`
+      : '<button type="button" class="btn-register disabled" disabled>Registration Closed</button>';
 
     card.innerHTML = `
       <div class="event-card-header">
@@ -355,46 +356,191 @@ document.addEventListener('DOMContentLoaded', () => {
   initEvents(); // Run immediately using local array
 
   /* ================================
-      REGISTRATION MODAL
+      REGISTRATION MODAL - ENHANCED
   ================================ */
   (function() {
     const modal = document.getElementById('register-modal');
     const modalTitle = document.getElementById('register-event-title');
     const registerForm = document.getElementById('register-form');
-    if (!modal || !registerForm) return;
+    const closeBtn = modal?.querySelector('.modal-close');
+    const cancelBtn = modal?.querySelector('.modal-cancel');
+    
+    if (!modal || !registerForm) {
+      console.error('Modal or form not found!');
+      return;
+    }
 
-    const closeModal = () => {
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
-      registerForm.reset();
+    let currentEventTitle = '';
+
+    // Open modal function
+    const openModal = (eventTitle) => {
+      console.log('Opening modal for:', eventTitle); // Debug log
+      currentEventTitle = eventTitle;
+      modalTitle.textContent = eventTitle;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('show');
+      modal.style.display = 'flex'; // Force display
+      document.body.style.overflow = 'hidden';
+      
+      // Focus first input for accessibility
+      setTimeout(() => {
+        const firstInput = registerForm.querySelector('input');
+        firstInput?.focus();
+      }, 100);
     };
 
+    // Close modal function
+    const closeModal = () => {
+      console.log('Closing modal'); // Debug log
+      modal.setAttribute('aria-hidden', 'true');
+      modal.classList.remove('show');
+      modal.style.display = 'none'; // Force hide
+      document.body.style.overflow = '';
+      registerForm.reset();
+      
+      // Clear validation states
+      registerForm.querySelectorAll('.input-group').forEach(group => {
+        group.classList.remove('valid', 'invalid');
+      });
+    };
+
+    // Event delegation for register buttons
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.btn-open-register');
-      if (btn) {
-        modalTitle.textContent = btn.dataset.eventTitle;
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
+      if (btn && !btn.disabled) {
+        e.preventDefault();
+        e.stopPropagation();
+        const eventTitle = btn.getAttribute('data-event-title') || btn.dataset.eventTitle;
+        console.log('Button clicked, event title:', eventTitle); // Debug log
+        openModal(eventTitle);
       }
     });
 
-    modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
-    modal.querySelector('.modal-cancel')?.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    // Close button handlers
+    closeBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeModal();
+    });
+    
+    cancelBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeModal();
+    });
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
 
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('show')) {
+        closeModal();
+      }
+    });
+
+    // Form validation
+    const validateField = (input) => {
+      const group = input.closest('.input-group');
+      if (!group) return false;
+
+      let isValid = false;
+      const value = input.value.trim();
+
+      if (input.name === 'firstName' || input.name === 'lastName') {
+        isValid = value.length >= 2;
+      } else if (input.name === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(value);
+      } else if (input.name === 'age') {
+        const age = parseInt(value);
+        isValid = age >= 1 && age <= 120;
+      }
+
+      group.classList.toggle('valid', isValid);
+      group.classList.toggle('invalid', !isValid && value.length > 0);
+      
+      return isValid;
+    };
+
+    // Real-time validation
+    registerForm.querySelectorAll('input').forEach(input => {
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => {
+        if (input.closest('.input-group').classList.contains('invalid')) {
+          validateField(input);
+        }
+      });
+    });
+
+    // Form submission
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      showToast('✓ Successfully registered! Check your email.', 'success');
-      setTimeout(closeModal, 1000);
+
+      // Validate all fields
+      const inputs = registerForm.querySelectorAll('input[required]');
+      let allValid = true;
+      
+      inputs.forEach(input => {
+        if (!validateField(input)) {
+          allValid = false;
+        }
+      });
+
+      if (!allValid) {
+        showToast('❌ Please fill out all required fields correctly', 'error');
+        return;
+      }
+
+      // Get form data
+      const formData = {
+        firstName: registerForm.firstName.value.trim(),
+        lastName: registerForm.lastName.value.trim(),
+        age: registerForm.age.value,
+        email: registerForm.email.value.trim(),
+        eventTitle: currentEventTitle,
+        registeredAt: new Date().toISOString()
+      };
+
+      // Store registration
+      console.log('Registration data:', formData);
+      
+      try {
+        const registrations = JSON.parse(localStorage.getItem('event_registrations') || '[]');
+        registrations.push(formData);
+        localStorage.setItem('event_registrations', JSON.stringify(registrations));
+      } catch (e) {
+        console.error('Failed to save registration:', e);
+      }
+
+      // Show success message
+      showToast(`✅ Successfully registered for "${currentEventTitle}"! Check your email for confirmation.`, 'success');
+      
+      // Close modal after delay
+      setTimeout(() => {
+        closeModal();
+      }, 1500);
     });
   })();
 
-  const showToast = (message, type) => {
-    let toast = document.getElementById('toast-notification') || document.createElement('div');
-    toast.id = 'toast-notification';
-    document.body.appendChild(toast);
+  /* ================================
+      TOAST NOTIFICATION
+  ================================ */
+  const showToast = (message, type = 'info') => {
+    let toast = document.getElementById('toast-notification');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toast-notification';
+      document.body.appendChild(toast);
+    }
+    
     toast.textContent = message;
-    toast.className = (type || 'info') + ' show';
-    setTimeout(() => toast.classList.remove('show'), 4000);
+    toast.className = `toast ${type} show`;
+    
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
   };
 });
