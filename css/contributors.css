@@ -2,6 +2,16 @@
 
 /* CSS VARIABLES FOR THEMES */
 :root {
+  /* DARK THEME (DEFAULT) */
+  --bg-primary: #0a0b10;
+  --card-bg: #12141d;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #00ffa3;
+  --accent-color-rgb: 0, 255, 163;
+  --stat-box-bg: rgba(255, 255, 255, 0.03);
+  --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.4);
   /* Light theme variables */
   --bg-primary: #f5f7fa;
   --bg-secondary: #ffffff;
@@ -260,7 +270,6 @@
   margin-bottom: 100px;
 }
 
-
 .lead-badge {
   position: absolute;
   top: -20px;
@@ -328,6 +337,7 @@
   transform: translateY(-8px);
   border-color: var(--accent-color);
 }
+
 .github-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -345,7 +355,6 @@
   color: var(--accent-color);
   font-weight: 800;
   font-size: 1.6rem;
- 
 }
 
 .github-calendar .month {
@@ -364,6 +373,7 @@
   word-spacing: 12px !important;
   padding: 10px 0;
 }
+
 .github-calendar .month,
 .github-calendar .wday,
 .github-calendar .legend {
@@ -414,6 +424,7 @@ body.light-mode {
   --text-secondary: #334155;
   --border-color: rgba(0, 0, 0, 0.15);
   --accent-color: #2563eb;
+  --accent-color-rgb: 37, 99, 235;
   --stat-box-bg: #f1f5f9;
 }
 
@@ -424,8 +435,8 @@ body.light-mode .contribution-section .github-calendar a {
   font-weight: 700 !important;
 }
 
-body.light-mode .contribution-section .github-calendar a[href*="contributions-year-list"],
-body.light-mode .contribution-section .github-calendar a[href*="how-we-count-contributions"] {
+body.light-mode .contribution-section .github-calendar a[href*='contributions-year-list'],
+body.light-mode .contribution-section .github-calendar a[href*='how-we-count-contributions'] {
   background: #2563eb !important;
   color: #ffffff !important;
   border: none !important;
@@ -505,7 +516,9 @@ body.light-mode .repo-item {
 }
 
 .scroll-to-top {
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .scroll-to-top:hover {
@@ -513,6 +526,7 @@ body.light-mode .repo-item {
   background-color: #2563eb;
   /* Slightly darker blue */
 }
+
 .contributors-section {
   padding: 60px 50px;
 }
@@ -675,12 +689,12 @@ body.light-mode .repo-item {
   overflow: hidden;
 }
 
-
 /* Hover / Focus (keyboard) */
 .contributor-card:hover,
 .contributor-card:focus-visible {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
     0 0 20px rgba(0, 255, 163, 0.06);
   border-color: rgba(0, 255, 163, 0.18);
   outline: none;
@@ -690,7 +704,6 @@ body.light-mode .repo-item {
   outline: 2px solid #00ffa3;
   outline-offset: 2px;
 }
-
 
 /* Active / Pressed */
 .contributor-card:active {
@@ -705,7 +718,9 @@ body.light-mode .repo-item {
   object-fit: cover;
   margin-bottom: 8px;
   border: 3px solid transparent;
-  transition: transform 0.3s ease, border-color 0.3s ease,
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 
@@ -726,7 +741,6 @@ body.light-mode .repo-item {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 /* Stats and hierarchy */
 .contributor-card .github-stats {
@@ -764,7 +778,6 @@ body.light-mode .repo-item {
   transform: scale(1.06);
 }
 
-
 /* Contribution graph */
 .contributor-card .contribution-section {
   margin-top: 18px;
@@ -774,12 +787,10 @@ body.light-mode .repo-item {
   background: rgba(0, 0, 0, 0.02);
 }
 
-
 /* Links */
 .contributor-card .recent-repos .repo-list a {
   color: #00ffa3;
 }
-
 
 /* Responsive */
 @media (max-width: 640px) {
@@ -810,7 +821,6 @@ body.light-mode .repo-item {
   }
 }
 
-
 /* Entrance animation */
 @keyframes fadeInUp {
   from {
@@ -828,10 +838,8 @@ body.light-mode .repo-item {
   animation: fadeInUp 0.6s ease-out both;
 }
 
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-
   .contributor-card,
   .contributor-card img,
   .stat-value {
@@ -841,7 +849,6 @@ body.light-mode .repo-item {
     animation: none !important;
   }
 }
-
 
 /* Base Badge Style */
 .cont-commits-badge {
@@ -853,7 +860,6 @@ body.light-mode .repo-item {
   font-weight: 600;
   transition: all 0.3s ease;
 }
-
 
 /* --- SHINING ANIMATION --- */
 @keyframes shine-effect {
@@ -899,7 +905,6 @@ body.light-mode .repo-item {
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
-
 /* --- SILVER LEAGUE --- */
 .contributor-card.tier-silver {
   border: 2px solid #c0c0c0;
@@ -922,7 +927,6 @@ body.light-mode .repo-item {
   text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
 }
 
-
 /* Silver Badge - Black Text */
 .contributor-card.tier-silver .cont-commits-badge {
   background: linear-gradient(90deg, #c0c0c0, #ffffff, #c0c0c0);
@@ -934,7 +938,6 @@ body.light-mode .repo-item {
   animation: shine-effect 3s linear infinite;
   box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
 }
-
 
 /* --- BRONZE LEAGUE --- */
 .contributor-card.tier-bronze {
@@ -957,7 +960,6 @@ body.light-mode .repo-item {
   color: #cd7f32;
 }
 
-
 /* Bronze Badge - Black Text */
 .contributor-card.tier-bronze .cont-commits-badge {
   background: linear-gradient(90deg, #cd7f32, #ffdab9, #cd7f32);
@@ -970,7 +972,6 @@ body.light-mode .repo-item {
   box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
 }
 
-
 /* --- DEFAULT CONTRIBUTOR (Normal) --- */
 .contributor-card.tier-contributor {
   border: 1px solid var(--border-color);
@@ -981,12 +982,12 @@ body.light-mode .repo-item {
   box-shadow: var(--shadow);
 }
 
-
 /* Default Badge - Normal Text */
 .contributor-card.tier-contributor .cont-commits-badge {
   color: var(--text-secondary);
   background: rgba(0, 170, 255, 0.1);
 }
+
 .modal-container.tier-gold {
   border: 2px solid #ffd700;
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
@@ -1013,7 +1014,6 @@ body.light-mode .repo-item {
   border-color: #ffd700;
   color: #ffd700;
 }
-
 
 /* --- SILVER MODAL THEME --- */
 .modal-container.tier-silver {
@@ -1042,7 +1042,6 @@ body.light-mode .repo-item {
   border-color: #c0c0c0;
   color: #c0c0c0;
 }
-
 
 /* --- BRONZE MODAL THEME --- */
 .modal-container.tier-bronze {
@@ -1124,7 +1123,6 @@ body.light-mode .repo-item {
   font-weight: 700;
 }
 
-
 /* Accent underline for the heading */
 .step-card h3::after {
   content: '';
@@ -1145,7 +1143,6 @@ body.light-mode .repo-item {
   margin: 0;
 }
 
-
 /* Hover/Focus states */
 .step-card:hover,
 .step-card:focus-within {
@@ -1159,7 +1156,6 @@ body.light-mode .repo-item {
   transform: translateX(-50%) scaleX(1);
 }
 
-
 /* Sweeping shine effect */
 .step-card::before {
   content: '';
@@ -1168,10 +1164,12 @@ body.light-mode .repo-item {
   left: -150%;
   width: 120%;
   height: 200%;
-  background: linear-gradient(120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.08) 50%,
-      transparent 100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
   transform: rotate(20deg);
   pointer-events: none;
   opacity: 0;
@@ -1181,7 +1179,6 @@ body.light-mode .repo-item {
   animation: shine-sweep 0.9s ease forwards;
   opacity: 1;
 }
-
 
 /* Subtle inner highlight on hover */
 .step-card:hover::after,
@@ -1193,7 +1190,6 @@ body.light-mode .repo-item {
   box-shadow: inset 0 0 0 1px var(--accent-color);
   pointer-events: none;
 }
-
 
 /* Staggered entrance for multiple cards */
 .steps-grid .step-card:nth-child(1) {
@@ -1211,7 +1207,6 @@ body.light-mode .repo-item {
 .steps-grid .step-card:nth-child(4) {
   animation-delay: 0.24s;
 }
-
 
 /* Keyframes */
 @keyframes step-card-rise {
@@ -1237,7 +1232,6 @@ body.light-mode .repo-item {
 }
 
 @keyframes icon-float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -1247,7 +1241,6 @@ body.light-mode .repo-item {
     transform: translateY(-6px);
   }
 }
-
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
@@ -1264,7 +1257,6 @@ body.light-mode .repo-item {
     animation: none !important;
   }
 }
-
 
 /* --- MODAL BASE --- */
 .modal-overlay {
@@ -1437,7 +1429,6 @@ body.light-mode .repo-item {
   cursor: not-allowed;
 }
 
-
 /* UTILS */
 .mt-large {
   margin-top: 60px;
@@ -1454,8 +1445,7 @@ body.light-mode .repo-item {
   gap: 12px;
   margin: 16px 0;
   padding: 16px;
-  background: linear-gradient(135deg, rgba(0, 255, 163, 0.05),
-      rgba(0, 204, 255, 0.05));
+  background: linear-gradient(135deg, rgba(0, 255, 163, 0.05), rgba(0, 204, 255, 0.05));
   border-radius: 12px;
   border: 1px solid rgba(0, 255, 163, 0.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -1476,7 +1466,9 @@ body.light-mode .repo-item {
   padding: 12px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
 .stat-item:hover {
@@ -1509,7 +1501,6 @@ body.light-mode .repo-item {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     background: rgba(255, 255, 255, 0.05);
@@ -1814,7 +1805,9 @@ body.dark-mode .calendar .contrib-legend .legend {
   text-decoration: none;
   line-height: 1.2;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease,
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
     transform 0.15s ease;
 }
 
@@ -1826,22 +1819,22 @@ body.dark-mode .calendar .contrib-legend .legend {
   outline: none;
 }
 
-.contribution-section .github-calendar a[href*="contributions-year-list"],
-.contribution-section .github-calendar a[href*="how-we-count-contributions"] {
+.contribution-section .github-calendar a[href*='contributions-year-list'],
+.contribution-section .github-calendar a[href*='how-we-count-contributions'] {
   background: #2563eb;
   border-color: #2563eb;
   color: #f9fafb;
   font-weight: 600;
 }
 
-.contribution-section .github-calendar a[href*="contributions-year-list"]:hover,
-.contribution-section .github-calendar a[href*="how-we-count-contributions"]:hover {
+.contribution-section .github-calendar a[href*='contributions-year-list']:hover,
+.contribution-section .github-calendar a[href*='how-we-count-contributions']:hover {
   background: #1d4ed8;
   border-color: #1d4ed8;
 }
 
-.contribution-section .github-calendar a[href*="Less"],
-.contribution-section .github-calendar a[href*="More"] {
+.contribution-section .github-calendar a[href*='Less'],
+.contribution-section .github-calendar a[href*='More'] {
   display: none !important;
 }
 
@@ -1857,8 +1850,8 @@ body.dark-mode .calendar .contrib-legend .legend {
   text-decoration: none;
 }
 
-.contribution-section a[href*="Less"],
-.contribution-section a[href*="More"] {
+.contribution-section a[href*='Less'],
+.contribution-section a[href*='More'] {
   display: none !important;
 }
 
@@ -2020,7 +2013,9 @@ body.dark-mode .calendar .contrib-legend .legend {
 }
 
 .roadmap-step:hover .step-node {
-  box-shadow: 0 12px 40px rgba(0, 217, 255, 0.7), 0 0 30px rgba(0, 255, 255, 0.5);
+  box-shadow:
+    0 12px 40px rgba(0, 217, 255, 0.7),
+    0 0 30px rgba(0, 255, 255, 0.5);
   border-color: #00ffff;
   transform: scale(1.15) rotate(8deg);
   background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
@@ -2060,7 +2055,6 @@ body.dark-mode .calendar .contrib-legend .legend {
 }
 
 @keyframes icon-bounce {
-
   0%,
   100% {
     transform: translateY(0);
@@ -2512,8 +2506,6 @@ body.dark-mode .calendar .contrib-legend .legend {
 
 /* ===============================
    DARK THEME OVERRIDES
-================================ */
-
 [data-theme="dark"] #activity-list .activity-item {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
