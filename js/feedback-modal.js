@@ -51,7 +51,7 @@ if (!overlay) {
         <label>Your Email</label>
         <input type="email" name="email" required style="width: 100%; margin-bottom: 8px; padding: 8px; border-radius: 6px; border: 1px solid #444; background: var(--card-bg, #222); color: var(--text-primary, #fff);" />
         <label>Your Suggestion</label>
-        <textarea name="message" required style="width: 100%; margin-bottom: 8px; padding: 8px; border-radius: 6px; border: 1px solid #444; background: var(--card-bg, #222); color: var(--text-primary, #fff);"></textarea>
+        <textarea name="message" required style="width: 100%; min-width: 100%; max-width: 100%; resize: vertical; overflow-x: hidden; margin-bottom: 8px; padding: 8px; border-radius: 6px; border: 1px solid #444; background: var(--card-bg, #222); color: var(--text-primary, #fff);"></textarea>
         <div style="margin: 10px 0; display: flex; align-items: center; gap: 10px;">
           <span style="font-size: 14px;">Rating</span>
           <div id="modal-star-rating">
