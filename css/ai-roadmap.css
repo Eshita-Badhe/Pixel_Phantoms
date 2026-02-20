@@ -1,590 +1,477 @@
-/* ai-roadmap.css */
+/* ==========================================================================
+   PIXEL PHANTOMS: AI & ML PROTOCOL STYLES
+   Theme: Neural Networks (Deep Purples, Neon Magentas, Cyans) - CENTERED LAYOUT
+   ========================================================================== */
 
-/* --- Roadmap Layout Variables --- */
-:root {
-    --roadmap-line-color: #333;
-    --roadmap-node-bg: #0a0a0a;
-    --roadmap-node-border: #00ff41; /* "Cyber Blue" AI feel can be swapped here */
-    --roadmap-text-color: #eee;
-    --spine-width: 6px;
-}
+/* Global Section Spacing & Centering */
+/* Global Grid Layouts (Switched to Flexbox for Perfect Centering) */
+/* =========================================================
+   PERFECT CENTERING FOR ALL GRIDS & CARDS (FLEXBOX)
+   ========================================================= */
 
-.roadmap-header.centered-header {
-    position: relative;
-    padding: 60px 20px;
-    margin: 80px auto;
-    max-width: 900px;
-    border: 1px solid rgba(97, 218, 251, 0.1);
-    background: radial-gradient(circle at center, rgba(97, 218, 251, 0.05) 0%, transparent 70%);
-    /* Creating HUD corners using pseudo-elements */
-  }
-  
-  /* Technical Corner Brackets */
-  .roadmap-header::before,
-  .roadmap-header::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border: 2px solid var(--react-cyan);
-  }
-  
-  .roadmap-header::before {
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-  }
-  
-  .roadmap-header::after {
-    bottom: 0;
-    right: 0;
-    border-left: none;
-    border-top: none;
-  }
-  
-  /* --- The Glitch Text Effect --- */
-  .glitch-text {
-    position: relative;
-    font-size: 3.5rem;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    margin: 0;
-  }
-  
-  /* Creating the RGB split glitch layers */
-  .glitch-text::before,
-  .glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-  }
-  
-  .glitch-text::before {
-    color: #ff00c1; /* Magenta shift */
-    z-index: -1;
-    animation: glitch-offset 3s infinite linear alternate-reverse;
-  }
-  
-  .glitch-text::after {
-    color: #00fff9; /* Cyan shift */
-    z-index: -2;
-    animation: glitch-offset 2s infinite linear alternate;
-  }
-  
-  @keyframes glitch-offset {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-  }
-  
-  /* --- The Subtitle Typing Effect --- */
-  .subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--react-cyan);
-    font-size: 1.1rem;
-    margin-top: 15px;
-    display: inline-block;
-    overflow: hidden; 
-    white-space: nowrap; 
-    border-right: 3px solid var(--react-cyan); /* The Cursor */
-    width: 0;
-    animation: 
-      typing-header 3s steps(40, end) forwards,
-      blink-caret 0.75s step-end infinite;
-  }
-  
-  @keyframes typing-header {
-    from { width: 0 }
-    to { width: 100% }
-  }
-  
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: var(--react-cyan) }
-  }
-  
-  /* --- Light Mode Adjustments --- */
-  body.light-mode .roadmap-header {
-    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-    border-color: rgba(59, 130, 246, 0.2);
-  }
-  
-  body.light-mode .glitch-text {
-    color: var(--text-primary);
-    text-shadow: 2px 2px rgba(59, 130, 246, 0.1);
-  }
-  
-  body.light-mode .subtitle {
-    color: var(--react-blue);
-    border-right-color: var(--react-blue);
-  }
-  /* react-road.css - Advanced Flex-Stability & Theme-Aware Version */
-  @keyframes spineScanner {
-    0% { top: -10%; opacity: 0; }
-    50% { opacity: 1; }
-    100% { top: 110%; opacity: 0; }
-  }
-  
-  @keyframes magneticPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--react-cyan); }
-    50% { transform: scale(1.3); box-shadow: 0 0 25px var(--react-cyan); }
-  }
-  @keyframes spineFlow {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 0% 200%; }
-  }
-  @keyframes floatCard {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-  :root {
-    /* Core Brand Colors */
-    --react-cyan: #61dafb;
-    --react-blue: #4a90e2;
-  
-    /* Dark Mode Variables (Default) */
-    --bg-main: #0a0a0a;
-    --text-primary: #ffffff;
-    --text-secondary: #999999;
-    --glass: rgba(10, 10, 10, 0.9);
-    --node-border: #333333;
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --spine-color: linear-gradient(
-      to bottom,
-      transparent,
-      var(--react-cyan),
-      var(--react-blue),
-      transparent
-    );
-    --accent-glow: 0 0 12px var(--react-cyan);
-  }
-  body.light-mode {
-    /* Soft Azure Shade Background */
-    --bg-main: #f0f7ff; 
-    
-    /* Frosted Glass Cards (Replaces the dark gray) */
-    --glass: rgba(255, 255, 255, 0.85); 
-    
-    /* Text & Border High Contrast */
-    --text-primary: #0f172a; /* Deep Slate Navy */
-    --text-secondary: #475569;
-    --node-border: #bfdbfe; /* Soft Sky Blue */
-    
-    /* Modern Clean Shadows */
-    --card-shadow: 0 10px 30px rgba(148, 163, 184, 0.12);
-    
-    /* Vibrant Spine Gradient */
-    --spine-color: linear-gradient(
-      to bottom, 
-      transparent, 
-      #3b82f6, 
-      #60a5fa, 
-      transparent
-    );
-    --accent-glow: 0 4px 15px rgba(59, 130, 246, 0.3);
-  }
-  
-  
-  /* Global Styles */
-  body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  
-  .centered-header {
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 50px;
-  }
-  
-  /* Roadmap Structure */
-  .roadmap-wrapper {
-    position: relative;
-    max-width: 1100px;
-    margin: 60px auto;
-    padding: 40px 20px;
-    min-height: 100vh;
-  }
-  
-  .roadmap-spine {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--spine-color);
-    transform: translateX(-50%);
-    animation: spineFlow 5s linear infinite;
-    z-index: 0;
-  }
-  /* --- Spine 'Scanner' Light Effect --- */
-  .roadmap-spine::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    background: linear-gradient(to bottom, transparent, #fff, transparent);
-    animation: spineScanner 4s linear infinite;
-    z-index: 1;
-  }
-  .roadmap-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-    width: 100%;
-  }
-  
-  /* Roadmap Nodes */
-  .chapter-node {
-    position: relative;
-    width: 44%;
-    background: var(--glass);
-    border: 1px solid var(--node-border);
-    border-radius: 20px;
-    padding: 30px;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--card-shadow);
-    z-index: 1;
-    animation: floatCard 6s ease-in-out infinite;
-    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-    color: var(--text-primary);
-  }
-  
-  .chapter-node.left {
-    align-self: flex-start;
-    text-align: right;
-  }
-  
-  .chapter-node.right {
-    align-self: flex-end;
-    text-align: left;
-  }
-  
-  .chapter-node:hover {
-    /* 1. Enhanced Lift and Scale */
-    transform: translateY(-12px) scale(1.03); 
-    
-    /* 2. Stronger Border visibility for Light Mode */
-    border-color: var(--react-blue); 
-    
-    /* 3. Deep Ambient Shadow for Elevation */
-    box-shadow: 
-      0 20px 25px -5px rgba(0, 0, 0, 0.1), 
-      0 10px 10px -5px rgba(0, 0, 0, 0.04),
-      0 0 20px rgba(59, 130, 246, 0.1); /* Subtle blue tint to the shadow */
-      
-    /* 4. Increase focus */
-    background: rgba(88, 171, 240, 0.1); 
-    color: #0f172a;
-    z-index: 10;
-    
-    /* 5. Smooth Transition (Ensures this matches your base class) */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  
-  
-  /* Connectivity Indicators */
-  .chapter-node::after {
-    content: '';
-    position: absolute;
-    top: 35px;
-    width: 16px;
-    height: 16px;
-    background: var(--react-cyan);
-    border-radius: 50%;
-    box-shadow: var(--accent-glow);
-    animation: magneticPulse 3s infinite ease-in-out;
-  }
-  /* Ensure the connecting dot also reacts to the hover */
-  .chapter-node:hover::after {
-    background: var(--react-blue);
-    transform: scale(1.3);
-    box-shadow: 0 0 15px var(--react-blue);
-  }
-  .chapter-node.left::after {
-    right: -13.5%;
-  }
-  
-  .chapter-node.right::after {
-    left: -13.5%;
-  }
-  
-  /* Node Elements */
-  .node-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .chapter-node.left .node-header {
-    flex-direction: row-reverse;
-  }
-  
-  .node-header h3 {
-    color: var(--react-cyan);
-    font-size: 1.2rem;
-    margin: 0;
-  }
-  
-  .toggle-btn {
-    background: rgba(97, 218, 251, 0.1);
-    border: 1px solid var(--react-cyan);
-    color: var(--react-cyan);
-    width: 35px;
-    height: 35px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-  }
-  
-  .toggle-btn.active {
-    background: var(--react-cyan);
-    color: #000;
-    transform: rotate(45deg);
-  }
-  
-  
-  /* Details and Links */
-  .chapter-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
-    opacity: 0;
-  }
-  
-  .chapter-details.open {
-    max-height: 1000px;
-    opacity: 1;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--node-border);
-  }
-  
-  .module-link {
-    display: block;
-    color: var(--text-secondary);
-    text-decoration: none;
-    padding: 12px;
-    margin: 8px 0;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
-    transition: 0.3s;
-  }
-  /* --- Enhanced h4 Design for Skill Nodes --- */
-  .skill-node h4 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 15px 0 5px 0;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    display: inline-block; /* Required for the underline effect */
-    transition: color 0.3s ease;
-  }
-  
-  /* The Animated Underline */
-  .skill-node h4::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0; /* Start hidden */
-    height: 2px;
-    background: var(--react-cyan);
-    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 8px var(--react-cyan);
-  }
-  
-  /* --- Hover Effects --- */
-  .skill-node:hover h4 {
-    color: var(--react-cyan);
-    text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);
-  }
-  
-  .skill-node:hover h4::after {
-    width: 100%; /* Slide underline out */
-  }
-  
-  /* Light Mode Specific Adjustment */
-  body.light-mode .skill-node h4::after {
-    background: var(--react-blue);
-    box-shadow: 0 2px 4px rgba(97, 218, 251, 0.5);
-  }
-  
-  body.light-mode .skill-node:hover h4 {
-    color: var(--react-blue);
-  }
-  body.light-mode .module-link {
-    background: rgba(97, 218, 251, 0.5);
-  }
-  
-  .module-link:hover {
-    color: var(--text-primary);
-    background: rgba(97, 218, 251, 0.2);
-    padding-left: 20px;
-  }
-  /* --- Final Visibility Fix for h2 --- */
-  h2 {
-    /* DARK MODE (Default) */
-    /* We use var(--react-cyan) or #ffffff to ensure it is bright */
-    color: #61dafb !important; 
-    
-    /* FIX: Changed from 0.04 opacity to solid cyan */
-    text-decoration-color: #61dafb !important;
-    text-underline-offset: 12px;
-    
-    /* Increased shadow spread for a stronger glow effect */
-    text-shadow: 0 0 15px rgba(97, 218, 251, 0.6);
-    
-    font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin: 80px 0 40px 0;
-    transition: all 0.3s ease;
-  }
-  
-  /* LIGHT MODE ADJUSTMENT */
-  body.light-mode h2 {
-    /* High contrast Navy for light backgrounds */
-    color: #0f172a !important; 
-    
-    /* Strong blue underline for visibility */
-    text-decoration-color: #3b82f6 !important;
-    
-    /* Remove glow in light mode to keep text crisp */
-    text-shadow: none;
-  }
-  
-  /* Explore-Other-Courses Fixes */
-  #other-courses {
-    margin-top: 70px;
-    margin-bottom: 20px;
-    padding: 40px 10px;
-    background: var(--glass);
-    border: 2px solid var(--react-blue);
-    border-radius: 15px;
-    box-shadow: var(--card-shadow);
-  }
-  
-  #other-courses h2 {
-    text-align: center;
-    color: var(--text-primary);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-  }
-  
-  .skill-node h4 {
-    color: var(--text-primary);
-  }
-  
-  /* Navbar Theme Correction */
-  #navbar-placeholder a {
-    color: var(--text-primary) !important;
-    transition: color 0.2s ease;
-  }
-  
-  #navbar-placeholder a:hover {
-    color: var(--react-cyan) !important;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .roadmap-spine {
-      left: 20px;
-    }
-    .chapter-node {
-      width: 85%;
-      align-self: flex-end;
-      text-align: left;
-    }
-    .chapter-node.left .node-header {
-      flex-direction: row;
-    }
-    .chapter-node.left::after,
-    .chapter-node.right::after {
-      left: -34px;
-    }
-}
-
-/* =========================================
-   FIX: Explore Other Courses Layout
-   ========================================= */
-
-.skill-path-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+/* 1. Turn all grid containers into centered Flexboxes */
+.roadmap-grid, 
+.js-grid, 
+.react-grid, 
+.hooks-grid, 
+.api-grid, 
+.projects-grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important; /* Forces the bottom row to the middle */
+  gap: 30px;
+  max-width: 1150px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-.skill-node {
+/* 2. Standardize the size of ALL cards so they wrap cleanly */
+.roadmap-card, 
+.js-card, 
+.react-card, 
+.hook-card, 
+.api-card, 
+.project-card {
+  flex: 1 1 300px !important; /* Allows them to grow, but sets a base width of 300px */
+  max-width: 350px !important; /* Prevents 2 leftover cards from stretching super wide */
+  
+  /* Centers the content inside the cards */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 180px;
-  padding: 20px;
-  background: var(--roadmap-node-bg); /* Use existing BG var */
-  border: 1px solid #333;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-}
-
-.skill-node:hover {
-  transform: translateY(-5px);
-  border-color: var(--roadmap-node-border); /* Use green theme color */
-  box-shadow: 0 8px 20px rgba(0, 255, 65, 0.15);
-}
-
-.node-icon {
-  font-size: 2.5rem;
-  color: #888;
-  margin-bottom: 12px;
-  transition: color 0.3s ease;
-}
-
-.skill-node:hover .node-icon {
-  color: var(--roadmap-node-border); /* Use green theme color */
-}
-
-.skill-node h4 {
-  color: #fff;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem;
-  margin: 8px 0;
   text-align: center;
 }
 
-.node-level {
+/* 3. Ensure the large "Intro" card (Step 3) spans across the middle perfectly */
+.react-card.intro {
+  flex: 1 1 100% !important;
+  max-width: 730px !important; /* Exact width of 2 standard cards + 30px gap */
+}
+
+/* 4. Fix specific text alignments inside the cards */
+.roadmap-card h3, 
+.js-card h3, 
+.react-card h3, 
+.hook-card h3, 
+.api-card h3, 
+.project-card h3 {
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Keep the bullet points neat, but block-centered */
+.project-card ul {
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto 15px auto;
+  padding-left: 0;
+}
+
+.roadmap-grid, .js-grid, .react-grid, .hooks-grid, .api-grid, .projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* This forces bottom-row cards to the middle! */
+  gap: 30px;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+/* Global Card Styles */
+.roadmap-card, .js-card, .react-card, .hook-card, .api-card, .project-card {
+  flex: 1 1 300px; /* Allows cards to grow and shrink uniformly */
+  max-width: 340px; /* Prevents them from getting too wide */
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 30px 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  
+  /* Flexbox for perfect internal centering */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Fix the "Intro" card (Step 3) so it stays wide in Flexbox */
+.react-card.intro {
+  flex: 1 1 100%;
+  max-width: 710px; /* Makes it span the width of 2 cards */
+}
+
+/* Global Hover Effects */
+.roadmap-card:hover, .js-card:hover, .react-card:hover, .hook-card:hover, .api-card:hover, .project-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Typography Inside Cards */
+.roadmap-card h3, .js-card h3, .react-card h3, .hook-card h3, .api-card h3, .project-card h3 {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.roadmap-card p, .js-card p, .react-card p, .hook-card p, .api-card p, .project-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+/* =========================================================
+   ALIGN BADGE AND TITLE ON SAME LINE
+   ========================================================= */
+
+   .roadmap-header {
+    text-align: center; /* Ensures the combined line stays perfectly centered */
+  }
+  
+  /* Make the badge sit inline */
+  .roadmap-badge, 
+  .roadmap-badge.critical {
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 0 15px 0 0 !important; /* 15px space on the right between badge and text */
+  }
+  
+  /* Make the title sit inline next to the badge */
+  .roadmap-header h2 {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* Restore the breathing room below the title before the paragraph starts */
+  .roadmap-header p {
+    margin-top: 20px;
+    display: block;
+  }
+  
+  /* Mobile Adjustment: If the screen is too small, let them stack nicely */
+  @media (max-width: 768px) {
+    .roadmap-badge, 
+    .roadmap-badge.critical {
+      margin: 0 0 12px 0 !important; /* Moves badge back to the top on tiny screens */
+      display: block !important;
+      width: max-content;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+  }
+.roadmap-section, .js-deep-dive, .react-fundamentals, .react-hooks, .react-api, .projects-section {
+  padding: calc(var(--spacing-xxl) + 40px) 20px; /* Added 20px breathing space on sides */
+  font-family: var(--font-primary);
+  text-align: center; /* Centers all content globally */
+}
+
+/* Global Headers */
+.roadmap-header {
+  max-width: 800px;
+  margin: 0 auto var(--spacing-xxl) auto; /* Dead center */
+}
+
+.roadmap-header h2 {
+  color: var(--text-primary);
+  font-size: 2.6rem;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.2;
+}
+
+.roadmap-header p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1.15rem;
+}
+
+/* AI Gradient Badge */
+.roadmap-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #a300ff, #ff0080);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 4px 15px rgba(163, 0, 255, 0.3);
+}
+
+/* Global Grid Layouts */
+.roadmap-grid, .js-grid, .react-grid, .hooks-grid, .api-grid, .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly wider for centered text */
+  gap: var(--spacing-xl);
+  max-width: 1100px; /* Constrains width */
+  margin: 0 auto; /* Perfectly centers grid on page */
+}
+
+/* Global Card Styles */
+.roadmap-card, .js-card, .react-card, .hook-card, .api-card, .project-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 30px 20px; /* Breathing room inside cards */
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  
+  /* Flexbox for perfect internal centering */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Global Hover Effects */
+.roadmap-card:hover, .js-card:hover, .react-card:hover, .hook-card:hover, .api-card:hover, .project-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Typography Inside Cards */
+.roadmap-card h3, .js-card h3, .react-card h3, .hook-card h3, .api-card h3, .project-card h3 {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.roadmap-card p, .js-card p, .react-card p, .hook-card p, .api-card p, .project-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   STEP 1: FOUNDATIONS
+   ========================================================= */
+.roadmap-section {
+  background: var(--bg-primary);
+}
+
+.roadmap-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(163, 0, 255, 0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.roadmap-card:hover { box-shadow: 0 10px 30px rgba(163, 0, 255, 0.15); }
+.roadmap-card:hover::before { opacity: 1; }
+.roadmap-card.highlight {
+  border: 1px solid #a300ff;
+  box-shadow: 0 8px 25px rgba(163, 0, 255, 0.25);
+}
+
+/* =========================================================
+   STEP 2: DATA STACK
+   ========================================================= */
+.js-deep-dive {
+  background: linear-gradient(180deg, var(--bg-primary), rgba(0, 229, 255, 0.03));
+}
+
+.js-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(0, 229, 255, 0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.js-card:hover { box-shadow: 0 10px 30px rgba(0, 229, 255, 0.15); }
+.js-card:hover::after { opacity: 1; }
+
+.js-tag {
+  display: inline-block;
   font-size: 0.75rem;
-  color: #888;
-  font-family: 'JetBrains Mono', monospace;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 229, 255, 0.12);
+  color: #00e5ff;
+  margin-bottom: var(--spacing-md);
+}
+
+.js-card.highlight {
+  border: 1px solid #00e5ff;
+  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.25);
+}
+
+/* =========================================================
+   STEP 3: CORE ML
+   ========================================================= */
+.react-fundamentals {
+  background: radial-gradient(circle at top, rgba(163, 0, 255, 0.06), transparent 60%);
+}
+
+.react-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(163, 0, 255, 0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.react-card:hover { box-shadow: 0 10px 30px rgba(163, 0, 255, 0.15); }
+.react-card:hover::before { opacity: 1; }
+
+.react-card.intro {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--card-bg), rgba(163, 0, 255, 0.05));
+}
+
+.react-card.highlight {
+  border: 1px solid #a300ff;
+  box-shadow: 0 8px 25px rgba(163, 0, 255, 0.25);
+}
+
+/* =========================================================
+   STEP 4: DEEP LEARNING
+   ========================================================= */
+.react-hooks {
+  background: radial-gradient(circle at top, rgba(255, 0, 128, 0.08), transparent 65%);
+}
+
+.hook-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 0, 128, 0.18), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.hook-card:hover { box-shadow: 0 10px 30px rgba(255, 0, 128, 0.15); }
+.hook-card:hover::before { opacity: 1; }
+
+.hook-level {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: var(--spacing-md);
+  background: rgba(255, 0, 128, 0.12);
+  color: #ff0080;
+  letter-spacing: 0.4px;
+}
+
+/* Changed Left Borders to Top Borders for centering symmetry */
+.hook-card.essential { border-top: 4px solid #ff0080; border-left: none; }
+.hook-card.optimization { background: linear-gradient(135deg, var(--card-bg), rgba(255, 0, 128, 0.04)); }
+
+/* =========================================================
+   STEP 5: GENERATIVE AI
+   ========================================================= */
+.react-api {
+  background: radial-gradient(circle at top, rgba(163, 0, 255, 0.08), transparent 70%);
+}
+
+.api-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(163, 0, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.api-card:hover { box-shadow: 0 10px 30px rgba(163, 0, 255, 0.15); }
+.api-card:hover::before { transform: translateX(100%); }
+
+/* Changed Left Borders to Top Borders for centering symmetry */
+.api-card.core { border-top: 4px solid #a300ff; border-left: none; }
+.api-card.warning { border-top: 4px solid #ff0080; border-left: none; }
+.api-card.highlight {
+  border: 1px solid #a300ff;
+  box-shadow: 0 8px 25px rgba(163, 0, 255, 0.25);
+  background: linear-gradient(135deg, var(--card-bg), rgba(163, 0, 255, 0.06));
+}
+
+/* =========================================================
+   STEP 6: PROJECTS
+   ========================================================= */
+.projects-section {
+  background: linear-gradient(180deg, transparent, rgba(163, 0, 255, 0.05), transparent);
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(163, 0, 255, 0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover { box-shadow: 0 12px 35px rgba(163, 0, 255, 0.2); }
+.project-card:hover::before { opacity: 1; }
+
+/* Fixed Overlap logic for centered layout */
+.project-card h3 {
+  margin-top: 35px; /* Pushes text securely below the absolute-positioned badge */
+}
+
+/* Make list items centered as a block, but text aligned left for readability */
+.project-card ul {
+  padding-left: 0;
+  margin-bottom: var(--spacing-md);
+  display: inline-block;
+  text-align: left;
+}
+
+.project-card li {
+  color: black;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  list-style-position: inside;
+}
+
+.project-card .level {
+  position: absolute;
+  top: 15px;
+  right: 15px; /* Keeps badge in corner */
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Top borders instead of Left borders for centered symmetry */
+.project-card.basic { border-top: 4px solid #000000; border-left: none; }
+.project-card.basic .level { background: rgba(0, 229, 255, 0.15); color: #000000; }
+
+.project-card.intermediate { border-top: 4px solid #000000; border-left: none; }
+.project-card.intermediate .level { background: rgba(163, 0, 255, 0.15); color: #000000; }
+
+.project-card.advanced { border-top: 4px solid #000000; border-left: none; }
+.project-card.advanced .level { background: rgba(10, 255, 157, 0.15); color: #000000; }
+
+.project-card.glow {
+  animation: pulseGlowAI 4s infinite alternate;
+}
+
+@keyframes pulseGlowAI {
+  0% { box-shadow: 0 0 0 rgba(163, 0, 255, 0); }
+  50% { box-shadow: 0 0 35px rgba(163, 0, 255, 0.35); }
+  100% { box-shadow: 0 0 0 rgba(163, 0, 255, 0); }
+}
+
+/* =========================================================
+   RESPONSIVE SCALING
+   ========================================================= */
+@media (max-width: 768px) {
+  .roadmap-header h2 { font-size: 2rem; }
+  .react-card.intro { grid-column: span 1; } /* Break intro card out of 2 cols on mobile */
+  .roadmap-card h3, .js-card h3, .react-card h3, .hook-card h3, .api-card h3, .project-card h3 {
+    font-size: 1.15rem;
+  }
 }
