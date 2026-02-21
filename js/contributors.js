@@ -6,7 +6,7 @@ const API_BASE = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`;
 // State
 let contributorsData = [];
 let currentPage = 1;
-const itemsPerPage = 3;
+const itemsPerPage = 5;
 
 // Point System Weights
 const POINTS = {

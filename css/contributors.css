@@ -266,21 +266,6 @@
   margin: 150px auto 80px auto;
 }
 
-/* --- TOP CONTRIBUTORS GRID (FULL PAGE WIDTH) --- */
-.contributors-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  gap: 60px;
-  width: fit-content;
-  max-width: 1800px;
-  margin: 60px 60px;
-
-  flex-wrap: wrap;
-
-
-}
-
 
 
 #top-contributors {
@@ -289,18 +274,6 @@
   margin-bottom: 20px;
 }
 
-
-/* --- TOP CONTRIBUTORS GRID --- */
-.contributors-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  width: 100%;
-  max-width: 1600px;
-  margin: 60px auto;
-  padding: 0 40px;
-  box-sizing: border-box;
-}
 
 
 
@@ -671,19 +644,25 @@ body.light-mode .repo-item {
 
 
 /* --- CONTRIBUTORS GRID --- */
+/* --- CONTRIBUTORS GRID (OPTIMIZED FOR 5 CARDS PER ROW) --- */
+/* FINAL SINGLE SOURCE OF TRUTH */
 .contributors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
-  padding: 0 28px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1700px;
+  margin: 40px auto;
+  padding: 0 32px;
+  box-sizing: border-box;
 }
-
 
 /* Base Card Style */
 .contributor-card {
   width: 100%;
-  max-width: 500px;
+  /* REMOVE max-width: 500px; */
+  max-width: 100%; /* or just delete the max-width line */
+
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 32px;
@@ -694,7 +673,10 @@ body.light-mode .repo-item {
   box-shadow: var(--shadow-main);
   box-sizing: border-box;
   transition: transform 0.3s ease;
-  margin: 0 auto;
+
+  /* CHANGE THIS */
+  margin: 0; /* instead of margin: 0 auto */
+
   cursor: pointer;
   gap: 16px;
   position: relative;
@@ -1727,7 +1709,7 @@ body.dark-mode .repo-item {
 
 @media (min-width: 1028px) and (max-width: 1444px) {
   .contributors-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* was 3 → now 4 */
     gap: 20px;
     padding: 0 32px;
   }
