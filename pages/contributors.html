@@ -154,10 +154,21 @@
           </div>
         </section>
 
-        <section aria-labelledby="top-contributors">
-          <h2 id="top-contributors">Top Contributors</h2>
-          <div class="contributors-grid" id="contributors-grid" role="list" aria-label="Top contributors"
-            aria-live="polite"></div>
+       <section aria-labelledby="top-contributors">
+  <h2 id="top-contributors">Top Contributors</h2>
+
+  <!-- 🔍 Search Bar (ADDED - does not affect existing layout) -->
+  <div class="contributors-search-wrapper">
+    <input
+      type="text"
+      id="contributors-search"
+      placeholder="Search contributors by name or username..."
+      aria-label="Search contributors"
+    />
+  </div>
+
+  <div class="contributors-grid" id="contributors-grid" role="list" aria-label="Top contributors"
+    aria-live="polite"></div>
           <div id="pagination-controls" class="pagination-container"></div>
         </section>
 
