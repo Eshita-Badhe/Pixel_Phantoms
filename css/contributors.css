@@ -2,6 +2,16 @@
 
 /* CSS VARIABLES FOR THEMES */
 :root {
+  /* DARK THEME (DEFAULT) */
+  --bg-primary: #0a0b10;
+  --card-bg: #12141d;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #00ffa3;
+  --accent-color-rgb: 0, 255, 163;
+  --stat-box-bg: rgba(255, 255, 255, 0.03);
+  --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.4);
   /* Light theme variables */
   --bg-primary: #f5f7fa;
   --bg-secondary: #ffffff;
@@ -172,7 +182,6 @@
 .contributors-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-align: center;
   padding: 80px 20px;
   background-color: var(--bg-primary);
@@ -180,6 +189,60 @@
   transition: background 0.3s ease;
   width: 100%;
   overflow-x: hidden;
+  align-items: stretch; 
+}
+
+/* ===============================
+   CLEAN CONTRIBUTORS GRID
+================================ */
+#contributors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
+
+/* Remove width restriction from cards */
+.contributor-card {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* Responsive control */
+
+@media (min-width: 1400px) {
+  .contributors-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  #contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  #contributors-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 767px) {
+  .contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 499px) {
+  .contributors-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .section-header {
@@ -206,7 +269,6 @@
   justify-content: center;
   margin-bottom: 100px;
 }
-
 
 .lead-badge {
   position: absolute;
@@ -258,15 +320,16 @@
 
 .top-contributors {
   width: 100%;
-  max-width: 1300px;
-  /* Same as your lead-container */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 150px auto 80px auto;
 }
 
 
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  padding: 0 40px;
+}
 
 #top-contributors {
   text-align: center;
@@ -281,6 +344,7 @@
   transform: translateY(-8px);
   border-color: var(--accent-color);
 }
+
 .github-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -298,7 +362,6 @@
   color: var(--accent-color);
   font-weight: 800;
   font-size: 1.6rem;
- 
 }
 
 .github-calendar .month {
@@ -317,6 +380,7 @@
   word-spacing: 12px !important;
   padding: 10px 0;
 }
+
 .github-calendar .month,
 .github-calendar .wday,
 .github-calendar .legend {
@@ -367,6 +431,7 @@ body.light-mode {
   --text-secondary: #334155;
   --border-color: rgba(0, 0, 0, 0.15);
   --accent-color: #2563eb;
+  --accent-color-rgb: 37, 99, 235;
   --stat-box-bg: #f1f5f9;
 }
 
@@ -377,8 +442,8 @@ body.light-mode .contribution-section .github-calendar a {
   font-weight: 700 !important;
 }
 
-body.light-mode .contribution-section .github-calendar a[href*="contributions-year-list"],
-body.light-mode .contribution-section .github-calendar a[href*="how-we-count-contributions"] {
+body.light-mode .contribution-section .github-calendar a[href*='contributions-year-list'],
+body.light-mode .contribution-section .github-calendar a[href*='how-we-count-contributions'] {
   background: #2563eb !important;
   color: #ffffff !important;
   border: none !important;
@@ -431,7 +496,6 @@ body.light-mode .repo-item {
   border-color: #3b82f6;
   transform: translateX(8px) translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-
 }
 
 /* Bullet point pulse on hover */
@@ -440,12 +504,306 @@ body.light-mode .repo-item {
   box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
 }
 
+/* ============================================================
+   GLOBAL ACTIVITY HEATMAP (SYSTEM PULSE)
+   ============================================================ */
+
+.section-sub-pulse {
+  color: var(--text-secondary);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.heatmap-container {
+  width: 100%;
+  max-width: 1300px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 80px;
+  box-shadow: var(--shadow-main);
+  text-align: left;
+}
+
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.heatmap-title {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.heatmap-title i {
+  color: var(--accent-color);
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.legend-cells {
+  display: flex;
+  gap: 4px;
+}
+
+.legend-cells div,
+.heatmap-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+/* GitHub Green Theme Levels */
+.level-0 {
+  background-color: #161b22;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.level-1 {
+  background-color: #0e4429;
+}
+
+.level-2 {
+  background-color: #006d32;
+}
+
+.level-3 {
+  background-color: #26a641;
+}
+
+.level-4 {
+  background-color: #39d353;
+}
+
+.heatmap-grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.heatmap-months {
+  display: flex;
+  margin-bottom: 5px;
+  padding-left: 45px;
+  /* Align with day labels */
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  position: relative;
+  height: 20px;
+}
+
+.heatmap-month-label {
+  white-space: nowrap;
+}
+
+.heatmap-body {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  /* Center the grid body */
+}
+
+.heatmap-days {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 45px 0 10px 0;
+  /* Align with cells (35px top padding of grid + 10px offset) */
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  height: 157px;
+  /* 7 cells (14px) + 6 gaps (4px) + padding */
+}
+
+.heatmap-grid {
+  display: flex;
+  gap: 4px;
+  padding: 35px 10px 10px 10px;
+  /* More top padding for tooltips */
+  overflow-x: hidden;
+  border-radius: 4px;
+  max-width: 100%;
+  justify-content: flex-start;
+  /* Start from left */
+}
+
+@media (min-width: 1024px) {
+  .heatmap-grid {
+    justify-content: center;
+    /* Center if it fits */
+  }
+}
+
+.heatmap-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.heatmap-cell {
+  position: relative;
+  cursor: pointer;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.3);
+  z-index: 10;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Loading State for Heatmap */
+.loading-heatmap {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+.heatmap-footer {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+/* Tooltip Simulation (Simple CSS-only tooltip if desired, or JS) */
+.heatmap-cell::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  /* Lift higher */
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: #0d1117;
+  /* Darker, more authentic */
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 100;
+  border: 1px solid var(--accent-color);
+}
+
+.heatmap-cell:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Light Mode support */
+body.light-mode .heatmap-container {
+  background: #ffffff;
+}
+
+body.light-mode .level-0 {
+  background-color: #ebedf0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .heatmap-cell::after {
+  background: #24292f;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .heatmap-container {
+    padding: 20px;
+  }
+
+  .heatmap-grid {
+    gap: 3px;
+  }
+
+  .heatmap-cell,
+  .legend-cells div {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Future cells styling */
+.heatmap-cell.future-cell {
+  background-color: transparent !important;
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+body.light-mode .heatmap-cell.future-cell {
+  border: 1px dashed rgba(0, 0, 0, 0.08);
+  background-color: transparent !important;
+}
+
+.heatmap-cell.future-cell:hover {
+  transform: none;
+  box-shadow: none;
+  opacity: 0.3;
+}
+
+.heatmap-cell.future-cell::after {
+  display: none;
+}
+
+/* Empty state for when no heatmap data is available */
+.heatmap-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+.heatmap-empty-state i {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  opacity: 0.4;
+  color: var(--accent-color);
+}
+
+.heatmap-empty-state h3 {
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.heatmap-empty-state p {
+  margin-bottom: 15px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* --- RESPONSIVENESS --- */
 @media (max-width: 1000px) {
-  .contributors-grid {
-    grid-template-columns: 1fr;
-    max-width: 600px;
-  }
 
   .project-lead-card {
     padding: 40px 20px;
@@ -491,7 +849,9 @@ body.light-mode .repo-item {
 }
 
 .scroll-to-top {
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .scroll-to-top:hover {
@@ -499,6 +859,7 @@ body.light-mode .repo-item {
   background-color: #2563eb;
   /* Slightly darker blue */
 }
+
 .contributors-section {
   padding: 60px 50px;
 }
@@ -663,6 +1024,9 @@ body.light-mode .repo-item {
   /* REMOVE max-width: 500px; */
   max-width: 100%; /* or just delete the max-width line */
 
+/* Base Card Style */
+.contributor-card {
+  width: 100%;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 32px;
@@ -683,12 +1047,12 @@ body.light-mode .repo-item {
   overflow: hidden;
 }
 
-
 /* Hover / Focus (keyboard) */
 .contributor-card:hover,
 .contributor-card:focus-visible {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
     0 0 20px rgba(0, 255, 163, 0.06);
   border-color: rgba(0, 255, 163, 0.18);
   outline: none;
@@ -698,7 +1062,6 @@ body.light-mode .repo-item {
   outline: 2px solid #00ffa3;
   outline-offset: 2px;
 }
-
 
 /* Active / Pressed */
 .contributor-card:active {
@@ -713,7 +1076,9 @@ body.light-mode .repo-item {
   object-fit: cover;
   margin-bottom: 8px;
   border: 3px solid transparent;
-  transition: transform 0.3s ease, border-color 0.3s ease,
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 
@@ -734,7 +1099,6 @@ body.light-mode .repo-item {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 /* Stats and hierarchy */
 .contributor-card .github-stats {
@@ -772,7 +1136,6 @@ body.light-mode .repo-item {
   transform: scale(1.06);
 }
 
-
 /* Contribution graph */
 .contributor-card .contribution-section {
   margin-top: 18px;
@@ -782,12 +1145,10 @@ body.light-mode .repo-item {
   background: rgba(0, 0, 0, 0.02);
 }
 
-
 /* Links */
 .contributor-card .recent-repos .repo-list a {
   color: #00ffa3;
 }
-
 
 /* Responsive */
 @media (max-width: 640px) {
@@ -818,7 +1179,6 @@ body.light-mode .repo-item {
   }
 }
 
-
 /* Entrance animation */
 @keyframes fadeInUp {
   from {
@@ -836,10 +1196,8 @@ body.light-mode .repo-item {
   animation: fadeInUp 0.6s ease-out both;
 }
 
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-
   .contributor-card,
   .contributor-card img,
   .stat-value {
@@ -849,7 +1207,6 @@ body.light-mode .repo-item {
     animation: none !important;
   }
 }
-
 
 /* Base Badge Style */
 .cont-commits-badge {
@@ -861,7 +1218,6 @@ body.light-mode .repo-item {
   font-weight: 600;
   transition: all 0.3s ease;
 }
-
 
 /* --- SHINING ANIMATION --- */
 @keyframes shine-effect {
@@ -907,7 +1263,6 @@ body.light-mode .repo-item {
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
-
 /* --- SILVER LEAGUE --- */
 .contributor-card.tier-silver {
   border: 2px solid #c0c0c0;
@@ -930,7 +1285,6 @@ body.light-mode .repo-item {
   text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
 }
 
-
 /* Silver Badge - Black Text */
 .contributor-card.tier-silver .cont-commits-badge {
   background: linear-gradient(90deg, #c0c0c0, #ffffff, #c0c0c0);
@@ -942,7 +1296,6 @@ body.light-mode .repo-item {
   animation: shine-effect 3s linear infinite;
   box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
 }
-
 
 /* --- BRONZE LEAGUE --- */
 .contributor-card.tier-bronze {
@@ -965,7 +1318,6 @@ body.light-mode .repo-item {
   color: #cd7f32;
 }
 
-
 /* Bronze Badge - Black Text */
 .contributor-card.tier-bronze .cont-commits-badge {
   background: linear-gradient(90deg, #cd7f32, #ffdab9, #cd7f32);
@@ -978,7 +1330,6 @@ body.light-mode .repo-item {
   box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
 }
 
-
 /* --- DEFAULT CONTRIBUTOR (Normal) --- */
 .contributor-card.tier-contributor {
   border: 1px solid var(--border-color);
@@ -989,12 +1340,12 @@ body.light-mode .repo-item {
   box-shadow: var(--shadow);
 }
 
-
 /* Default Badge - Normal Text */
 .contributor-card.tier-contributor .cont-commits-badge {
   color: var(--text-secondary);
   background: rgba(0, 170, 255, 0.1);
 }
+
 .modal-container.tier-gold {
   border: 2px solid #ffd700;
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
@@ -1021,7 +1372,6 @@ body.light-mode .repo-item {
   border-color: #ffd700;
   color: #ffd700;
 }
-
 
 /* --- SILVER MODAL THEME --- */
 .modal-container.tier-silver {
@@ -1051,7 +1401,6 @@ body.light-mode .repo-item {
   color: #c0c0c0;
 }
 
-
 /* --- BRONZE MODAL THEME --- */
 .modal-container.tier-bronze {
   border: 2px solid #cd7f32;
@@ -1078,48 +1427,6 @@ body.light-mode .repo-item {
 .modal-container.tier-bronze .secondary-btn:hover {
   border-color: #cd7f32;
   color: #cd7f32;
-}
-
-
-/* --- ACTIVITY LIST --- */
-.activity-container {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 60px;
-}
-
-.activity-item {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid var(--border-color);
-  gap: 15px;
-}
-
-.activity-item:last-child {
-  border-bottom: none;
-}
-
-.activity-marker {
-  width: 10px;
-  height: 10px;
-  background: var(--accent-color);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.commit-msg {
-  flex-grow: 1;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-.commit-date {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  white-space: nowrap;
 }
 
 /* --- STEPS TO CONTRIBUTE --- */
@@ -1174,7 +1481,6 @@ body.light-mode .repo-item {
   font-weight: 700;
 }
 
-
 /* Accent underline for the heading */
 .step-card h3::after {
   content: '';
@@ -1195,7 +1501,6 @@ body.light-mode .repo-item {
   margin: 0;
 }
 
-
 /* Hover/Focus states */
 .step-card:hover,
 .step-card:focus-within {
@@ -1209,7 +1514,6 @@ body.light-mode .repo-item {
   transform: translateX(-50%) scaleX(1);
 }
 
-
 /* Sweeping shine effect */
 .step-card::before {
   content: '';
@@ -1218,10 +1522,12 @@ body.light-mode .repo-item {
   left: -150%;
   width: 120%;
   height: 200%;
-  background: linear-gradient(120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.08) 50%,
-      transparent 100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
   transform: rotate(20deg);
   pointer-events: none;
   opacity: 0;
@@ -1231,7 +1537,6 @@ body.light-mode .repo-item {
   animation: shine-sweep 0.9s ease forwards;
   opacity: 1;
 }
-
 
 /* Subtle inner highlight on hover */
 .step-card:hover::after,
@@ -1243,7 +1548,6 @@ body.light-mode .repo-item {
   box-shadow: inset 0 0 0 1px var(--accent-color);
   pointer-events: none;
 }
-
 
 /* Staggered entrance for multiple cards */
 .steps-grid .step-card:nth-child(1) {
@@ -1261,7 +1565,6 @@ body.light-mode .repo-item {
 .steps-grid .step-card:nth-child(4) {
   animation-delay: 0.24s;
 }
-
 
 /* Keyframes */
 @keyframes step-card-rise {
@@ -1287,7 +1590,6 @@ body.light-mode .repo-item {
 }
 
 @keyframes icon-float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -1297,7 +1599,6 @@ body.light-mode .repo-item {
     transform: translateY(-6px);
   }
 }
-
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
@@ -1314,7 +1615,6 @@ body.light-mode .repo-item {
     animation: none !important;
   }
 }
-
 
 /* --- MODAL BASE --- */
 .modal-overlay {
@@ -1487,7 +1787,6 @@ body.light-mode .repo-item {
   cursor: not-allowed;
 }
 
-
 /* UTILS */
 .mt-large {
   margin-top: 60px;
@@ -1504,8 +1803,7 @@ body.light-mode .repo-item {
   gap: 12px;
   margin: 16px 0;
   padding: 16px;
-  background: linear-gradient(135deg, rgba(0, 255, 163, 0.05),
-      rgba(0, 204, 255, 0.05));
+  background: linear-gradient(135deg, rgba(0, 255, 163, 0.05), rgba(0, 204, 255, 0.05));
   border-radius: 12px;
   border: 1px solid rgba(0, 255, 163, 0.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -1526,7 +1824,9 @@ body.light-mode .repo-item {
   padding: 12px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
 .stat-item:hover {
@@ -1559,7 +1859,6 @@ body.light-mode .repo-item {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     background: rgba(255, 255, 255, 0.05);
@@ -1691,12 +1990,6 @@ body.dark-mode .repo-item {
 }
 
 @media (min-width: 1445px) and (max-width: 2560px) {
-  .contributors-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    padding: 0 32px;
-  }
-
   .contributors-section {
     padding: 50px 32px;
   }
@@ -1725,12 +2018,6 @@ body.dark-mode .repo-item {
 }
 
 @media (min-width: 769px) and (max-width: 1027px) {
-  .contributors-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 0 32px;
-  }
-
   .contributors-section {
     padding: 50px 32px;
   }
@@ -1746,12 +2033,6 @@ body.dark-mode .repo-item {
     padding: 42px 20px;
   }
 
-  .contributors-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 18px;
-    padding: 0 18px;
-  }
-
   .contributor-card {
     padding: 18px;
   }
@@ -1765,12 +2046,6 @@ body.dark-mode .repo-item {
 @media (max-width: 480px) {
   .contributors-section {
     padding: 32px 12px;
-  }
-
-  .contributors-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 0 12px;
   }
 
   .contributor-card {
@@ -1894,7 +2169,9 @@ body.dark-mode .calendar .contrib-legend .legend {
   text-decoration: none;
   line-height: 1.2;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease,
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
     transform 0.15s ease;
 }
 
@@ -1906,22 +2183,22 @@ body.dark-mode .calendar .contrib-legend .legend {
   outline: none;
 }
 
-.contribution-section .github-calendar a[href*="contributions-year-list"],
-.contribution-section .github-calendar a[href*="how-we-count-contributions"] {
+.contribution-section .github-calendar a[href*='contributions-year-list'],
+.contribution-section .github-calendar a[href*='how-we-count-contributions'] {
   background: #2563eb;
   border-color: #2563eb;
   color: #f9fafb;
   font-weight: 600;
 }
 
-.contribution-section .github-calendar a[href*="contributions-year-list"]:hover,
-.contribution-section .github-calendar a[href*="how-we-count-contributions"]:hover {
+.contribution-section .github-calendar a[href*='contributions-year-list']:hover,
+.contribution-section .github-calendar a[href*='how-we-count-contributions']:hover {
   background: #1d4ed8;
   border-color: #1d4ed8;
 }
 
-.contribution-section .github-calendar a[href*="Less"],
-.contribution-section .github-calendar a[href*="More"] {
+.contribution-section .github-calendar a[href*='Less'],
+.contribution-section .github-calendar a[href*='More'] {
   display: none !important;
 }
 
@@ -1937,8 +2214,8 @@ body.dark-mode .calendar .contrib-legend .legend {
   text-decoration: none;
 }
 
-.contribution-section a[href*="Less"],
-.contribution-section a[href*="More"] {
+.contribution-section a[href*='Less'],
+.contribution-section a[href*='More'] {
   display: none !important;
 }
 
@@ -2074,14 +2351,6 @@ body.dark-mode .calendar .contrib-legend .legend {
   top: 15%;
 }
 
-.roadmap-step:hover {
-  transform: translateY(-15px) scale(1.05);
-  z-index: 20;
-}
-
-.roadmap-step:nth-child(4):hover {
-  transform: translateX(-50%) translateY(-15px) scale(1.05);
-}
 
 /* Step Node - Circular markers */
 .step-node {
@@ -2100,7 +2369,9 @@ body.dark-mode .calendar .contrib-legend .legend {
 }
 
 .roadmap-step:hover .step-node {
-  box-shadow: 0 12px 40px rgba(0, 217, 255, 0.7), 0 0 30px rgba(0, 255, 255, 0.5);
+  box-shadow:
+    0 12px 40px rgba(0, 217, 255, 0.7),
+    0 0 30px rgba(0, 255, 255, 0.5);
   border-color: #00ffff;
   transform: scale(1.15) rotate(8deg);
   background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
@@ -2140,7 +2411,6 @@ body.dark-mode .calendar .contrib-legend .legend {
 }
 
 @keyframes icon-bounce {
-
   0%,
   100% {
     transform: translateY(0);
@@ -2312,111 +2582,6 @@ body.dark-mode .calendar .contrib-legend .legend {
   transform: translateX(-50%);
 }
 
-.activity-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  border-radius: 12px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid transparent;
-  opacity: 0;
-  transform: translateX(-30px);
-  animation: slideFadeIn 0.5s forwards;
-  animation-delay: 0.2s; /* will override per item */
-}
-
-/* Slide & fade-in animation */
-@keyframes slideFadeIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Staggered animation using JS (optional) */
-.activity-item:nth-child(1) { animation-delay: 0.1s; }
-.activity-item:nth-child(2) { animation-delay: 0.25s; }
-.activity-item:nth-child(3) { animation-delay: 0.4s; }
-
-/* Hover effect */
-.activity-item:hover {
-  border-color: var(--accent-color);
-  transform: translateX(12px) translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.12);
-  background: rgba(0, 217, 255, 0.05);
-}
-
-/* Marker / Bullet styling */
-.activity-marker.bullet {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: var(--accent-color);
-  margin-right: 14px;
-  flex-shrink: 0;
-  transition: all 0.35s ease;
-  box-shadow: 0 0 6px rgba(0, 217, 255, 0.3);
-}
-
-/* Marker pulse on hover */
-.activity-item:hover .bullet {
-  transform: scale(1.5);
-  box-shadow: 0 0 12px rgba(0, 217, 255, 0.6), 0 0 20px rgba(0, 217, 255, 0.3);
-}
-
-/* Commit message micro bounce on hover */
-.activity-item:hover .commit-msg {
-  transform: translateY(-2px);
-  transition: transform 0.25s ease;
-}
-
-/* Commit date subtle fade on hover */
-.activity-item:hover .commit-date {
-  color: var(--accent-color);
-  transition: color 0.25s ease;
-}
-
-/* RESPONSIVENESS */
-@media (max-width: 1000px) {
-  .activity-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-
-@keyframes pulse-dot {
-  0%, 100% {
-    opacity: 0.5;
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.6);
-  }
-}
-
-/* ---------- Step Number ---------- */
-.step-number {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  color: #fff;
-  border-radius: 50%;
-  font-weight: 800;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-}
-
 /* ---------- Icon ---------- */
 .step-icon {
   font-size: 2rem;
@@ -2569,144 +2734,150 @@ body.dark-mode .calendar .contrib-legend .legend {
   .roadmap-step:hover {
     transform: none !important;
   }
+.roadmap-step:hover {
+  transform: none !important;
+}
 
-/* Activity Feed Container */
+/* FORCE FULL WIDTH FOR CONTRIBUTORS PAGE */
+.main-content,
+.page-transition-wrapper,
+.contributors-section {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* ===============================
+   ACTIVITY FEED 
+================================ */
+
+/* Container */
 #activity-list {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* spacing between items */
-
+  gap: 16px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Activity Item Card */
-.activity-item {
+/* Card */
+#activity-list .activity-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  gap: 16px;
+
+  padding: 18px 24px;
   border-radius: 14px;
-  background-color: #ffffff; /* white theme */
-  border: 1px solid #e5e7eb; /* subtle border */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+
+  /* animation */
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(-30px);
   animation: slideFadeIn 0.5s forwards;
 }
 
-/* Slide & fade-in */
+/* Slide animation */
 @keyframes slideFadeIn {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
-/* Staggered animation */
+/* Stagger */
 .activity-item:nth-child(1) { animation-delay: 0.1s; }
 .activity-item:nth-child(2) { animation-delay: 0.25s; }
 .activity-item:nth-child(3) { animation-delay: 0.4s; }
 
-/* Hover effect */
+/* Hover */
 .activity-item:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  border-color: #3b82f6;
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* Marker / Bullet */
-.activity-marker.bullet {
+/* Bullet */
+.activity-marker {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: #3b82f6; /* blue accent */
-  margin-right: 14px;
+  background: var(--accent-color);
   flex-shrink: 0;
-  transition: all 0.35s ease;
-  box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
 }
 
-/* Marker pulse on hover */
-.activity-item:hover .bullet {
-  transform: scale(1.5);
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
-}
-
-/* Commit Message */
+/* Commit message */
 .commit-msg {
   flex: 1;
   margin-right: 16px;
-  color: #111827;
+  color: var(--text-primary);
+  font-size: 0.95rem;
   font-weight: 500;
   transition: transform 0.25s ease;
 }
 
-/* User name accent */
+/* Username */
 .user-name {
-  color: #3b82f6;
+  color: var(--accent-color);
   font-weight: 600;
 }
 
-[data-theme="dark"] {
-  --activity-bg: #1f2937;          /* dark card background */
-  --activity-border: #374151;      /* dark border */
-  --activity-shadow: rgba(0, 0, 0, 0.4); /* stronger shadow */
-  --activity-text: #f9fafb;        /* main text */
-  --activity-text-secondary: #9ca3af; /* secondary text/date */
-  --activity-accent: #3b82f6;      /* accent color */
+/* Date */
+.commit-date {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  transition: color 0.25s ease;
 }
 
-/* Micro-bounce on hover */
+/* Hover effects */
 .activity-item:hover .commit-msg {
   transform: translateY(-2px);
 }
 
-/* Commit date */
-.commit-date {
-  color: #6b7280;
-  font-size: 0.875rem;
-  transition: color 0.25s ease;
-}
-
-/* Highlight date on hover */
 .activity-item:hover .commit-date {
-  color: #3b82f6;
+  color: var(--accent-color);
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-  #activity-list {
-    padding: 12px;
-  }
+/* Container wrapper */
+.activity-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 60px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
   .activity-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
-  }
-  .commit-date {
-    font-size: 0.8rem;
+    gap: 8px;
   }
 }
 
+
+/* ===============================
+   DARK THEME OVERRIDES
+==================================*/
 [data-theme="dark"] #activity-list .activity-item {
-  background-color: var(--activity-bg);
-  border: 1px solid var(--activity-border);
-  box-shadow: 0 4px 12px var(--activity-shadow);
-  color: var(--activity-text);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
 }
 
 [data-theme="dark"] #activity-list .activity-item:hover {
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  border-color: var(--activity-accent);
-  background-color: #111827; /* slightly darker hover */
 }
 
-[data-theme="dark"] #activity-list .activity-marker.bullet {
-  background-color: var(--activity-accent);
+[data-theme="dark"] #activity-list .activity-marker {
   box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
 }
 
@@ -2759,7 +2930,6 @@ body.dark-mode .calendar .contrib-legend .legend {
 
 /* =========================
    Recent Activity Enhancement
-========================= */
 
 .activity-header {
   display: flex;
@@ -2848,4 +3018,21 @@ body.dark-mode .calendar .contrib-legend .legend {
   outline: none;
   border-color: #4f9cff;
   box-shadow: 0 0 0 2px rgba(79, 156, 255, 0.15);
+
+/* FORCE FULL WIDTH FOR CONTRIBUTORS PAGE */
+.main-content,
+.page-transition-wrapper,
+.contributors-section {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* This targets the specific middle step and forces it to stay put */
+.roadmap-container .roadmap-step:nth-child(4):hover {
+  transform: translateX(-50%) !important;
+}
+
+/* This stops the other steps from moving */
+.roadmap-container .roadmap-step:hover {
+  transform: translateY(0) !important;
 }

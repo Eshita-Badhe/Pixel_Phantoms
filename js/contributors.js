@@ -47,6 +47,7 @@ async function initData() {
 
     processData(repoData, rawContributors, rawPulls, totalCommits);
     fetchRecentActivity(); // Only fetch real activity if main data worked
+    fetchGlobalActivity(); // NEW: Fetch project heatmap
   } catch (error) {
     console.warn('⚠️ API Request Failed. Switching to Mock Data Mode.', error);
     loadMockData(); // <--- THIS SAVES THE PAGE FROM CRASHING
@@ -144,6 +145,9 @@ function loadMockData() {
   originalContributorsData = [...contributorsData]; // ⭐ ADD THIS
 setupSorting(); // ⭐ ADD THIS
 renderContributors(1);
+
+  // 4. Global Activity Heatmap (Mock)
+  loadMockHeatmap();
 
   // 4. Mock Activity Feed
   const activityList = document.getElementById('activity-list');
@@ -268,6 +272,305 @@ setupSorting();
 renderContributors(1);
 }
 
+// =========================================================
+// GLOBAL PROJECT ACTIVITY HEATMAP
+// =========================================================
+
+/**
+ * Fetch Repository-wide commit activity for the heatmap
+ */
+async function fetchGlobalActivity() {
+  const gridContainer = document.getElementById('heatmap-grid');
+  const statsLabel = document.getElementById('heatmap-stats');
+
+  try {
+    // 1. Fetch Repository-wide weekly commit activity
+    let response = await fetch(`${API_BASE}/stats/commit_activity`);
+
+    // GitHub returns 202 if stats aren't cached. We retry once.
+    if (response.status === 202) {
+      console.log('🔄 Mainframe activity data generating. Retrying calculation...');
+      await new Promise(r => setTimeout(r, 1500));
+      response = await fetch(`${API_BASE}/stats/commit_activity`);
+    }
+
+    if (!response.ok) throw new Error('Primary pulse telemetry failed.');
+
+    const data = await response.json();
+
+    // Check if data is empty or empty array (can happen if repo is small or new)
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      throw new Error('Telemetry stream empty. Falling back to participation index.');
+    }
+
+    renderHeatmap(data);
+
+    const totalYearly = data.reduce((acc, week) => acc + week.total, 0);
+    if (statsLabel)
+      statsLabel.textContent = `Collective System Pulse: ${totalYearly} contributions detected in the last solar year.`;
+  } catch (error) {
+    console.warn('Primary Pulse Failed. Attempting Backup Participation Stream...', error);
+
+    try {
+      // BACKUP: Fetch participation stats (last 52 weeks of commit counts)
+      // This endpoint is often more reliable than commit_activity for small repos
+      const partRes = await fetch(`${API_BASE}/stats/participation`);
+      if (!partRes.ok) throw new Error('Backup telemetry failed.');
+
+      const partData = await partRes.json();
+      if (!partData.all || !Array.isArray(partData.all))
+        throw new Error('Invalid participation data.');
+
+      // Transform participation data with realistic daily distribution
+      // GitHub's heatmap aligns weeks to start on Sunday
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Find the most recent Sunday (or today if it's Sunday)
+      const dayOfWeek = today.getDay(); // 0 = Sunday
+      const mostRecentSunday = new Date(today);
+      mostRecentSunday.setDate(today.getDate() - dayOfWeek);
+
+      // Calculate the Sunday 51 weeks before (52 weeks total including current)
+      const startSunday = new Date(mostRecentSunday);
+      startSunday.setDate(mostRecentSunday.getDate() - 51 * 7);
+
+      const transformedData = partData.all.map((count, i) => {
+        // Calculate this week's Sunday
+        const weekStart = new Date(startSunday);
+        weekStart.setDate(startSunday.getDate() + i * 7);
+        const weekTimestamp = Math.floor(weekStart.getTime() / 1000);
+
+        // Distribute weekly commits across days with realistic weekday weighting
+        const days = [0, 0, 0, 0, 0, 0, 0]; // Sun-Sat
+        let remaining = count;
+
+        if (count > 0) {
+          // Weight pattern: lower on weekends, higher mid-week (Tue-Thu)
+          const weights = [1, 2, 4, 4, 4, 3, 1]; // Sun, Mon, Tue, Wed, Thu, Fri, Sat
+          const totalWeight = weights.reduce((a, b) => a + b, 0);
+
+          for (let d = 0; d < 7; d++) {
+            if (d === 6) {
+              // Last day gets remainder to ensure total matches
+              days[d] = remaining;
+            } else {
+              const share = Math.round((weights[d] / totalWeight) * count);
+              const actual = Math.min(share, remaining);
+              days[d] = actual;
+              remaining -= actual;
+            }
+          }
+        }
+
+        return {
+          week: weekTimestamp,
+          total: count,
+          days: days,
+        };
+      });
+
+      renderHeatmap(transformedData);
+
+      const totalPart = partData.all.reduce((a, b) => a + b, 0);
+      if (statsLabel)
+        statsLabel.textContent = `Collective System Pulse: ${totalPart} commits detected via Participation Index.`;
+    } catch (innerError) {
+      console.error('All Telemetry Streams Offline. Activating Simulated Mode.', innerError);
+      loadMockHeatmap();
+    }
+  }
+}
+
+/**
+ * Render the heatmap grid based on GitHub stats data
+ * @param {Array} data - Array of 52 weeks, each with 'total' and 'days'
+ */
+function renderHeatmap(data) {
+  const grid = document.getElementById('heatmap-grid');
+  const monthContainer = document.getElementById('heatmap-months');
+  if (!grid) return;
+  grid.innerHTML = '';
+  if (monthContainer) monthContainer.innerHTML = '';
+
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+
+  let columnIndex = 0;
+  const seenMonths = new Set(); // Track to avoid duplicates
+
+  // Build grid and calculate month positions
+  data.forEach((week, weekIndex) => {
+    const column = document.createElement('div');
+    column.className = 'heatmap-column';
+    let hasValidCells = false;
+
+    // Get the Sunday that starts this week
+    const weekStartDate = new Date(week.week * 1000);
+    const monthKey = `${weekStartDate.getFullYear()}-${weekStartDate.getMonth()}`;
+    const monthName = weekStartDate.toLocaleDateString('en-US', { month: 'short' });
+
+    // Place month label when we see a new month (avoid duplicates)
+    if (!seenMonths.has(monthKey) && monthContainer) {
+      const monthLabel = document.createElement('span');
+      monthLabel.className = 'heatmap-month-label';
+      monthLabel.style.position = 'absolute';
+      // CORRECT CALCULATION: 14px cell + 4px gap = 18px per column
+      monthLabel.style.left = `${columnIndex * 18}px`;
+      monthLabel.textContent = monthName;
+      monthContainer.appendChild(monthLabel);
+
+      seenMonths.add(monthKey);
+      console.log(
+        `📌 "${monthName}" at column ${columnIndex} (${columnIndex * 18}px) for ${weekStartDate.toDateString()}`
+      );
+    }
+
+    week.days.forEach((count, dayIndex) => {
+      const cellDate = new Date(weekStartDate);
+      cellDate.setDate(weekStartDate.getDate() + dayIndex);
+
+      // Skip future dates
+      if (cellDate > today) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'heatmap-cell level-0 future-cell';
+        emptyCell.style.opacity = '0.2';
+        column.appendChild(emptyCell);
+        return;
+      }
+
+      hasValidCells = true;
+      const cell = document.createElement('div');
+
+      // Activity level calculation
+      let level = 0;
+      if (count > 0 && count <= 3) level = 1;
+      else if (count > 3 && count <= 6) level = 2;
+      else if (count > 6 && count <= 9) level = 3;
+      else if (count > 9) level = 4;
+
+      cell.className = `heatmap-cell level-${level}`;
+
+      const dateStr = cellDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+
+      cell.setAttribute(
+        'data-tooltip',
+        `${count} ${count === 1 ? 'contribution' : 'contributions'} on ${dateStr}`
+      );
+      cell.setAttribute('data-date', cellDate.toISOString().split('T')[0]);
+
+      column.appendChild(cell);
+    });
+
+    if (hasValidCells) {
+      grid.appendChild(column);
+      columnIndex++;
+    }
+  });
+
+  // Debug: Log the date range and positioning
+  if (data.length > 0) {
+    const firstWeek = new Date(data[0].week * 1000);
+    const lastWeek = new Date(data[data.length - 1].week * 1000);
+    console.log(`📅 Heatmap spans: ${firstWeek.toDateString()} to ${lastWeek.toDateString()}`);
+    console.log(`📊 Total columns: ${columnIndex}, Grid width should be: ${columnIndex * 18}px`);
+  }
+
+  // Set month container width to match grid (no auto-scroll)
+  if (monthContainer && grid) {
+    monthContainer.style.width = `${columnIndex * 18}px`;
+  }
+}
+
+/**
+ * Fallback: Load a simulated heatmap for Demo Mode
+ */
+function loadMockHeatmap() {
+  const mockData = [];
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+
+  console.log('🎯 Mock Heatmap - Today is:', today.toDateString());
+
+  // Find the most recent Sunday (GitHub weeks start on Sunday)
+  const dayOfWeek = today.getDay(); // 0 = Sunday
+  const mostRecentSunday = new Date(today);
+  mostRecentSunday.setDate(today.getDate() - dayOfWeek);
+  mostRecentSunday.setHours(0, 0, 0, 0);
+
+  console.log('🎯 Most recent Sunday:', mostRecentSunday.toDateString());
+
+  // Create 52 weeks of semi-random activity, starting 51 weeks ago
+  for (let i = 51; i >= 0; i--) {
+    const weekStart = new Date(mostRecentSunday);
+    weekStart.setDate(mostRecentSunday.getDate() - i * 7);
+    const weekTimestamp = Math.floor(weekStart.getTime() / 1000);
+
+    const days = [];
+    let weeklyTotal = 0;
+
+    console.log(
+      `Week ${52 - i}: ${weekStart.toDateString()} (${weekStart.getMonth() + 1}/${weekStart.getDate()})`
+    );
+
+    for (let d = 0; d < 7; d++) {
+      const currentDate = new Date(weekStart);
+      currentDate.setDate(weekStart.getDate() + d);
+
+      // Don't generate activity for future dates
+      if (currentDate > today) {
+        days.push(0);
+        continue;
+      }
+
+      // Simulate higher activity on weekdays, lower on weekends
+      const isWeekend = d === 0 || d === 6; // Sunday or Saturday
+      let count;
+
+      if (isWeekend) {
+        count = Math.floor(Math.random() * 4); // 0-3 for weekends
+      } else {
+        count = Math.floor(Math.random() * 10); // 0-9 for weekdays
+      }
+
+      // Add occasional "burst days" of high activity
+      if (Math.random() > 0.92) count += Math.floor(Math.random() * 15) + 5;
+
+      // Add some completely quiet days
+      if (Math.random() > 0.85) count = 0;
+
+      days.push(count);
+      weeklyTotal += count;
+    }
+
+    mockData.push({
+      week: weekTimestamp,
+      total: weeklyTotal,
+      days: days,
+    });
+  }
+
+  console.log('🎯 Mock data generated:', {
+    totalWeeks: mockData.length,
+    firstWeek: new Date(mockData[0].week * 1000).toDateString(),
+    lastWeek: new Date(mockData[mockData.length - 1].week * 1000).toDateString(),
+    sampleWeek: mockData[20] ? new Date(mockData[20].week * 1000).toDateString() : 'N/A',
+  });
+
+  renderHeatmap(mockData);
+
+  const totalContributions = mockData.reduce((sum, week) => sum + week.total, 0);
+  const statsLabel = document.getElementById('heatmap-stats');
+  if (statsLabel) {
+    statsLabel.textContent = `Collective System Pulse: ~${totalContributions} contributions detected in the last solar year (Simulated).`;
+  }
+}
+
 function updateGlobalStats(count, prs, points, stars, forks, commits) {
   const set = (id, val) => {
     const valueEl = document.getElementById(id);
@@ -314,7 +617,6 @@ function getLeagueData(points) {
     label: 'Contributor',
   };
 }
-
 
 // 3. Rectified Rendering (Forces "Elite" Layout)
 function renderContributors(page) {
@@ -507,6 +809,9 @@ async function fetchRecentActivity() {
   activityList.appendChild(row);
 });
     }
+  } catch (error) {
+    console.log('Activity feed unavailable');
+  }
   } catch (error) { console.log('Activity feed unavailable'); }
 }
 
@@ -578,6 +883,20 @@ async function fetchGitHubStats(username) {
       avatar_url: userData.avatar_url || '',
       bio: userData.bio || '',
       name: userData.name || username,
+      html_url: userData.html_url || `https://github.com/${username}`,
+    };
+
+    // Cache the result
+    localStorage.setItem(
+      cacheKey,
+      JSON.stringify({
+        data: stats,
+        timestamp: Date.now(),
+      })
+    );
+
+    console.log(`✅ Fetched fresh stats for ${username}:`, stats);
+    return stats;
       html_url: userData.html_url || `https://github.com/${username}`
     };
 
@@ -645,6 +964,22 @@ async function fetchRecentRepos(username) {
       }
       return [];
     }
+    }
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${username}/repos?sort=updated&per_page=3`
+    );
+
+    // Handle rate limiting
+    if (response.status === 403) {
+      if (cached) {
+        const { data } = JSON.parse(cached);
+        return data;
+      }
+      return [];
+    }
 
     if (!response.ok) {
       return [];
@@ -659,6 +994,19 @@ async function fetchRecentRepos(username) {
       stars: repo.stargazers_count || 0,
       language: repo.language || 'Unknown',
       html_url: repo.html_url,
+      updated_at: repo.updated_at,
+    }));
+
+    // Cache the result
+    localStorage.setItem(
+      cacheKey,
+      JSON.stringify({
+        data: repoData,
+        timestamp: Date.now(),
+      })
+    );
+
+    return repoData;
       updated_at: repo.updated_at
     }));
 
@@ -727,6 +1075,7 @@ async function displayGitHubStats(card, username) {
   // Fetch stats and repos in parallel
   const [stats, repos] = await Promise.all([
     fetchGitHubStats(username),
+    fetchRecentRepos(username),
     fetchRecentRepos(username)
   ]);
 
@@ -763,7 +1112,9 @@ async function displayGitHubStats(card, username) {
   if (repos && repos.length > 0 && reposContainer) {
     const repoList = reposContainer.querySelector('.repo-list');
     if (repoList) {
-      repoList.innerHTML = repos.map(repo => `
+      repoList.innerHTML = repos
+        .map(
+          repo => `
                 <div class="repo-item">
                     <div class="repo-info">
                         <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
@@ -776,12 +1127,20 @@ async function displayGitHubStats(card, username) {
                         <span class="repo-stars">⭐ ${repo.stars}</span>
                     </div>
                 </div>
-            `).join('');
+            `
+        )
+        .join('');
     }
   } else if (reposContainer) {
     const repoList = reposContainer.querySelector('.repo-list');
     if (repoList) {
-      repoList.innerHTML = '<p class="no-repos">No recent projects</p>';
+      repoList.innerHTML = `
+                <div class="repo-empty-state">
+                    <i class="fas fa-folder-open"></i>
+                    <p>No public archives found</p>
+                    <span>This agent hasn't shared any public repositories yet.</span>
+                </div>
+            `;
     }
   }
 }
@@ -799,7 +1158,6 @@ function initializeGitHubCalendars() {
     setTimeout(initializeGitHubCalendars, 500);
     return;
   }
-
 
   // Find all calendar containers
   const calendarElements = document.querySelectorAll('.github-calendar[data-username]');
@@ -823,7 +1181,7 @@ function initializeGitHubCalendars() {
         responsive: true,
         summary_text: '',
         global_stats: false,
-        tooltips: true
+        tooltips: true,
       });
       console.log(`✅ Loaded contribution calendar for ${username}`);
     } catch (error) {
