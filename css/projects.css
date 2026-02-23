@@ -1782,3 +1782,50 @@ input:checked + .slider:before {
     margin: 0 auto; /* Center cards */
   }
 }
+/* --- COMMUNITY SHOWCASE UI REFINEMENTS --- */
+
+/* 1. Light Mode Card Visibility */
+.hacker-theme.light-mode .showcase-card {
+    background: rgba(240, 240, 245, 0.9);
+    border: 1px dashed #333 !important; /* Darker border for light mode */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hacker-theme.light-mode .showcase-card h3 {
+    color: #1a1a1a; /* Darker title */
+}
+
+.hacker-theme.light-mode .showcase-card p {
+    color: #4a4a4a;
+}
+
+/* 2. Button Text Visibility Fix (Dark & Light) */
+.showcase-card .btn-terminal {
+    color: var(--text-primary) !important;
+    border: 1px solid var(--accent-color);
+    background: rgba(var(--accent-rgb), 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Ensure icons and text are white/bright in Dark Mode */
+.hacker-theme .showcase-card .btn-terminal {
+    color: #ffffff !important;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.showcase-card .btn-terminal:hover {
+    background: var(--accent-color);
+    color: #000 !important; /* Contrast text on hover */
+    text-shadow: none;
+}
+
+/* 3. Execute Demo Button (The Neon Highlight) */
+.showcase-card .btn-cyber {
+    background: var(--accent-color);
+    color: #000 !important;
+    font-weight: 800;
+}
+
+.hacker-theme.light-mode .showcase-card .btn-cyber {
+    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.4);
+}
