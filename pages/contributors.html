@@ -173,6 +173,28 @@
       aria-label="Search contributors"
     />
   </div>
+ <h2 id="top-contributors">Top Contributors</h2>
+
+<!-- 🔽 SORT + SEARCH CONTROLS -->
+<div class="contributors-search-wrapper" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+
+  <!-- Sorting Dropdown -->
+  <select id="contributors-sort" aria-label="Sort contributors">
+    <option value="default">Sort: Default</option>
+    <option value="points">Points (High → Low)</option>
+    <option value="prs">PRs (High → Low)</option>
+    <option value="repos">Repositories (High → Low)</option>
+    <option value="followers">Followers (High → Low)</option>
+  </select>
+
+  <!-- Existing Search (UNCHANGED) -->
+  <input
+    type="text"
+    id="contributors-search"
+    placeholder="Search contributors by name or username..."
+    aria-label="Search contributors"
+  />
+</div>
 
   <div class="contributors-grid" id="contributors-grid" role="list" aria-label="Top contributors"
     aria-live="polite"></div>
@@ -219,6 +241,26 @@
                   <path class="road-path" d="M 0 60 Q 150 20, 300 60 T 600 60 Q 750 100, 900 60 T 1200 60" />
                   <path class="road-dashes" d="M 0 60 Q 150 20, 300 60 T 600 60 Q 750 100, 900 60 T 1200 60" />
                 </svg>
+  <h2 id="top-contributors">Top Contributors</h2>
+
+  <!-- 🔍 Search Bar (VISIBLE FIX) --> 
+  <!-- 🔍 Search Bar (ADDED - does not affect existing layout) -->
+  <div class="contributors-search-wrapper">
+    <input
+      type="text"
+      id="contributors-search"
+      placeholder="Search contributors by name or username..."
+      aria-label="Search contributors"
+    />
+  </div>
+
+  <div class="contributors-grid" id="contributors-grid" role="list" aria-label="Top contributors"
+    aria-live="polite"></div>
+
+  <div id="pagination-controls" class="pagination-container"></div>
+</section>
+          <div id="pagination-controls" class="pagination-container"></div>
+        </section>
               <div class="contribution-section">
                 <h4>Contribution Activity</h4>
                 <div class="github-calendar" data-username="sayeeg-11">

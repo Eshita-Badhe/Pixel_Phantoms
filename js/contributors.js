@@ -5,6 +5,7 @@ const API_BASE = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`;
 
 // State
 let contributorsData = [];
+let originalContributorsData = []; // ⭐ ADD THIS (for default sorting restore)
 let currentPage = 1;
 const itemsPerPage = 5;
 
@@ -141,7 +142,9 @@ function loadMockData() {
     },
   ];
 
-  renderContributors(1);
+  originalContributorsData = [...contributorsData]; // ⭐ ADD THIS
+setupSorting(); // ⭐ ADD THIS
+renderContributors(1);
 
   // 4. Global Activity Heatmap (Mock)
   loadMockHeatmap();
@@ -254,14 +257,19 @@ function processData(repoData, contributors, pulls, totalCommits) {
     .sort((a, b) => b.points - a.points);
 
   updateGlobalStats(
-    contributorsData.length,
-    totalProjectPRs,
-    totalProjectPoints,
-    repoData.stargazers_count,
-    repoData.forks_count,
-    totalCommits
-  );
-  renderContributors(1);
+  contributorsData.length,
+  totalProjectPRs,
+  totalProjectPoints,
+  repoData.stargazers_count,
+  repoData.forks_count,
+  totalCommits
+);
+
+// ⭐ ADD THESE 2 LINES (CRITICAL)
+originalContributorsData = [...contributorsData];
+setupSorting();
+
+renderContributors(1);
 }
 
 // =========================================================
@@ -1272,5 +1280,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+/* =========================
+   Contributors Sorting Logic (Safe)
+function setupSorting() {
+  const sortSelect = document.getElementById("contributors-sort");
+
+  // If dropdown not present, safely exit
+  if (!sortSelect) return;
+
+  sortSelect.addEventListener("change", () => {
+    // Prevent sorting before data loads
+    if (!contributorsData || contributorsData.length === 0) return;
+
+    const value = sortSelect.value;
+
+    // Restore original order
+    if (value === "default") {
+      contributorsData = [...originalContributorsData];
+    }
+
+    // Sort by Points (High → Low)
+    else if (value === "points") {
+      contributorsData.sort((a, b) => (b.points || 0) - (a.points || 0));
+    }
+
+    // Sort by PRs (High → Low)
+    else if (value === "prs") {
+      contributorsData.sort((a, b) => (b.prs || 0) - (a.prs || 0));
+    }
+
+    // Sort by Contributions (fallback metric)
+    else if (value === "contributions") {
+      contributorsData.sort((a, b) => (b.contributions || 0) - (a.contributions || 0));
+    }
+
+    // Reset to page 1 after sorting
+    currentPage = 1;
+    renderContributors(1);
+
+    // Smooth scroll to contributors section
+    const section = document.getElementById("top-contributors");
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 80,
+        behavior: "smooth"
+      });
+    }
+  });
+}
 // Note: initGitHubIntegrations is now called from renderContributors()
 // This ensures it runs AFTER the cards are rendered
