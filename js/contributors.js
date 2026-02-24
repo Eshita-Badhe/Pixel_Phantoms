@@ -1283,7 +1283,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* =========================
    Contributors Sorting Logic (Safe)
-========================= */
 function setupSorting() {
   const sortSelect = document.getElementById("contributors-sort");
 
