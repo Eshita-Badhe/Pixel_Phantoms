@@ -71,8 +71,8 @@
 [data-theme='dark'] {
   --bg-primary: #0d0f14 !important;
   --text-primary: #ffffff !important;
-  background-color: #0d0f14 !important;
-  color: #ffffff !important;
+  --card-bg: #1a1d25 !important;
+  --text-secondary: #bbbbbb !important;
 }
 
 body.hacker-theme {
@@ -396,7 +396,6 @@ body.mobile-menu-open {
 }
 
 @keyframes hoverBounce {
-
   0%,
   100% {
     transform: translateY(-2px) scale(1);
@@ -734,14 +733,14 @@ body.mobile-menu-open {
   -webkit-transform: scale(1);
 }
 
-.theme-switch:checked+.theme-label .toggle-thumb {
+.theme-switch:checked + .theme-label .toggle-thumb {
   transform: translateX(33px);
   -webkit-transform: translateX(33px);
   -moz-transform: translateX(33px);
   -ms-transform: translateX(33px);
 }
 
-.theme-switch:checked+.theme-label .sun-icon {
+.theme-switch:checked + .theme-label .sun-icon {
   opacity: 1;
   transform: scale(1) rotate(360deg);
   -webkit-transform: scale(1) rotate(360deg);
@@ -749,7 +748,7 @@ body.mobile-menu-open {
   -ms-transform: scale(1) rotate(360deg);
 }
 
-.theme-switch:checked+.theme-label .moon-icon {
+.theme-switch:checked + .theme-label .moon-icon {
   opacity: 0;
   transform: scale(0.8) rotate(-360deg);
   -webkit-transform: scale(0.8) rotate(-360deg);
@@ -1308,7 +1307,6 @@ body.mobile-menu-open {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-
   .focus-card,
   .focus-card:hover,
   .focus-icon,
@@ -2319,7 +2317,6 @@ body.mobile-menu-open {
 }
 
 @media (hover: none) and (pointer: coarse) {
-
   .btn-cyber,
   .btn-primary,
   .btn-secondary,
@@ -2476,7 +2473,6 @@ body.mobile-menu-open {
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0);
@@ -2488,7 +2484,6 @@ body.mobile-menu-open {
 }
 
 @keyframes colorShift {
-
   0%,
   100% {
     filter: hue-rotate(0deg);
@@ -2500,7 +2495,6 @@ body.mobile-menu-open {
 }
 
 @keyframes shimmer {
-
   0%,
   100% {
     opacity: 1;
@@ -2536,7 +2530,6 @@ body.mobile-menu-open {
 }
 
 @keyframes blink {
-
   0%,
   100% {
     opacity: 1;
@@ -3044,7 +3037,7 @@ body.mobile-menu-open {
     animation: none !important;
   }
 
-  .theme-switch:checked+.theme-label .toggle-thumb {
+  .theme-switch:checked + .theme-label .toggle-thumb {
     transition: none !important;
     -webkit-transition: none !important;
   }
@@ -3476,7 +3469,6 @@ main:focus {
 }
 
 @media (max-width: 420px) {
-
   feedback-widget,
   feedback-widget.scrolled {
     bottom: 160px !important;
@@ -3507,7 +3499,6 @@ main:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   #feedback-panel,
   #feedback-toggle,
   #star-rating .star,
@@ -4302,22 +4293,22 @@ code,
     display: block !important;
   }
 
-  .grid>*,
-  .flex>*,
-  .bento-grid>*,
-  .hackathon-layout>*,
-  .seminar-grid>*,
-  .project-matrix>*,
-  .functional-grid>*,
-  .footer-content>*,
-  .footer-links>*,
-  .committee-grid>*,
-  .features-grid>*,
-  .roster-grid>*,
-  .comparison-charts>*,
-  .comparison-stats>*,
-  .profile-content-grid>*,
-  .discipline-track-container>* {
+  .grid > *,
+  .flex > *,
+  .bento-grid > *,
+  .hackathon-layout > *,
+  .seminar-grid > *,
+  .project-matrix > *,
+  .functional-grid > *,
+  .footer-content > *,
+  .footer-links > *,
+  .committee-grid > *,
+  .features-grid > *,
+  .roster-grid > *,
+  .comparison-charts > *,
+  .comparison-stats > *,
+  .profile-content-grid > *,
+  .discipline-track-container > * {
     width: 100% !important;
     margin-bottom: 20px !important;
     page-break-inside: avoid !important;
@@ -4421,7 +4412,6 @@ code,
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 1;
