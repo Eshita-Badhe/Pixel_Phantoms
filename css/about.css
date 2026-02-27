@@ -106,7 +106,7 @@
   transform: translateX(-50%);
   width: 110px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(233, 198, 198, 0.9);
   border-radius: 2px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
@@ -146,6 +146,7 @@
   font-style: italic;
   color: #ffffff;
   margin-bottom: 12px;
+  color: #0a84ff !important;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 

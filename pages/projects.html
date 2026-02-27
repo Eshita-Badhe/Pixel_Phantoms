@@ -160,25 +160,25 @@
             </div>
 
             <div class="filter-container">
-  <button class="btn-glitch-filter active" data-filter="all">
-    <span class="text">ALL_SYSTEMS</span><span class="decoration"></span>
-  </button>
-  <button class="btn-glitch-filter" data-filter="web">
-    <span class="text">WEB_DEV</span><span class="decoration"></span>
-  </button>
-  <button class="btn-glitch-filter" data-filter="embedded">
-    <span class="text">EMBEDDED</span><span class="decoration"></span>
-  </button>
-  <button class="btn-glitch-filter" data-filter="programming">
-    <span class="text">PROGRAMMING</span><span class="decoration"></span>
-  </button>
-  <button class="btn-glitch-filter" data-filter="design">
-    <span class="text">DESIGN_UI</span><span class="decoration"></span>
-  </button>
-  <button class="filter-mobile-toggle" id="mobile-filter-toggle">
-    <i class="fas fa-filter"></i> More Filters
-  </button>
-</div>
+              <button class="btn-glitch-filter active" data-filter="all">
+                <span class="text">ALL_SYSTEMS</span><span class="decoration"></span>
+              </button>
+              <button class="btn-glitch-filter" data-filter="web">
+                <span class="text">WEB_DEV</span><span class="decoration"></span>
+              </button>
+              <button class="btn-glitch-filter" data-filter="embedded">
+                <span class="text">EMBEDDED</span><span class="decoration"></span>
+              </button>
+              <button class="btn-glitch-filter" data-filter="programming">
+                <span class="text">PROGRAMMING</span><span class="decoration"></span>
+              </button>
+              <button class="btn-glitch-filter" data-filter="design">
+                <span class="text">DESIGN_UI</span><span class="decoration"></span>
+              </button>
+              <button class="filter-mobile-toggle" id="mobile-filter-toggle">
+                <i class="fas fa-filter"></i> More Filters
+              </button>
+            </div>
 
             <div class="filter-results" id="filter-results">
               <div class="results-count">
@@ -192,12 +192,12 @@
 
             <div class="filter-dropdown">
               <select id="mobile-filter-select">
-  <option value="all">All Projects</option>
-  <option value="web">Web Development</option>
-  <option value="embedded">Embedded Systems</option>
-  <option value="programming">Programming</option>
-  <option value="design">Design</option>
-</select>
+                <option value="all">All Projects</option>
+                <option value="web">Web Development</option>
+                <option value="embedded">Embedded Systems</option>
+                <option value="programming">Programming</option>
+                <option value="design">Design</option>
+              </select>
             </div>
           </div>
         </section>
@@ -251,13 +251,808 @@
 
               <article
                 class="cyber-card project-card"
-                data-category="programming"
+                data-category="web"
                 data-tilt
-                data-difficulty="advanced"
-                data-tech="python"
+                data-difficulty="beginner"
+                data-tech="html,css,js"
+                data-status="active"
+                data-new="true"
+                data-full-desc="A lightweight personal portfolio template showcasing work, skills and a contact form. Ideal for developers starting their web journey."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/portfolio/600/400"
+                    alt="Portfolio Site"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_002</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Portfolio_Site</h3>
+                  <p>
+                    A clean, responsive portfolio layout to highlight projects and resume
+                    information.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[HTML5]</span>
+                    <span>[CSS3]</span>
+                    <span>[JS_Core]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="javascript,react"
                 data-status="active"
                 data-new="false"
-                data-full-desc="Phantom Bot V2 is our next-gen Discord automation tool. It uses advanced NLP models to understand community intent, automate moderation, and provide real-time updates on community events and protocols."
+                data-full-desc="A todo application built with React that allows users to create, edit, and delete tasks. Demonstrates component state and hooks."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/todo/600/400"
+                    alt="Todo App"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_003</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Todo_App</h3>
+                  <p>
+                    Manage daily tasks with add, remove, and filter capabilities; built using React.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[React]</span>
+                    <span>[CSS]</span>
+                    <span>[LocalStorage]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="javascript,api,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Weather App consuming a public API to display current conditions and forecast for a user-specified location."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/weather/600/400"
+                    alt="Weather App"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_004</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Weather_App</h3>
+                  <p>
+                    Fetches and displays weather information using OpenWeatherMap API with dynamic
+                    backgrounds.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[API]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="advanced"
+                data-tech="nodejs,express,mongodb"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A blog platform with user authentication, post creation/editing, and comment functionality. Built with Node.js and MongoDB."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/blog/600/400"
+                    alt="Blog Platform"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_005</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Blog_Platform</h3>
+                  <p>
+                    Full-stack blogging site featuring authentication and CRUD operations for posts.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[Node.js]</span>
+                    <span>[Express]</span>
+                    <span>[MongoDB]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="advanced"
+                data-tech="javascript,websocket,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A realtime chat application using WebSockets to enable instant messaging between multiple users."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/chat/600/400"
+                    alt="Chat App"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_006</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Chat_App</h3>
+                  <p>
+                    Connect with others in realtime; supports multiple rooms and user nicknames
+                    using WebSocket protocol.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[WebSocket]</span>
+                    <span>[JS]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- added ten extra web projects -->
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="advanced"
+                data-tech="html,css,js,api"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A mock e-commerce storefront demonstrating product listings, cart functionality, and checkout flows using dummy APIs."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/ecommerce/600/400"
+                    alt="E-Commerce Shop"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_007</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>E-Commerce_Shop</h3>
+                  <p>
+                    A storefront demo with product browsing and cart simulated through API calls.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                    <span>[JS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="js,css,html"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A responsive photo gallery with lightbox effects and category filters."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/gallery/600/400"
+                    alt="Photo Gallery"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_008</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Photo_Gallery</h3>
+                  <p>Gallery layout showcasing images with clickable lightbox view and filters.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[CSS]</span>
+                    <span>[HTML]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="beginner"
+                data-tech="js,html,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A simple quiz app with multiple-choice questions and score tracking. Perfect for learning event handling."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/quiz/600/400"
+                    alt="Quiz Game"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_009</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Quiz_Game</h3>
+                  <p>
+                    Interactive quiz with questions loaded dynamically and a final score display.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="js,api,html,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A recipe finder that queries a public food API and displays ingredients, instructions and images."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/recipe/600/400"
+                    alt="Recipe Finder"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_010</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Recipe_Finder</h3>
+                  <p>
+                    Search for recipes by ingredient and view step-by-step instructions using API
+                    data.
+                  </p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[API]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="advanced"
+                data-tech="js,html,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Offline-capable Markdown editor featuring live preview and download functionality."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/editor/600/400"
+                    alt="Markdown Editor"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_011</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Markdown_Editor</h3>
+                  <p>Write and preview Markdown in real-time, with save/export options.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="html,css,js"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Custom video player with playlist support and keyboard controls."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/video/600/400"
+                    alt="Video Player"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_012</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Video_Player</h3>
+                  <p>HTML5 video player with custom UI, playlist, and shortcut keys.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                    <span>[JS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="beginner"
+                data-tech="js,html,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Simple time tracker for logging work sessions and breaks with a stopwatch UI."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/timer/600/400"
+                    alt="Time Tracker"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_013</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Time_Tracker</h3>
+                  <p>A simple timer to log focus sessions and breaks.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="advanced"
+                data-tech="react,js,chart.js"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Dashboard showing financial metrics with charts and real-time data updates."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/finance/600/400"
+                    alt="Finance Dashboard"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_014</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Finance_Dashboard</h3>
+                  <p>Reactive charts displaying income, expenses and savings over time.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[React]</span>
+                    <span>[Chart.js]</span>
+                    <span>[JS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="js,css,api"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Leaderboard that pulls top scores from an API and displays them with user avatars."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/leaderboard/600/400"
+                    alt="Game Leaderboard"
+                    loading="lazy"
+                  />
+                  <div class="glitsch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_015</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Game_Leaderboard</h3>
+                  <p>Displays high scores retrieved from a mock API with avatars and ranks.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[API]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- six additional projects in web category -->
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="beginner"
+                data-tech="html,css,js"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A simple note-taking app that saves entries locally."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/notes/600/400"
+                    alt="Notes App"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_022</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Notes_App</h3>
+                  <p>Write and delete notes with localStorage persistence.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="js,api,css"
+                data-status="active"
+                data-new="false"
+                data-full-desc="Currency converter using a free exchange-rate API."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/currency/600/400"
+                    alt="Currency Converter"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_023</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Currency_Converter</h3>
+                  <p>Convert between currencies with real-time exchange rates.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[API]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="html,css,js"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A sticky notes widget for desktop-style reminders."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/sticky/600/400"
+                    alt="Sticky Notes"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_024</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Sticky_Notes</h3>
+                  <p>Create colored notes and drag them around the page.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[JS]</span>
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="intermediate"
+                data-tech="html,css,js"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A responsive testimonial slider with auto-scroll."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/slider/600/400"
+                    alt="Testimonial Slider"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_025</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Testimonial_Slider</h3>
+                  <p>Cycle through customer quotes with smooth transitions.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                    <span>[JS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="web"
+                data-tilt
+                data-difficulty="beginner"
+                data-tech="html,css,js"
+                data-status="active"
+                data-new="false"
+                data-full-desc="A digital clock widget showing current time and date."
+                data-live-url="#"
+              >
+                <div class="card-border-top"></div>
+                <div class="card-image-wrapper">
+                  <img
+                    src="https://picsum.photos/seed/clock/600/400"
+                    alt="Digital Clock"
+                    loading="lazy"
+                  />
+                  <div class="glitch-overlay"></div>
+                  <div class="scan-line"></div>
+                </div>
+                <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                <div class="card-content">
+                  <div class="card-header">
+                    <span class="project-id">#WEB_026</span>
+                    <span class="status-dot online"></span>
+                  </div>
+                  <h3>Digital_Clock</h3>
+                  <p>Displays the current time with seconds, updating every second.</p>
+                  <div class="tech-stack-terminal">
+                    <span>[HTML]</span>
+                    <span>[CSS]</span>
+                    <span>[JS]</span>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn-terminal">View_Details ></button>
+                    <a class="icon-link disabled" tabindex="-1"><i class="fab fa-github"></i></a>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="cyber-card project-card"
+                data-category="programming"
                 data-live-url="#"
               >
                 <div class="card-border-top"></div>

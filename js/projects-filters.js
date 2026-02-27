@@ -472,6 +472,12 @@ function updateFilterCounts() {
       countElement.textContent = counts[key];
     }
   });
+
+  // also make sure the dedicated "all" counter is kept in sync in case it isn't covered above
+  const allEl = document.getElementById('count-all');
+  if (allEl) {
+    allEl.textContent = counts.all;
+  }
 }
 
 // Export functions for use in other scripts
