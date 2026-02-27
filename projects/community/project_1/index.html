@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Phantoms | Neon System Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff88;
+            --bg-dark: #0a0b10;
+            --terminal-gray: #4a5568;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Scanline Effect --- */
+        body::before {
+            content: " ";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- Main UI Container --- */
+        .mainframe {
+            text-align: center;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 40px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.05);
+            position: relative;
+        }
+
+        #clock {
+            font-size: 6rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px var(--neon-green), 0 0 40px rgba(0, 255, 136, 0.3);
+            margin: 0;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #clock:active { transform: scale(0.98); }
+
+        #date {
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            opacity: 0.8;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* --- Utility Panel --- */
+        .status-bar {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            font-size: 0.75rem;
+            color: var(--terminal-gray);
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+            padding-top: 20px;
+        }
+
+        .status-item span { color: var(--neon-green); }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-util {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 5px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-util:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        /* --- Notification --- */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            background: var(--neon-green);
+            color: #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transform: translateY(100px);
+            transition: transform 0.3s ease;
+            border-radius: 4px;
+        }
+        #toast.show { transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div class="mainframe">
+        <div id="clock" title="Click to Toggle Format">00:00:00</div>
+        <div id="date">SYS_INITIALIZING...</div>
+
+        <div class="status-bar">
+            <div class="status-item">UPLINK: <span>ACTIVE</span></div>
+            <div class="status-item">FORMAT: <span id="format-label">24H</span></div>
+            <div class="status-item">LATENCY: <span id="latency">0ms</span></div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-util" onclick="toggleFormat()">TOGGLE_FORMAT</button>
+            <button class="btn-util" onclick="copyTimestamp()">COPY_TIMESTAMP</button>
+        </div>
+    </div>
+
+    <div id="toast">TIMESTAMP_COPIED</div>
+
+    <script>
+        let is24Hour = true;
+
+        function updateSystem() {
+            const now = new Date();
+            
+            // 1. Clock Logic
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            let ampm = '';
+
+            if (!is24Hour) {
+                ampm = hours >= 12 ? ' PM' : ' AM';
+                hours = hours % 12 || 12;
+            }
+            
+            const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}${ampm}`;
+            document.getElementById('clock').textContent = timeString;
+
+            // 2. Date Logic
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+
+            // 3. Simulated Latency
+            const randomLatency = Math.floor(Math.random() * 45) + 5;
+            document.getElementById('latency').textContent = `${randomLatency}ms`;
+        }
+
+        function toggleFormat() {
+            is24Hour = !is24Hour;
+            document.getElementById('format-label').textContent = is24Hour ? '24H' : '12H';
+            updateSystem();
+        }
+
+        async function copyTimestamp() {
+            const timestamp = `[${new Date().toISOString()}]`;
+            await navigator.clipboard.writeText(timestamp);
+            
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Initialize
+        document.getElementById('clock').addEventListener('click', toggleFormat);
+        setInterval(updateSystem, 1000);
+        updateSystem();
+    </script>
+</body>
+</html>
