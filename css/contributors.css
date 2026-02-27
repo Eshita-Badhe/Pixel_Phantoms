@@ -1,4 +1,6 @@
 /* ================= CONTRIBUTORS PAGE STYLES ================= */
+
+/* CSS VARIABLES FOR THEMES */
 :root {
   /* DARK THEME (DEFAULT) */
   --bg-primary: #0a0b10;
@@ -10,31 +12,176 @@
   --accent-color-rgb: 0, 255, 163;
   --stat-box-bg: rgba(255, 255, 255, 0.03);
   --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.4);
+  /* Light theme variables */
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-navbar: rgba(255, 255, 255, 0.95);
+  --bg-navbar-scrolled: rgba(255, 255, 255, 0.98);
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent-color: #00aaff;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --nav-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  --activity-icon-color: #ffffff;
+
+  /* Footer Light Theme Variables */
+  --footer-bg: #fcfcff;
+  --footer-bg-secondary: #16213e;
+  --footer-text: #e6e6e6;
+  --footer-text-secondary: #a0aec0;
+  --footer-heading: #ffffff;
+  --footer-link: #cbd5e0;
+  --footer-link-hover: #ffffff;
+  --footer-border: #2d3748;
+  --social-bg: #2d3748;
+  --social-bg-hover: #4a5568;
+  --social-icon: #cbd5e0;
+  --social-icon-hover: #ffffff;
+  --social-border: #4a5568;
+  --footer-input-bg: #2d3748;
+  --input-border: #4a5568;
+  --input-text: #e2e8f0;
+  --input-placeholder: #cbd5e1;
+  --accent-primary: #667eea;
+  --accent-secondary: #764ba2;
+
+  /* Font Variables for Consistency */
+  --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-mono: 'Courier New', monospace;
+  --font-hud: 'JetBrains Mono', monospace;
+
+  /* Shared UI Tokens for Consistency */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 40px;
+
+  --shadow-hover: 0 8px 25px rgba(0, 170, 255, 0.2);
+  --shadow-hover-strong: 0 12px 30px rgba(0, 170, 255, 0.3);
+
+  --hover-transform: translateY(-5px);
+  --hover-transform-strong: translateY(-8px) scale(1.02);
+
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 20px;
 }
 
-/* RECTIFIED LIGHT MODE - HIGH CONTRAST */
-body.light-mode {
-  --bg-primary: #f8fafc;
-  /* Clean slate background */
-  --card-bg: #ffffff;
-  /* Pure white cards */
-  --text-primary: #0f172a;
-  /* Deep navy text for maximum readability */
-  --text-secondary: #475569;
-  /* Slate grey for subtext */
-  --border-color: rgba(0, 0, 0, 0.1);
-  --accent-color: #2563eb;
-  /* Strong blue for high visibility */
-  --stat-box-bg: #f1f5f9;
-  /* Subtle grey for internal containers */
-  --shadow-main: 0 10px 30px rgba(0, 0, 0, 0.05);
+:root .hack-main-card h3 {
+  --text-primary: rgb(255, 250, 250);
+}
+
+.hack-main-card h3,
+#home-event-desc {
+  background: rgba(0, 0, 0, 0.248);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+:root .btn-hollow {
+  --text-primary: white;
+}
+
+:root .btn-hollow:hover {
+  --text-primary: #00aaff;
+}
+
+:root .cyber-card p,
+.stat small,
+.toggle-label {
+  --text-secondary: white;
+}
+
+[data-theme='dark'] {
+  /* Dark theme variables */
+  --bg-primary: #0d0f14;
+  --bg-secondary: #13161d;
+  --bg-navbar: rgba(19, 22, 29, 0.95);
+  --bg-navbar-scrolled: rgba(19, 22, 29, 0.98);
+  --text-primary: #ffffff;
+  --text-secondary: #bbbbbb;
+  --accent-color: #00aaff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-bg: #1a1d25;
+  --input-bg: #1a1d25;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --nav-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  --activity-icon-color: #00aaff;
+
+  /* Footer Dark Theme Variables */
+  --footer-bg: #0f1419;
+  --footer-bg-secondary: #1a202c;
+  --footer-text: #e2e8f0;
+  --footer-text-secondary: #a0aec0;
+  --footer-heading: #ffffff;
+  --footer-link: #cbd5e0;
+  --footer-link-hover: #ffffff;
+  --footer-border: #2d3748;
+  --social-bg: #2d3748;
+  --social-bg-hover: #4a5568;
+  --social-icon: #cbd5e0;
+  --social-icon-hover: #ffffff;
+  --social-border: #4a5568;
+  --footer-input-bg: #2d3748;
+  --input-border: #4a5568;
+  --input-text: #e2e8f0;
+  --input-placeholder: #cbd5e1;
+  --accent-primary: #00aaff;
+  --accent-secondary: #0088cc;
+
+  /* Neon colors for dark theme */
+  --neon-green: #0aff9d;
+  --neon-cyan: #00aaff;
+  --neon-purple: #bc13fe;
+  --neon-red: #ff003c;
+
+  /* Stats Widget Variables for Dark Theme */
+  --panel-bg: rgba(26, 29, 37, 0.85);
+  --panel-border: 1px solid rgba(255, 255, 255, 0.1);
+  --text-main: #ffffff;
+  --text-dim: #bbbbbb;
+  --font-hud: 'JetBrains Mono', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Shared UI Tokens for Consistency */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 40px;
+
+  --shadow-hover: 0 8px 25px rgba(0, 170, 255, 0.2);
+  --shadow-hover-strong: 0 12px 30px rgba(0, 170, 255, 0.3);
+
+  --hover-transform: translateY(-5px);
+  --hover-transform-strong: translateY(-8px) scale(1.02);
+
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 20px;
+}
+
+[data-theme='dark'] .hack-main-card h3 {
+  --text-primary: #ffffff;
 }
 
 /* --- GLOBAL LAYOUT & CENTERING --- */
 .contributors-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-align: center;
   padding: 80px 20px;
   background-color: var(--bg-primary);
@@ -42,6 +189,60 @@ body.light-mode {
   transition: background 0.3s ease;
   width: 100%;
   overflow-x: hidden;
+  align-items: stretch; 
+}
+
+/* ===============================
+   CLEAN CONTRIBUTORS GRID
+================================ */
+#contributors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
+
+/* Remove width restriction from cards */
+.contributor-card {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* Responsive control */
+
+@media (min-width: 1400px) {
+  .contributors-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  #contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  #contributors-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 767px) {
+  .contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 499px) {
+  .contributors-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .section-header {
@@ -119,25 +320,15 @@ body.light-mode {
 
 .top-contributors {
   width: 100%;
-  max-width: 1300px;
-  /* Same as your lead-container */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 150px auto 80px auto;
 }
 
-/* --- TOP CONTRIBUTORS GRID (FULL PAGE WIDTH) --- */
-.contributors-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  gap: 60px;
-  width: fit-content;
-  max-width: 1800px;
-  margin: 60px 60px;
 
-  flex-wrap: wrap;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  padding: 0 40px;
 }
 
 #top-contributors {
@@ -146,17 +337,8 @@ body.light-mode {
   margin-bottom: 20px;
 }
 
-/* --- TOP CONTRIBUTORS GRID --- */
-.contributors-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  width: 100%;
-  max-width: 1600px;
-  margin: 60px auto;
-  padding: 0 40px;
-  box-sizing: border-box;
-}
+
+
 
 .contributor-card:hover {
   transform: translateY(-8px);
@@ -310,7 +492,7 @@ body.light-mode .repo-item {
 
 /* The Hover State */
 .activity-item:hover {
-  background-color: #ffffff;
+ 
   border-color: #3b82f6;
   transform: translateX(8px) translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
@@ -622,10 +804,6 @@ body.light-mode .heatmap-cell.future-cell {
 
 /* --- RESPONSIVENESS --- */
 @media (max-width: 1000px) {
-  .contributors-grid {
-    grid-template-columns: 1fr;
-    max-width: 600px;
-  }
 
   .project-lead-card {
     padding: 40px 20px;
@@ -825,19 +1003,30 @@ body.light-mode .heatmap-cell.future-cell {
   color: var(--accent-color);
 }
 
+
 /* --- CONTRIBUTORS GRID --- */
+/* --- CONTRIBUTORS GRID (OPTIMIZED FOR 5 CARDS PER ROW) --- */
+/* FINAL SINGLE SOURCE OF TRUTH */
 .contributors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
-  padding: 0 28px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1700px;
+  margin: 40px auto;
+  padding: 0 32px;
+  box-sizing: border-box;
 }
 
 /* Base Card Style */
 .contributor-card {
   width: 100%;
-  max-width: 500px;
+  /* REMOVE max-width: 500px; */
+  max-width: 100%; /* or just delete the max-width line */
+
+/* Base Card Style */
+.contributor-card {
+  width: 100%;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 32px;
@@ -848,7 +1037,10 @@ body.light-mode .heatmap-cell.future-cell {
   box-shadow: var(--shadow-main);
   box-sizing: border-box;
   transition: transform 0.3s ease;
-  margin: 0 auto;
+
+  /* CHANGE THIS */
+  margin: 0; /* instead of margin: 0 auto */
+
   cursor: pointer;
   gap: 16px;
   position: relative;
@@ -1235,47 +1427,6 @@ body.light-mode .heatmap-cell.future-cell {
 .modal-container.tier-bronze .secondary-btn:hover {
   border-color: #cd7f32;
   color: #cd7f32;
-}
-
-/* --- ACTIVITY LIST --- */
-.activity-container {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 60px;
-}
-
-.activity-item {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid var(--border-color);
-  gap: 15px;
-}
-
-.activity-item:last-child {
-  border-bottom: none;
-}
-
-.activity-marker {
-  width: 10px;
-  height: 10px;
-  background: var(--accent-color);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.commit-msg {
-  flex-grow: 1;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-.commit-date {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  white-space: nowrap;
 }
 
 /* --- STEPS TO CONTRIBUTE --- */
@@ -1839,12 +1990,6 @@ body.dark-mode .repo-item {
 }
 
 @media (min-width: 1445px) and (max-width: 2560px) {
-  .contributors-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    padding: 0 32px;
-  }
-
   .contributors-section {
     padding: 50px 32px;
   }
@@ -1857,7 +2002,7 @@ body.dark-mode .repo-item {
 
 @media (min-width: 1028px) and (max-width: 1444px) {
   .contributors-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* was 3 → now 4 */
     gap: 20px;
     padding: 0 32px;
   }
@@ -1873,12 +2018,6 @@ body.dark-mode .repo-item {
 }
 
 @media (min-width: 769px) and (max-width: 1027px) {
-  .contributors-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 0 32px;
-  }
-
   .contributors-section {
     padding: 50px 32px;
   }
@@ -1894,12 +2033,6 @@ body.dark-mode .repo-item {
     padding: 42px 20px;
   }
 
-  .contributors-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 18px;
-    padding: 0 18px;
-  }
-
   .contributor-card {
     padding: 18px;
   }
@@ -1913,12 +2046,6 @@ body.dark-mode .repo-item {
 @media (max-width: 480px) {
   .contributors-section {
     padding: 32px 12px;
-  }
-
-  .contributors-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 0 12px;
   }
 
   .contributor-card {
@@ -2224,14 +2351,6 @@ body.dark-mode .calendar .contrib-legend .legend {
   top: 15%;
 }
 
-.roadmap-step:hover {
-  transform: translateY(-15px) scale(1.05);
-  z-index: 20;
-}
-
-.roadmap-step:nth-child(4):hover {
-  transform: translateX(-50%) translateY(-15px) scale(1.05);
-}
 
 /* Step Node - Circular markers */
 .step-node {
@@ -2322,330 +2441,598 @@ body.dark-mode .calendar .contrib-legend .legend {
   backdrop-filter: blur(10px);
 }
 
-.roadmap-step:hover .step-content {
-  background: rgba(15, 15, 35, 1);
-  border-color: rgba(0, 217, 255, 0.5);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+/* ======================================================
+   CONTRIBUTION ROADMAP – THEME AWARE WOW UI
+   ====================================================== */
+
+.contribution-roadmap {
+  margin: 4rem auto;
+  max-width: 1400px;
+  padding: 2.5rem;
+  position: relative;
+  font-family: var(--font-primary);
 }
 
-.step-title {
+/* ---------- Intro ---------- */
+.roadmap-intro {
+  text-align: center;
+  margin-bottom: 3.5rem;
   font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.roadmap-intro strong {
+  color: var(--accent-color);
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-  font-family: 'JetBrains Mono', monospace;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent-color), transparent 60%);
+}
+
+/* ---------- Container ---------- */
+.roadmap-container {
+  position: relative;
+  min-height: 420px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- SVG Path ---------- */
+.roadmap-path {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.roadmap-path svg {
+  width: 100%;
+  height: 100%;
+}
+
+.road-path {
+  fill: none;
+  stroke: var(--accent-color);
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: 0.5;
+  filter:
+    drop-shadow(0 0 10px color-mix(in srgb, var(--accent-color), transparent 60%))
+    drop-shadow(0 0 25px color-mix(in srgb, var(--accent-color), transparent 80%));
+}
+
+.road-dashes {
+  fill: none;
+  stroke: var(--accent-color);
+  stroke-width: 3;
+  stroke-dasharray: 14 18;
+  stroke-linecap: round;
+  opacity: 0.85;
+  animation: dash-flow 18s linear infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -900;
+  }
+}
+
+/* ---------- Steps ---------- */
+.roadmap-step {
+  position: absolute;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  z-index: 5;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.3s ease;
+}
+
+.roadmap-step:hover {
+  transform: translateY(-16px) scale(1.06);
+  filter: drop-shadow(0 18px 40px color-mix(in srgb, var(--accent-color), transparent 70%));
+}
+
+/* ---------- Node ---------- */
+.step-node {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at top,
+      color-mix(in srgb, var(--accent-color), transparent 70%),
+      var(--card-bg) 70%);
+  border: 3px solid color-mix(in srgb, var(--accent-color), transparent 30%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  position: relative;
+  box-shadow:
+    0 12px 30px color-mix(in srgb, var(--accent-color), transparent 75%);
+  transition: all 0.45s ease;
+}
+
+.roadmap-step:hover .step-node {
+  transform: scale(1.15) rotate(6deg);
+  box-shadow:
+    0 18px 45px color-mix(in srgb, var(--accent-color), transparent 55%),
+    0 0 30px color-mix(in srgb, var(--accent-color), transparent 65%);
+}
+
+/* ---------- Pulse ---------- */
+.step-node::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 18px var(--accent-color);
+  animation: pulse-dot 2.2s ease-in-out infinite;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ---------- Icon ---------- */
+.step-icon {
+  font-size: 2rem;
+  color: var(--accent-color);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.roadmap-step:hover .step-icon {
+  transform: translateY(-6px);
+}
+
+/* ---------- Content Card ---------- */
+.step-content {
+  width: 100%;
+  background: color-mix(in srgb, var(--card-bg), transparent 8%);
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  transition: all 0.35s ease;
+}
+
+.roadmap-step:hover .step-content {
+  box-shadow: var(--shadow-hover-strong);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 50%);
+}
+
+/* ---------- Text ---------- */
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+  font-family: var(--font-hud);
 }
 
 .step-description {
   font-size: 0.88rem;
-  color: #a0aec0;
-  line-height: 1.5;
+  color: var(--text-secondary);
+  line-height: 1.55;
 }
 
-/* Connection dots linking to the path */
-.step-node::after {
-  content: '';
-  position: absolute;
-  width: 3px;
-  background: linear-gradient(180deg, #00d9ff, transparent);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
-}
 
-/* Dots point down for top steps */
-.roadmap-step:nth-child(2) .step-node::after,
-.roadmap-step:nth-child(4) .step-node::after,
-.roadmap-step:nth-child(6) .step-node::after {
-  top: 100%;
-  height: 50px;
-}
-
-/* Dots point up for bottom steps */
-.roadmap-step:nth-child(3) .step-node::after,
-.roadmap-step:nth-child(5) .step-node::after {
-  bottom: 100%;
-  height: 50px;
-  background: linear-gradient(0deg, #00d9ff, transparent);
-}
-
-/* Pulsing indicator at path connection */
-.step-node::before {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: #00d9ff;
-  border-radius: 50%;
-  box-shadow: 0 0 15px rgba(0, 217, 255, 0.8);
-  animation: pulse-dot 2s ease-in-out infinite;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Position pulse dots */
-.roadmap-step:nth-child(2) .step-node::before,
-.roadmap-step:nth-child(4) .step-node::before,
-.roadmap-step:nth-child(6) .step-node::before {
-  bottom: -60px;
-}
-
-.roadmap-step:nth-child(3) .step-node::before,
-.roadmap-step:nth-child(5) .step-node::before {
-  top: -60px;
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: translateX(-50%) scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.5);
-  }
-}
-
-/* Contribute CTA Section */
+/* ---------- CTA ---------- */
 .contribute-cta {
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  margin-top: 4rem;
-  border: 1px solid rgba(0, 217, 255, 0.15);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  margin-top: 4.5rem;
+  padding: 3.2rem 2.4rem;
+  border-radius: var(--border-radius-xl);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent-primary), transparent 85%),
+      color-mix(in srgb, var(--accent-secondary), transparent 85%)
+    ),
+    var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-hover);
 }
 
 .contribute-cta h2 {
   text-align: center;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(90deg, #00d9ff, #00ffff);
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .roadmap-step {
-    width: 180px;
-  }
 
-  .roadmap-step:nth-child(2) {
-    left: 3%;
-  }
-
-  .roadmap-step:nth-child(3) {
-    left: 23%;
-  }
-
-  .roadmap-step:nth-child(5) {
-    right: 23%;
-  }
-
-  .roadmap-step:nth-child(6) {
-    right: 3%;
-  }
-
-  .step-node {
-    width: 75px;
-    height: 75px;
-  }
-
-  .step-icon {
-    font-size: 1.8rem;
-  }
+/* ---------- Dark Theme Extra Glow ---------- */
+[data-theme='dark'] .step-node {
+  box-shadow:
+    0 0 25px color-mix(in srgb, var(--accent-color), transparent 60%),
+    0 0 60px color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
-@media (max-width: 1024px) {
-  .roadmap-container {
-    min-height: 500px;
-  }
-
-  .roadmap-step {
-    width: 160px;
-  }
-
-  .roadmap-step:nth-child(2) {
-    left: 4%;
-    top: 10%;
-  }
-
-  .roadmap-step:nth-child(3) {
-    left: 24%;
-    top: 60%;
-  }
-
-  .roadmap-step:nth-child(4) {
-    top: 10%;
-  }
-
-  .roadmap-step:nth-child(5) {
-    right: 24%;
-    top: 60%;
-  }
-
-  .roadmap-step:nth-child(6) {
-    right: 4%;
-    top: 10%;
-  }
+[data-theme='dark'] .road-path {
+  opacity: 0.75;
 }
 
-@media (max-width: 768px) {
-  .contribution-roadmap {
-    padding: 1rem;
-  }
 
-  .roadmap-container {
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    padding: 2rem 0;
-  }
-
-  .roadmap-path {
-    display: none;
-  }
-
-  /* Vertical stack on mobile */
-  .roadmap-step {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    width: 90%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  .roadmap-step:hover {
-    transform: scale(1.03) !important;
-  }
-
-  .step-node::after,
-  .step-node::before {
-    display: none;
-  }
-
-  .step-node {
-    width: 70px;
-    height: 70px;
-  }
-
-  .step-icon {
-    font-size: 1.7rem;
-  }
-
-  .step-number {
-    width: 28px;
-    height: 28px;
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contribute-cta {
-    padding: 2rem 1rem;
-  }
-
-  .roadmap-step {
-    width: 95%;
-  }
-
-  .step-node {
-    width: 65px;
-    height: 65px;
-  }
-
-  .step-icon {
-    font-size: 1.5rem;
-  }
-
-  .step-title {
-    font-size: 1rem;
-  }
-
-  .step-description {
-    font-size: 0.82rem;
-  }
-
-  .step-content {
-    padding: 0.9rem 1rem;
-  }
-}
-
-/* Reduced motion support */
+/* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .roadmap-step,
   .step-node,
   .step-icon,
   .road-dashes,
   .step-node::before {
-    transition: none !important;
     animation: none !important;
+    transition: none !important;
   }
+}
+
+@media (max-width: 900px) {
+  .roadmap-path {
+    display: none;
+  }
+
+  .roadmap-container {
+    flex-direction: column;
+    gap: 2.5rem;
+    min-height: auto;
+  }
+
+  .roadmap-step {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    max-width: 420px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .step-node::before {
+    display: none;
+  }
+}
+.roadmap-step {
+  cursor: pointer;
+}
+
+
+
+.roadmap-step:active {
+  transform: scale(0.98);
+}
+.roadmap-step.is-active .step-node {
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--accent-color), transparent 70%),
+    0 0 40px var(--accent-color),
+    0 0 80px color-mix(in srgb, var(--accent-color), transparent 60%);
+}
+
+.roadmap-step.is-active .step-content {
+  border-color: var(--accent-color);
+}
+
+.roadmap-step {
+  cursor: pointer;
+}
+
+.roadmap-step:active {
+  transform: scale(0.98);
+}
+.roadmap-step:focus-visible .step-node {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 6px;
+}
 
   .roadmap-step:hover {
     transform: none !important;
   }
+.roadmap-step:hover {
+  transform: none !important;
 }
 
-/* --- REPO EMPTY SPECIFIC STYLES --- */
-.repo-empty-state {
+/* FORCE FULL WIDTH FOR CONTRIBUTORS PAGE */
+.main-content,
+.page-transition-wrapper,
+.contributors-section {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* ===============================
+   ACTIVITY FEED 
+================================ */
+
+/* Container */
+#activity-list {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Card */
+#activity-list .activity-item {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 30px 15px;
-  text-align: center;
-  border: 1px dashed var(--border-color);
-  border-radius: 16px;
-  background: rgba(var(--accent-color-rgb), 0.02);
-  margin: 10px 0;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 18px 24px;
+  border-radius: 14px;
+
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  /* animation */
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideFadeIn 0.5s forwards;
+}
+
+/* Slide animation */
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Stagger */
+.activity-item:nth-child(1) { animation-delay: 0.1s; }
+.activity-item:nth-child(2) { animation-delay: 0.25s; }
+.activity-item:nth-child(3) { animation-delay: 0.4s; }
+
+/* Hover */
+.activity-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Bullet */
+.activity-marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  flex-shrink: 0;
   transition: all 0.3s ease;
 }
 
-.repo-empty-state i {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-  margin-bottom: 15px;
-  opacity: 0.6;
-  filter: drop-shadow(0 0 8px rgba(0, 255, 163, 0.2));
-}
-
-.repo-empty-state p {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 700;
+/* Commit message */
+.commit-msg {
+  flex: 1;
+  margin-right: 16px;
   color: var(--text-primary);
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: transform 0.25s ease;
 }
 
-.repo-empty-state span {
-  font-size: 0.85rem;
+/* Username */
+.user-name {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* Date */
+.commit-date {
   color: var(--text-secondary);
-  max-width: 250px;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  transition: color 0.25s ease;
 }
 
-.repo-empty-state:hover {
-  border-color: var(--accent-color);
-  background: rgba(var(--accent-color-rgb), 0.05);
+/* Hover effects */
+.activity-item:hover .commit-msg {
   transform: translateY(-2px);
 }
 
-body.light-mode .repo-empty-state {
-  background: #f1f5f9;
-  border-style: solid;
+.activity-item:hover .commit-date {
+  color: var(--accent-color);
 }
 
-body.light-mode .repo-empty-state i {
-  opacity: 0.8;
+/* Container wrapper */
+.activity-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 60px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+
+/* ===============================
+   DARK THEME OVERRIDES
+==================================*/
+[data-theme="dark"] #activity-list .activity-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] #activity-list .activity-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] #activity-list .activity-marker {
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+[data-theme="dark"] #activity-list .activity-item:hover .bullet {
+  transform: scale(1.5);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.8), 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+[data-theme="dark"] #activity-list .commit-msg {
+  color: var(--activity-text);
+}
+
+[data-theme="dark"] #activity-list .user-name {
+  color: var(--activity-accent);
+}
+
+[data-theme="dark"] #activity-list .commit-date {
+  color: var(--activity-text-secondary);
+}
+
+[data-theme="dark"] #activity-list .activity-item:hover .commit-date {
+  color: var(--activity-accent);
+}
+/* ===== Contributors Search (Non-intrusive) ===== */
+.contributors-search-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin: 16px auto 24px auto;
+  display: flex;
+  justify-content: center;
+}
+
+#contributors-search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#contributors-search:focus {
+  outline: none;
+  border-color: #4f9cff;
+  box-shadow: 0 0 0 2px rgba(79, 156, 255, 0.15);
+}
+
+/* =========================
+   Recent Activity Enhancement
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.activity-filters select {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Timeline Style Layout */
+.activity-container {
+  position: relative;
+  padding-left: 30px;
+  border-left: 2px solid var(--border-color);
+}
+
+.activity-item {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  transition: all 0.25s ease;
+}
+
+/* Hover effect (visual hierarchy improvement) */
+.activity-item:hover {
+  transform: translateX(4px);
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* Timeline dot */
+.activity-marker {
+  position: absolute;
+  left: -40px;
+  top: 18px;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-color);
+  border-radius: 50%;
+}
+
+/* Better typography */
+.commit-msg {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.commit-date {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ===== Contributors Sort Dropdown ===== */
+#contributors-sort {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  min-width: 180px;
+}
+
+#contributors-sort:focus {
+  outline: none;
+  border-color: #4f9cff;
+  box-shadow: 0 0 0 2px rgba(79, 156, 255, 0.15);
+
+/* FORCE FULL WIDTH FOR CONTRIBUTORS PAGE */
+.main-content,
+.page-transition-wrapper,
+.contributors-section {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* This targets the specific middle step and forces it to stay put */
+.roadmap-container .roadmap-step:nth-child(4):hover {
+  transform: translateX(-50%) !important;
+}
+
+/* This stops the other steps from moving */
+.roadmap-container .roadmap-step:hover {
+  transform: translateY(0) !important;
 }
