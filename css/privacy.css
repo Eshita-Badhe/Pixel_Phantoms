@@ -259,25 +259,62 @@
   margin-top: 20px;
 }
 
+/* ===== INFRASTRUCTURE & COMPLIANCE CARDS ===== */
+
 .privacy-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 255, 153, 0.15);
-  border-radius: 12px;
-  padding: 18px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 20px;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Subtle top accent line (like other pages) */
+.privacy-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    rgba(0, 170, 255, 0.6)
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+/* Hover effect */
 .privacy-card:hover {
-  transform: translateY(-6px);
-  border-color: #00ff99;
-  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.15);
+  transform: translateY(-8px);
+  border-color: var(--accent-color);
+  box-shadow:
+    0 15px 35px rgba(0, 170, 255, 0.12),
+    0 0 25px rgba(0, 170, 255, 0.08);
 }
 
+.privacy-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Title styling */
 .privacy-card h3 {
-  color: #00ff99;
+  color: var(--accent-color);
   font-size: 1.1rem;
   margin-bottom: 10px;
+  font-weight: 700;
+}
+
+/* Content */
+.privacy-card li,
+.privacy-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .privacy-card ul {
