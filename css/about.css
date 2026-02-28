@@ -66,12 +66,75 @@
   z-index: 1;
 }
 
+/* =========================================
+   HERO ENTRANCE ANIMATION
+========================================= */
+
 .hero-content {
   position: relative;
   z-index: 2;
   max-width: 900px;
   margin: 0 auto;
-  animation: fadeInUp 0.9s ease-out;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: heroFadeSlide 1s ease forwards;
+}
+
+@keyframes heroFadeSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   HERO GLOW BACKGROUND ACCENT
+========================================= */
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 170, 255, 0.25) 0%,
+    transparent 70%
+  );
+  animation: heroGlowPulse 6s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes heroGlowPulse {
+  0% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 4vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 35px;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    var(--accent-color)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 4px 25px rgba(0, 170, 255, 0.25);
 }
 
 @keyframes fadeInUp {
@@ -114,20 +177,42 @@
 /* Motto Banner */
 .motto-banner {
   display: inline-block;
-  padding: 25px 40px;
-  border-radius: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 1.5s ease-out;
-  transition: transform 0.3s ease;
+  padding: 28px 45px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(0, 170, 255, 0.08);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
+/* Floating effect */
 .motto-banner:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-8px);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.35),
+    0 0 60px rgba(0, 170, 255, 0.2);
+}
+
+.hero-section {
+  padding: 140px 20px 120px;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.3rem;
+  }
+
+  .motto-banner {
+    padding: 20px 25px;
+  }
 }
 
 @keyframes fadeIn {
