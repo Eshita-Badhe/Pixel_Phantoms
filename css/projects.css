@@ -6,92 +6,105 @@
 ========================= */
 
 .hero-section.project-hero {
-    position: relative;
-    height: 80vh; /* Takes up most of the viewport */
-    display: flex;
-    justify-content: center; /* Horizontal centering */
-    align-items: center;     /* Vertical centering */
-    background: #0a0b10;    /* Deep space background */
-    overflow: hidden;
-    text-align: center;
+  position: relative;
+  height: 80vh;
+  /* Takes up most of the viewport */
+  display: flex;
+  justify-content: center;
+  /* Horizontal centering */
+  align-items: center;
+  /* Vertical centering */
+  background: #0a0b10;
+  /* Deep space background */
+  overflow: hidden;
+  text-align: center;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+/* Glitch Title Enhancement */
+.hero-glitch {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  /* Responsive sizing */
+  font-weight: 600;
+  color: var(--primary-gold);
+  letter-spacing: 0.5rem;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  margin-bottom: 2rem;
+  transition:
+    transform 0.3s ease,
+    text-shadow 0.3s ease;
+  cursor: default;
+}
+
+.hero-glitch:hover {
+  transform: scale(1.02);
+  text-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+}
+
+/* Terminal Box Styling */
+.terminal-box {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: inline-block;
+  /* Wraps content width */
+  min-width: 320px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.terminal-box:hover {
+  border-color: var(--primary-gold);
+}
+
+.console-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  color: #a0aec0;
+  /* Muted slate */
+  margin: 5px 0;
+  text-align: left;
+}
+
+.console-text.success {
+  color: #48bb78;
+  /* Neon green for access granted */
+  text-shadow: 0 0 10px rgba(72, 187, 120, 0.3);
+}
+
+/* Add a blinking cursor effect */
+.console-text:last-child::after {
+  content: '_';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
-  
-  .grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(circle at center, black, transparent 80%);
-    pointer-events: none;
-  }
-  
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 800px;
-    padding: 0 20px;
-  }
-  
-  /* Glitch Title Enhancement */
-  .hero-glitch {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(3rem, 8vw, 5rem); /* Responsive sizing */
-    font-weight: 600;
-    color: var(--primary-gold);
-    letter-spacing: 0.5rem;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-    cursor: default;
-  }
-  
-  .hero-glitch:hover {
-    transform: scale(1.02);
-    text-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
-  }
-  
-  /* Terminal Box Styling */
-  .terminal-box {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: inline-block; /* Wraps content width */
-    min-width: 320px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: border-color 0.3s ease;
-  }
-  
-  .terminal-box:hover {
-    border-color: var(--primary-gold);
-  }
-  
-  .console-text {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.95rem;
-    color: #a0aec0; /* Muted slate */
-    margin: 5px 0;
-    text-align: left;
-  }
-  
-  .console-text.success {
-    color: #48bb78; /* Neon green for access granted */
-    text-shadow: 0 0 10px rgba(72, 187, 120, 0.3);
-  }
-  
-  /* Add a blinking cursor effect */
-  .console-text:last-child::after {
-    content: '_';
-    animation: blink 1s infinite;
-  }
-  
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
+}
+
 /* --- HERO OVERRIDES --- */
 .project-hero {
   min-height: 60vh;
@@ -631,11 +644,14 @@ input:checked + .slider:before {
 }
 
 .btn-terminal {
-  color: var(--text-primary);
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: bold;
-  font-size: 0.9rem;
-  transition: 0.3s;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .btn-terminal:hover {
@@ -1802,15 +1818,15 @@ input:checked + .slider:before {
   }
 }
 
-
 /* --- ENHANCED PROJECTS GRID & RESPONSIVENESS --- */
 
 /* 1. Responsive Grid Layout */
 .projects-grid {
   display: grid;
   /* 3 columns on large screens, auto-fit for smaller */
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-  gap: 40px; /* More breathing room */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+  /* More breathing room */
   padding: 20px 0;
 }
 
@@ -1819,7 +1835,10 @@ input:checked + .slider:before {
   height: 100%;
   background: rgba(15, 15, 15, 0.9);
   border: 1px solid #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .project-card:hover {
@@ -1851,53 +1870,143 @@ input:checked + .slider:before {
 
   .project-card {
     max-width: 400px;
-    margin: 0 auto; /* Center cards */
+    margin: 0 auto;
+    /* Center cards */
   }
 }
-/* --- COMMUNITY SHOWCASE UI REFINEMENTS --- */
 
-/* 1. Light Mode Card Visibility */
-.hacker-theme.light-mode .showcase-card {
-    background: rgba(240, 240, 245, 0.9);
-    border: 1px dashed #333 !important; /* Darker border for light mode */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* --- SORTING UI --- */
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: rgba(0, 170, 255, 0.05);
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
 }
 
-.hacker-theme.light-mode .showcase-card h3 {
-    color: #1a1a1a; /* Darker title */
+.sort-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent-color);
+  font-weight: bold;
 }
 
-.hacker-theme.light-mode .showcase-card p {
-    color: #4a4a4a;
+.cyber-select {
+  background: #0d0f14;
+  color: var(--text-primary);
+  border: 1px solid var(--accent-color);
+  padding: 5px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 170, 255, 0.2);
 }
 
-/* 2. Button Text Visibility Fix (Dark & Light) */
-.showcase-card .btn-terminal {
-    color: var(--text-primary) !important;
-    border: 1px solid var(--accent-color);
-    background: rgba(var(--accent-rgb), 0.1);
-    transition: all 0.3s ease;
+.cyber-select:focus {
+  box-shadow: 0 0 15px var(--accent-color);
+  border-color: #fff;
 }
 
-/* Ensure icons and text are white/bright in Dark Mode */
-.hacker-theme .showcase-card .btn-terminal {
-    color: #ffffff !important;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+.cyber-select option {
+  background: #0d0f14;
+  color: var(--text-primary);
 }
 
-.showcase-card .btn-terminal:hover {
-    background: var(--accent-color);
-    color: #000 !important; /* Contrast text on hover */
-    text-shadow: none;
+/* --- LIGHT THEME SUPPORT --- */
+:root:not([data-theme='dark']) .project-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
-/* 3. Execute Demo Button (The Neon Highlight) */
-.showcase-card .btn-cyber {
-    background: var(--accent-color);
-    color: #000 !important;
-    font-weight: 800;
+:root:not([data-theme='dark']) .project-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 25px rgba(0, 170, 255, 0.15);
 }
 
-.hacker-theme.light-mode .showcase-card .btn-cyber {
-    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.4);
+:root:not([data-theme='dark']) .project-card h3 {
+  color: #1a202c;
+}
+
+:root:not([data-theme='dark']) .project-card p {
+  color: #4a5568;
+}
+
+:root:not([data-theme='dark']) .card-content {
+  background: #ffffff;
+}
+
+:root:not([data-theme='dark']) .tech-stack-terminal span {
+  background: rgba(0, 170, 255, 0.05);
+  border-color: rgba(0, 170, 255, 0.2);
+  color: #1e4e8c;
+}
+
+:root:not([data-theme='dark']) .project-id {
+  color: #718096;
+}
+
+:root:not([data-theme='dark']) .card-actions {
+  border-color: #f1f5f9;
+}
+
+:root:not([data-theme='dark']) .btn-terminal {
+  color: #007bff;
+}
+
+:root:not([data-theme='dark']) .btn-terminal:hover {
+  color: #0056b3;
+}
+
+:root:not([data-theme='dark']) .sort-container {
+  background: rgba(0, 170, 255, 0.03);
+  border-color: #cbd5e1;
+}
+
+:root:not([data-theme='dark']) .cyber-select {
+  background: #ffffff;
+  color: #1a202c;
+  border-color: #cbd5e1;
+}
+
+:root:not([data-theme='dark']) .cyber-select option {
+  background: #ffffff;
+  color: #1a202c;
+}
+
+:root:not([data-theme='dark']) .difficulty-badge {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:root:not([data-theme='dark']) .featured-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+:root:not([data-theme='dark']) .featured-card h2 {
+  color: #1a202c;
+}
+
+:root:not([data-theme='dark']) .featured-card .terminal-text {
+  color: #4a5568;
+  border-left-color: #e2e8f0;
+}
+
+:root:not([data-theme='dark']) .featured-card .stat {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+:root:not([data-theme='dark']) .featured-card .stat span {
+  color: var(--accent-color);
+}
+
+:root:not([data-theme='dark']) .featured-card .stat small {
+  color: #64748b;
 }

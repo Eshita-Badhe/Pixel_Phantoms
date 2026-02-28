@@ -12,7 +12,9 @@ const User = sequelize.define('User', {
         allowNull: false,
         validate: {
             notEmpty: true,
-            is: /^[A-Z][a-z]{1,29}$/
+            // Allow letters, apostrophes, hyphens, spaces
+            // supports names like O'Saki or Van-Helsing
+            is: /^[\p{L}][\p{L}'\- ]{0,29}$/u
         }
     },
     lastName: {
@@ -20,7 +22,7 @@ const User = sequelize.define('User', {
         allowNull: false,
         validate: {
             notEmpty: true,
-            is: /^[A-Z][a-z]{1,29}$/
+            is: /^[\p{L}][\p{L}'\- ]{0,29}$/u
         }
     },
     email: {
@@ -31,14 +33,24 @@ const User = sequelize.define('User', {
             isEmail: true
         }
     },
-    age: {
-        type: DataTypes.INTEGER,
+    dateOfBirth: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
         validate: {
-            min: 18
+            isDate: true
         }
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    getterMethods: {
+        // Dynamically calculate age from dateOfBirth whenever user.age is accessed
+        age() {
+            if (!this.dateOfBirth) return null;
+            const diffMs = Date.now() - new Date(this.dateOfBirth).getTime();
+            const ageDt = new Date(diffMs);
+            return Math.abs(ageDt.getUTCFullYear() - 1970);
+        }
+    }
 });
 
 module.exports = User;

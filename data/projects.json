@@ -1,58 +1,92 @@
 [
-    {
-        "id": 1,
-        "title": "Neural Nexus",
-        "status": "active",
-        "description": "AI-powered neural network visualization tool",
-        "tech": ["Python", "TensorFlow", "React"]
-    },
-    {
-        "id": 2,
-        "title": "Quantum Quest",
-        "status": "active", 
-        "description": "Quantum computing simulation platform",
-        "tech": ["JavaScript", "Three.js", "Node.js"]
-    },
-    {
-        "id": 3,
-        "title": "Cyber Sentinel",
-        "status": "active",
-        "description": "Real-time cybersecurity monitoring system",
-        "tech": ["Python", "Django", "Redis"]
-    },
-    {
-        "id": 4,
-        "title": "Data Flow",
-        "status": "active",
-        "description": "Interactive data pipeline visualization",
-        "tech": ["React", "D3.js", "Express"]
-    },
-    {
-        "id": 5,
-        "title": "Code Canvas",
-        "status": "active",
-        "description": "Visual programming environment",
-        "tech": ["TypeScript", "Vue.js", "WebGL"]
-    },
-    {
-        "id": 6,
-        "title": "Pixel Portal",
-        "status": "active",
-        "description": "Community collaboration platform",
-        "tech": ["Next.js", "MongoDB", "Socket.io"]
-    },
-    {
-        "id": 7,
-        "title": "VR Vision",
-        "status": "active",
-        "description": "Virtual reality development framework",
-        "tech": ["Unity", "C#", "Blender"]
-    },
-    {
-        "id": 8,
-        "title": "Block Beacon",
-        "status": "active",
-        "description": "Blockchain transaction tracker",
-        "tech": ["Solidity", "Ethereum", "React"]
-    }
+  {
+    "id": "#WEB_001",
+    "name": "Pixel_Phantoms_Official",
+    "category": "web",
+    "difficulty": "beginner",
+    "tech": ["HTML5", "CSS3", "JS_Core"],
+    "status": "online",
+    "new": false,
+    "date": "2024-10-15",
+    "description": "The central command hub. A dynamic community platform featuring live leaderboards and dark mode protocols.",
+    "full_desc": "Pixel Phantoms Official is the main portal for our community. It features a fully responsive design, custom glassmorphism effects, and dynamic leaderboards. Built with core web technologies to ensure maximum performance and accessibility.",
+    "live_url": "https://pixelphantoms.live",
+    "github_url": null,
+    "image": "https://picsum.photos/seed/pixel1/600/400"
+  },
+  {
+    "id": "#AI_099",
+    "name": "Phantom_Bot_V2",
+    "category": "programming",
+    "difficulty": "advanced",
+    "tech": ["Python", "TensorFlow", "Discord.py"],
+    "status": "processing",
+    "new": false,
+    "date": "2024-11-20",
+    "description": "An autonomous discord sentinel utilizing NLP to moderate comms and manage event protocols.",
+    "full_desc": "Phantom Bot V2 is our next-gen Discord automation tool. It uses advanced NLP models to understand community intent, automate moderation, and provide real-time updates on community events and protocols.",
+    "live_url": "#",
+    "github_url": null,
+    "image": "https://picsum.photos/seed/ai_robo/600/400"
+  },
+  {
+    "id": "#MOB_404",
+    "name": "Campus_Connect_App",
+    "category": "app",
+    "difficulty": "intermediate",
+    "tech": ["Flutter", "Firebase", "Dart"],
+    "status": "online",
+    "new": true,
+    "date": "2024-12-05",
+    "description": "Mobile interface for student tracking systems. Attendance, notes, and canteen logistics in real-time.",
+    "full_desc": "Campus Connect is the ultimate mobile companion for students. It streamlines attendance tracking, resource sharing, and campus communications into a single, intuitive interface. Built with Flutter for a seamless cross-platform experience.",
+    "live_url": "#",
+    "github_url": null,
+    "image": "https://picsum.photos/seed/app_dev/600/400"
+  },
+  {
+    "id": "#IOT_X1",
+    "name": "Smart_Lab_Matrix",
+    "category": "embedded",
+    "difficulty": "advanced",
+    "tech": ["Arduino", "C++", "Sensors"],
+    "status": "warning",
+    "new": false,
+    "date": "2024-09-12",
+    "description": "Automated environment control system. Sensors dictate lighting and atmospheric conditions.",
+    "full_desc": "Smart Lab Matrix is an integrated IoT environment. It uses a network of sensors and actuators to manage laboratory conditions, optimizing for both safety and energy efficiency. The system features a custom C++ kernel for low-latency operations.",
+    "live_url": "../pages/hardware-roadmap.html",
+    "github_url": null,
+    "image": "https://picsum.photos/seed/iot/600/400"
+  },
+  {
+    "id": "#WEB_CRYPTO",
+    "name": "Crypto_Tracker_Dash",
+    "category": "programming",
+    "difficulty": "intermediate",
+    "tech": ["React", "Chart.js", "REST_API"],
+    "status": "online",
+    "new": false,
+    "date": "2024-08-30",
+    "description": "Real-time visualization of decentralized currency markets via public API streams.",
+    "full_desc": "Crypto Tracker Dash provides high-fidelity market data at your fingertips. It aggregates data from multiple decentralized exchanges and presents it through beautiful, interactive charts. Perfect for monitoring volatility across the ecosystem.",
+    "live_url": "#",
+    "github_url": null,
+    "image": "https://picsum.photos/seed/crypto/600/400"
+  },
+  {
+    "id": "#CV_EYE",
+    "name": "Sign_Lang_Recognizer",
+    "category": "programming",
+    "difficulty": "beginner",
+    "tech": ["OpenCV", "Python", "PyTorch"],
+    "status": "processing",
+    "new": false,
+    "date": "2024-07-15",
+    "description": "Computer vision protocol interpreting manual communication into digital text streams.",
+    "full_desc": "The Sign Language Recognizer uses computer vision to break communication barriers. By analyzing hand gestures in real-time, it translates sign language into text, making digital interaction more accessible for the deaf and hard-of-hearing community.",
+    "live_url": "#",
+    "github_url": "#",
+    "image": "https://picsum.photos/seed/vision/600/400"
+  }
 ]
