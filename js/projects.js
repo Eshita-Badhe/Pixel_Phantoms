@@ -104,109 +104,52 @@ function initWobbleToggle() {
     });
   }
 }
-const PROJECT_DATA = [
-  {
-      "id": 1,
-      "title": "Neural Nexus",
-      "status": "active",
-      "description": "AI-powered neural network visualization tool",
-      "tech": ["Python", "TensorFlow", "React"]
-  },
-  {
-      "id": 2,
-      "title": "Quantum Quest",
-      "status": "active", 
-      "description": "Quantum computing simulation platform",
-      "tech": ["JavaScript", "Three.js", "Node.js"]
-  },
-  {
-      "id": 3,
-      "title": "Cyber Sentinel",
-      "status": "active",
-      "description": "Real-time cybersecurity monitoring system",
-      "tech": ["Python", "Django", "Redis"]
-  },
-  {
-      "id": 4,
-      "title": "Data Flow",
-      "status": "active",
-      "description": "Interactive data pipeline visualization",
-      "tech": ["React", "D3.js", "Express"]
-  },
-  {
-      "id": 5,
-      "title": "Code Canvas",
-      "status": "active",
-      "description": "Visual programming environment",
-      "tech": ["TypeScript", "Vue.js", "WebGL"]
-  },
-  {
-      "id": 6,
-      "title": "Pixel Portal",
-      "status": "active",
-      "description": "Community collaboration platform",
-      "tech": ["Next.js", "MongoDB", "Socket.io"]
-  },
-  {
-      "id": 7,
-      "title": "VR Vision",
-      "status": "active",
-      "description": "Virtual reality development framework",
-      "tech": ["Unity", "C#", "Blender"]
-  },
-  {
-      "id": 8,
-      "title": "Block Beacon",
-      "status": "active",
-      "description": "Blockchain transaction tracker",
-      "tech": ["Solidity", "Ethereum", "React"]
-  }
-];
 /**
  * Dynamic System Console
  * Fetches data from projects.json and updates the terminal box
  */
-function initSystemConsole() {
+async function initSystemConsole() {
   const consoleBox = document.querySelector('.terminal-box');
   if (!consoleBox) return;
 
-  // Fetch the project data
-  // Note: Path is relative to the HTML file (pages/projects.html -> data/projects.json)
- 
-  // Use the static data directly instead of fetching
-  const totalProjects = PROJECT_DATA.length;
-  const activeProjects = PROJECT_DATA.filter(p => p.status === 'active').length;
-      // Define the sequence of messages based on real data
-      const messages = [
-        { text: '> Accessing secure vault...', delay: 0 },
-        { text: '> Decrypting project files...', delay: 800 },
-        { text: `> Database Check: Found ${totalProjects} Archives.`, delay: 1600 },
-        {
-          text: `> Access Granted. ${activeProjects} Active Modules Online.`,
-          delay: 2400,
-          className: 'success',
-        },
-        // NEW LINES ADDED BELOW
-        { text: '> Establishing secure data uplink...', delay: 3200 },
-        {
-          text: '> System integrity verified. Visualization engaged.',
-          delay: 4000,
-          className: 'success',
-        },
-      ];
+  try {
+    const response = await fetch('../data/projects.json');
+    if (!response.ok) throw new Error('Failed to fetch data');
+    const projects = await response.json();
 
-      // Clear any initial static text
-      consoleBox.innerHTML = '';
+    const totalProjects = projects.length;
+    const activeProjects = projects.filter(p => p.status === 'active').length;
 
-      // Play the animation sequence
-  messages.forEach(msg => {
-    setTimeout(() => {
-      const p = document.createElement('p');
-      p.className = `console-text ${msg.className || ''}`;
-      p.textContent = msg.text;
-      consoleBox.appendChild(p);
-    }, msg.delay);
-  });
+    const messages = [
+      { text: '> Accessing secure vault...', delay: 0 },
+      { text: '> Decrypting project files...', delay: 800 },
+      { text: `> Database Check: Found ${totalProjects} Archives.`, delay: 1600 },
+      {
+        text: `> Access Granted. ${activeProjects} Active Modules Online.`,
+        delay: 2400,
+        className: 'success',
+      },
+      { text: '> Establishing secure data uplink...', delay: 3200 },
+      {
+        text: '> System integrity verified. Visualization engaged.',
+        delay: 4000,
+        className: 'success',
+      },
+    ];
+
+    consoleBox.innerHTML = '';
+
+    messages.forEach(msg => {
+      setTimeout(() => {
+        const p = document.createElement('p');
+        p.className = `console-text ${msg.className || ''}`;
+        p.textContent = msg.text;
+        consoleBox.appendChild(p);
+      }, msg.delay);
+    });
+  } catch (error) {
+    console.error('[Console] Failed to initialize system metrics:', error);
+  }
 }
 // =========================================
 // INTEGRATE QUICK FILTERS WITH EXISTING GSAP ANIMATIONS

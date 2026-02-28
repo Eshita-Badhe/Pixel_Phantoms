@@ -9,27 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const modalClose = modal.querySelector('.modal-close');
   const modalBody = modal.querySelector('.modal-body');
-  const projectCards = document.querySelectorAll('.project-card');
+  // Open Modal (using event delegation for dynamic cards)
+  document.addEventListener('click', e => {
+    const card = e.target.closest('.project-card');
+    if (!card) return;
 
-  // Open Modal
-  projectCards.forEach(card => {
-    card.addEventListener('click', e => {
-      // Don't open if clicking on a link inside the card
-      if (e.target.closest('a')) return;
+    // Don't open if clicking on a link inside the card
+    if (e.target.closest('a') || e.target.closest('button.icon-link')) return;
 
-      const name = card.querySelector('h3').textContent;
-      const description =
-        card.getAttribute('data-full-desc') || card.querySelector('p').textContent;
-      const tech = Array.from(card.querySelectorAll('.tech-stack-terminal span')).map(
-        s => s.textContent
-      );
-      const liveUrl = card.getAttribute('data-live-url');
-      const githubUrl = card.querySelector('.icon-link:not(.disabled)')?.getAttribute('href');
-      const image = card.querySelector('img').src;
+    const name = card.querySelector('h3').textContent;
+    const description = card.getAttribute('data-full-desc') || card.querySelector('p').textContent;
+    const tech = Array.from(card.querySelectorAll('.tech-stack-terminal span, .tech-tag')).map(s =>
+      s.textContent.replace(/[\[\]]/g, '')
+    );
+    const liveUrl = card.getAttribute('data-live-url');
+    const githubUrl = card.querySelector('.icon-link:not(.disabled)')?.getAttribute('href');
+    const image = card.querySelector('img').src;
 
-      populateModal({ name, description, tech, liveUrl, githubUrl, image });
-      openModal();
-    });
+    populateModal({ name, description, tech, liveUrl, githubUrl, image });
+    openModal();
   });
 
   // Close Modal
