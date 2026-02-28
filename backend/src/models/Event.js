@@ -24,11 +24,19 @@ const Event = sequelize.define('Event', {
     },
     capacity: {
         type: DataTypes.INTEGER,
-        defaultValue: 50
+        allowNull: false,
+        defaultValue: 50,
+        validate: {
+            min: 1
+        }
     },
     registeredCount: {
         type: DataTypes.INTEGER,
-        defaultValue: 0
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+            min: 0
+        }
     },
     registrationOpen: {
         type: DataTypes.BOOLEAN,
@@ -37,5 +45,35 @@ const Event = sequelize.define('Event', {
 }, {
     timestamps: true
 });
+
+/*
+ * Safe registration method using transaction + row lock
+ */
+Event.registerUser = async function (eventId) {
+    return await sequelize.transaction(async (t) => {
+
+        const event = await Event.findByPk(eventId, {
+            transaction: t,
+            lock: t.LOCK.UPDATE
+        });
+
+        if (!event) {
+            throw new Error('Event not found');
+        }
+
+        if (!event.registrationOpen) {
+            throw new Error('Registration is closed');
+        }
+
+        if (event.registeredCount >= event.capacity) {
+            throw new Error('Event is full');
+        }
+
+        event.registeredCount += 1;
+        await event.save({ transaction: t });
+
+        return event;
+    });
+};
 
 module.exports = Event;

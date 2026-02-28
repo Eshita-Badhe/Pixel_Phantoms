@@ -18,7 +18,13 @@ const Registration = sequelize.define('Registration', {
         defaultValue: DataTypes.NOW
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    indexes: [
+        {
+            unique: true,
+            fields: ['UserId', 'EventId']
+        }
+    ]
 });
 
 // Associations
