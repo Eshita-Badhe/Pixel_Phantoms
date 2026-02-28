@@ -97,3 +97,63 @@ function initScrollSpy() {
 // Debug
 console.log('✅ Tutorials enhancements loaded');
 console.log(`📚 Tutorials on page: ${document.querySelectorAll('.tutorial-card').length}`);
+
+/* =========================================
+   STATS REVEAL ON SCROLL
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const statBoxes = document.querySelectorAll(".stat-box");
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  statBoxes.forEach((box) => observer.observe(box));
+});
+
+/* =========================================
+   COUNT UP ANIMATION
+========================================= */
+
+function animateCount(el) {
+  const target = +el.getAttribute("data-target");
+  let count = 0;
+  const increment = target / 60;
+
+  function update() {
+    count += increment;
+    if (count < target) {
+      el.textContent = Math.floor(count);
+      requestAnimationFrame(update);
+    } else {
+      el.textContent = target;
+    }
+  }
+
+  update();
+}
+
+document.querySelectorAll(".stat-number[data-target]").forEach((el) => {
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  observer.observe(el);
+});
